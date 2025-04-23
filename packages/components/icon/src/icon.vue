@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import '../style/index'
 import { createNamespace } from '@Fan-ui/utils/create'
 import { computed } from 'vue'
 import { iconProps } from './icon'

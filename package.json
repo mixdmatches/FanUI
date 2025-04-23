@@ -29,6 +29,8 @@
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/runtime-dom": "^3.5.13",
     "sass": "^1.86.3",
+    "stylelint": "^16.18.0",
+    "stylelint-scss": "^6.11.1",
     "unplugin-vue-define-options": "3.0.0-beta.8"
   }
 }

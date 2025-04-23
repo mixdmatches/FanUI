@@ -1,4 +1,5 @@
-$namespace: "f";
-$element-separator: "__";
-$modifier-separator: "--";
-$state-prefix: "is-";
+$namespace: 'f';
+$common-separator: '-' !default;
+$element-separator: '__';
+$modifier-separator: '--';
+$state-prefix: 'is-';

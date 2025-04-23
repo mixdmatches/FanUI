@@ -9,7 +9,9 @@ module.exports = {
     'plugin:vue/vue3-recommended', // vue3解析 https://eslint.vuejs.org/
     'plugin:@typescript-eslint/recommended',
     '@vue/typescript/recommended',
-    'plugin:react/recommended' // 添加对 React 和 JSX 的支持
+    'plugin:react/recommended', // 添加对 React 和 JSX 的支持
+    'stylelint-config-standard',
+    'stylelint-config-standard-scss'
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -20,7 +22,8 @@ module.exports = {
     }
   },
   plugins: [
-    'react' // 添加 react 插件
+    'react', // 添加 react 插件
+    'stylelint-scss'
   ],
   settings: {
     react: {
