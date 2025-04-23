@@ -34,6 +34,6 @@ const treeData = ref(createTree(4))
     <f-icon color="red" size="20">
       <add-circle></add-circle>
     </f-icon>
-    <f-tree :data="treeData" label-field="xx" key-field="key" children-field="children"></f-tree>
+    <f-tree :data="treeData" :default-expanded-keys="['40','41']" label-field="xx" key-field="key" children-field="children"></f-tree>
   </div>
 </template>

@@ -25,7 +25,9 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^4.1.2",
     "@vue/eslint-config-typescript": "^14.5.0",
+    "@vue/runtime-dom": "^3.5.13",
     "sass": "^1.86.3",
     "unplugin-vue-define-options": "3.0.0-beta.8"
   }
