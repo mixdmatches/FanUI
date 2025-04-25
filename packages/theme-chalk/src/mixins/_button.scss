@@ -1,45 +1,47 @@
 @use '../mixins/var' as *;
 @use '../mixins/function' as *;
+@use '../mixins/mixins.scss' as *;
 @use '../common/var' as *;
 
+// 设置按钮在不同状态（正常、悬停、激活）下的文本颜色、背景颜色和边框颜色。
 @mixin button-plain($type) {
   $button-color-types: (
     '': (
       'text-color': (
         'color',
-        $type,
+        $type
       ),
       'bg-color': (
         'color',
         $type,
-        'light-9',
+        'light-9'
       ),
       'border-color': (
         'color',
         $type,
-        'light-5',
-      ),
+        'light-5'
+      )
     ),
     'hover': (
       'text-color': (
         'color',
-        'white',
+        'white'
       ),
       'bg-color': (
         'color',
-        $type,
+        $type
       ),
       'border-color': (
         'color',
-        $type,
-      ),
+        $type
+      )
     ),
     'active': (
       'text-color': (
         'color',
-        'white',
-      ),
-    ),
+        'white'
+      )
+    )
   );
 
   @each $type, $typeMap in $button-color-types {
@@ -60,81 +62,82 @@
   }
 }
 
+// button-variant 混合宏的主要作用是根据传入的按钮类型，统一管理和设置不同状态下按钮的样式，通过 CSS 变量实现样式的可配置性，同时对特殊类型的按钮进行额外的样式处理。
 @mixin button-variant($type) {
   $button-color-types: (
     '': (
       'text-color': (
         'color',
-        'white',
+        'white'
       ),
       'bg-color': (
         'color',
-        $type,
+        $type
       ),
       'border-color': (
         'color',
-        $type,
+        $type
       ),
       'outline-color': (
         'color',
         $type,
-        'light-5',
+        'light-5'
       ),
       'active-color': (
         'color',
         $type,
-        'dark-2',
-      ),
+        'dark-2'
+      )
     ),
     'hover': (
       'text-color': (
         'color',
-        'white',
+        'white'
       ),
       'link-text-color': (
         'color',
         $type,
-        'light-5',
+        'light-5'
       ),
       'bg-color': (
         'color',
         $type,
-        'light-3',
+        'light-3'
       ),
       'border-color': (
         'color',
         $type,
-        'light-3',
-      ),
+        'light-3'
+      )
     ),
     'active': (
       'bg-color': (
         'color',
         $type,
-        'dark-2',
+        'dark-2'
       ),
       'border-color': (
         'color',
         $type,
-        'dark-2',
-      ),
+        'dark-2'
+      )
     ),
     'disabled': (
       'text-color': (
         'color',
-        'white',
+        'white'
       ),
       'bg-color': (
         'color',
         $type,
-        'light-5',
+        'light-5'
       ),
       'border-color': (
         'color',
         $type,
-        'light-5',
-      ),
-    ),
+        'light-5'
+      )
+    )
   );
 
   @each $type, $typeMap in $button-color-types {
@@ -150,12 +153,7 @@
   }
 }
 
-@mixin button-size(
-  $padding-vertical,
-  $padding-horizontal,
-  $font-size,
-  $border-radius
-) {
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $border-radius) {
   padding: $padding-vertical $padding-horizontal;
   font-size: $font-size;
   border-radius: $border-radius;

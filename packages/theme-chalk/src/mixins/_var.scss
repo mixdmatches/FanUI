@@ -29,18 +29,20 @@
     );
   }
 
-  @include set-css-var-value(
-    ('color', $type, 'dark-2'),
-    map.get($colors, $type, 'dark-2')
-  );
+  @include set-css-var-value(('color', $type, 'dark-2'), map.get($colors, $type, 'dark-2'));
 }
 
 // set all css var for component by map
+// 通过映射为组件设置所有 CSS 变量
 @mixin set-component-css-var($name, $variables) {
+  // 遍历 $variables 映射中的每个键值对，$attribute 是键，$value 是对应的值
   @each $attribute, $value in $variables {
+    // 如果键 $attribute 的值为 'default'
     @if $attribute == 'default' {
+      // 生成一个不带后缀的 CSS 变量，变量名由 $name 生成，值为 $value
       #{getCssVarName($name)}: #{$value};
     } @else {
+      // 生成一个带后缀的 CSS 变量，变量名由 $name 和 $attribute 生成，值为 $value
       #{getCssVarName($name, $attribute)}: #{$value};
     }
   }

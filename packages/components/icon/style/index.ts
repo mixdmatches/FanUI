@@ -1,1 +1,2 @@
-import '@Fan-ui/theme-chalk/src/index.scss'
+// import '@Fan-ui/theme-chalk/src/base.scss'
+import '@Fan-ui/theme-chalk/src/icon.scss'
