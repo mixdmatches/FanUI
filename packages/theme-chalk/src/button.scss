@@ -7,6 +7,19 @@
 @use 'mixins/var' as *;
 @use './var.scss' as *;
 
+// 定义动画
+@keyframes borderExpandAndRetract {
+  0% {
+    box-shadow: 0 0 0 0 getCssVar('button', 'active', 'border-color');
+  }
+  50% {
+    box-shadow: 0 0 0 4px getCssVar('button', 'active', 'border-color');
+  }
+  100% {
+    box-shadow: 0 0 0 0 getCssVar('button', 'active', 'border-color');
+  }
+}
+
 $button-icon-span-gap: () !default;
 $button-icon-span-gap: map.merge(
   (
@@ -51,11 +64,12 @@ $button-icon-span-gap: map.merge(
     outline: none;
   }
 
-  &:active {
+  &:active:not(.is-disabled) {
     color: getCssVar('button', 'active', 'text-color');
     border-color: getCssVar('button', 'active', 'border-color');
     background-color: getCssVar('button', 'active', 'bg-color');
     outline: none;
+    animation: borderExpandAndRetract 0.5s linear;
   }
 
   &:focus-visible {

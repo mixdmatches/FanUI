@@ -37,7 +37,6 @@
   @include when(loading) {
     animation: rotating 2s linear infinite;
   }
-
   svg {
     height: 1em;
     width: 1em;

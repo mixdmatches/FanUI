@@ -19,22 +19,22 @@ $colors: map.deep-merge(
     'white': #ffffff,
     'black': #000000,
     'primary': (
-      'base': #409eff
+      'base': #66b3ff
     ),
     'success': (
-      'base': #67c23a
+      'base': #85e055
     ),
     'warning': (
-      'base': #e6a23c
+      'base': #ffb74d
     ),
     'danger': (
-      'base': #f56c6c
+      'base': #ff8a80
     ),
     'error': (
-      'base': #f56c6c
+      'base': #ff8a80
     ),
     'info': (
-      'base': #909399
+      'base': #a6a9ad
     )
   ),
   $colors

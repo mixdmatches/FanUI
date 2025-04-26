@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { AddCircle } from '@vicons/ionicons5'
+import { Search } from '@icon-park/vue-next'
+// <search theme="outline" size="24" fill="#abb2bd" :strokeWidth="3"/>
 import { ref } from 'vue'
 interface TreeNode {
   label: string
@@ -36,12 +38,12 @@ console.log(treeData)
       <add-circle></add-circle>
     </f-icon>
     <hr />
-    <f-button>default</f-button>
-    <f-button type="primary">primary</f-button>
-    <f-button type="success">success</f-button>
-    <f-button type="info">info</f-button>
-    <f-button type="warning">warning</f-button>
-    <f-button type="danger">danger</f-button>
+    <f-button loading>default</f-button>
+    <f-button loading type="primary">primary</f-button>
+    <f-button loading type="success">success</f-button>
+    <f-button loading type="info">info</f-button>
+    <f-button loading type="warning">warning</f-button>
+    <f-button loading type="danger">danger</f-button>
     <hr />
     <f-button plain>plain</f-button>
     <f-button type="primary" plain>primary</f-button>
@@ -57,7 +59,7 @@ console.log(treeData)
     <f-button type="warning" round>warning</f-button>
     <f-button type="danger" round>danger</f-button>
     <hr />
-    <f-button circle>circle</f-button>
+    <f-button circle :icon="Search">circle</f-button>
     <f-button type="primary" circle>primary</f-button>
     <f-button type="success" circle>success</f-button>
     <f-button type="info" circle>info</f-button>
@@ -113,5 +115,6 @@ console.log(treeData)
     <f-button disabled text type="warning" plain>warning</f-button>
     <f-button disabled text type="danger" plain>danger</f-button>
     <hr />
+    <f-button :icon="Search"> 搜索 </f-button>
   </div>
 </template>

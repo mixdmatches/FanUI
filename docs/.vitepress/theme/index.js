@@ -1,12 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
-
-import FIcon from '@Fan-ui/components/icon'
-import '@Fan-ui/theme-chalk/src/index.scss'
-console.log(FIcon)
+import FanUI from '@Fan-ui/components/index.ts'
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
-    app.component('FIcon', FIcon)
+    app.use(FanUI)
   }
 }

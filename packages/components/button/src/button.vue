@@ -1,6 +1,32 @@
 <template>
-  <component :is="tag" :class="classCustom" @click="handleClick">
-    <slot></slot>
+  <component
+    :is="tag"
+    :type="nativeType"
+    :disabled="disabled || loading"
+    :class="classCustom"
+    @click="handleClick"
+  >
+    <template v-if="loading && iconPlasement == 'left'">
+      <slot v-if="$slots.loading" name="loading" />
+      <f-icon v-else :class="bem.is('loading', loading)">
+        <component :is="iconLoading" />
+      </f-icon>
+    </template>
+
+    <f-icon v-else-if="icon || $slots.icon">
+      <component :is="icon" v-if="icon" />
+      <slot v-else name="icon" />
+    </f-icon>
+
+    <span v-if="$slots.default">
+      <slot />
+    </span>
+    <template v-if="loading && iconPlasement == 'right'">
+      <slot v-if="$slots.loading" name="loading" />
+      <f-icon v-else :class="bem.is('loading', loading)">
+        <component :is="loading" />
+      </f-icon>
+    </template>
   </component>
 </template>
 
@@ -9,6 +35,7 @@ import { computed } from 'vue'
 import '../style/index'
 import { createNamespace } from '@Fan-ui/utils/create'
 import { buttonProps, buttonEmits } from './button'
+import iconLoading from './icon/loading'
 defineOptions({ name: 'f-button' })
 
 const bem = createNamespace('button')
