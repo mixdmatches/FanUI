@@ -1,26 +1,9 @@
-<script setup>
+<!-- <script setup>
 import Basic from '../example/button/basic.vue'
 import Disabled from '../example/button/disabled.vue'
 import Link from '../example/button/link.vue'
 import Text from '../example/button/text.vue'
-</script>
-<style>
-    details > summary:first-of-type {
-      font-size: 10px;
-      padding: 8px 0;
-      cursor: pointer;
-      color: #1989fa;
-  }
-  .example {
-  margin: 10px 0;
-  padding: 20px;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
-}
-.mb-10{
-  margin-bottom: 1rem;
-}
-</style>
+</script> -->
 
 # Button 按钮
 
@@ -141,6 +124,7 @@ import { Search, AddOne, Editor, Mail, Delete, Like } from '@icon-park/vue-next'
 </details>
 
 ## 文字按钮
+
 没有背景和边框的按钮
 
 <div class="example">

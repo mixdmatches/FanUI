@@ -19,3 +19,18 @@ body[scroll],
   background-color: rgba(166, 166, 205, 0.3);
   transition: 0s;
 }
+details > summary:first-of-type {
+  font-size: 10px;
+  padding: 8px 0;
+  cursor: pointer;
+  color: #1989fa;
+}
+.example {
+  margin: 10px 0;
+  padding: 20px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+}
+.mb-10 {
+  margin-bottom: 1rem;
+}

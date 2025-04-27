@@ -13,7 +13,7 @@ module.exports = {
     },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
-      { text: '组件', link: '/component/icon', activeMatch: '/component/' }
+      { text: '组件', link: '/components/icon', activeMatch: '/components/' }
     ],
     sidebar: {
       '/guide/': [
@@ -25,14 +25,14 @@ module.exports = {
           ]
         }
       ],
-      '/component/': [
+      '/components/': [
         {
           text: '基础组件',
           items: [
-            { text: 'Icon', link: '/component/icon' },
+            { text: 'Icon', link: '/components/icon' },
             {
               text: 'Button',
-              link: '/component/button'
+              link: '/components/button'
             }
           ]
         }

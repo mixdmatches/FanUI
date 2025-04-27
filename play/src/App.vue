@@ -115,6 +115,6 @@ console.log(treeData)
     <f-button disabled text type="warning" plain>warning</f-button>
     <f-button disabled text type="danger" plain>danger</f-button>
     <hr />
-    <f-button :icon="Search"> 搜索 </f-button>
+    <f-button :icon="Search"> </f-button>
   </div>
 </template>
