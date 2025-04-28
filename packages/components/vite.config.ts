@@ -1,70 +1,66 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import path from 'path'
+
 export default defineConfig({
   build: {
-    //打包文件目录
     outDir: 'es',
-    //压缩
-    //minify: false,
     rollupOptions: {
-      //忽略打包vue文件
+      // 忽略打包vue文件
       external: ['vue'],
-      input: ['index.ts'],
+      input: path.resolve(__dirname, 'index.ts'),
       output: [
         {
-          //打包格式
           format: 'es',
-          //打包后文件名
           entryFileNames: '[name].mjs',
-          //让打包目录和我们目录对应
           preserveModules: true,
+          preserveModulesRoot: 'packages/components',
           exports: 'named',
-          //配置打包根目录
-          dir: '../fanui/es/src'
+          dir: '../fanui/es'
         },
         {
-          //打包格式
           format: 'cjs',
-          //打包后文件名
           entryFileNames: '[name].js',
-          //让打包目录和我们目录对应
           preserveModules: true,
+          preserveModulesRoot: 'packages/components',
           exports: 'named',
-          //配置打包根目录
-          dir: '../fanui/lib/src'
+          dir: '../fanui/lib'
         }
       ]
     },
     lib: {
-      entry: './index.ts'
+      entry: path.resolve(__dirname, 'index.ts'),
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`
     }
   },
   plugins: [
-    vue(),
-    dts({
-      entryRoot: './src',
-      outputDir: ['../fanui/es/src', '../fanui/lib/src'],
-      //指定使用的tsconfig.json为我们整个项目根目录下,如果不配置,你也可以在components下新建tsconfig.json
-      tsConfigFilePath: '../../tsconfig.json'
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes('-')
+        }
+      }
     }),
-    // DefineOptions()
-  ]
+    dts({
+      entryRoot: './',
+      outDir: ['../fanui/es', '../fanui/lib'],
+      tsconfigPath: '../../tsconfig.json',
+      include: ['./components/**/*.ts', './components/**/*.vue', './index.ts'],
+      exclude: ['node_modules', 'dist'],
+      copyDtsFiles: true,
+      insertTypesEntry: true,
+      compilerOptions: {
+        declaration: true,
+        emitDeclarationOnly: true,
+        noEmit: false
+      }
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './')
+    }
+  }
 })
-
-// import { defineConfig } from 'vite'
-// import vue from '@vitejs/plugin-vue'
-
-// export default defineConfig({
-//   plugins: [
-//     vue(),
-//     dts({
-//       entryRoot: './src',
-//       outputDir: ['../easyest/es/src', '../easyest/lib/src'],
-//       //指定使用的tsconfig.json为我们整个项目根目录下,如果不配置,你也可以在components下新建tsconfig.json
-//       tsConfigFilePath: '../../tsconfig.json'
-//     }),
-//     DefineOptions()
-//   ]
-// })
