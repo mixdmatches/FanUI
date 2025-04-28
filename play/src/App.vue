@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { AddCircle } from '@vicons/ionicons5'
 import { Search } from '@icon-park/vue-next'
-// <search theme="outline" size="24" fill="#abb2bd" :strokeWidth="3"/>
+// import { FButton,FIcon } from '../../build/index.js'
+import type { FButton } from '../../build/index.d.ts'
 import { ref } from 'vue'
+
 interface TreeNode {
   label: string
   key: string
   children?: TreeNode[]
 }
+
 function createTree(level: number = 4, parentKey: string = ''): TreeNode[] {
   if (!level) return []
   return new Array(level - 1).fill(0).map((_, index) => {
@@ -29,15 +31,16 @@ function createLabel(level: number): string {
 }
 
 const treeData = ref(createTree(4))
-console.log(treeData)
 </script>
 
 <template>
   <div>
-    <f-icon size="20">
-      <add-circle></add-circle>
+    <f-icon>
+      <Search></Search>
     </f-icon>
     <hr />
+    <f-button>啊啊啊</f-button>
+    <f-button primary>按钮</f-button>
     <f-button loading>default</f-button>
     <f-button loading type="primary">primary</f-button>
     <f-button loading type="success">success</f-button>

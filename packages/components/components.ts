@@ -1,2 +1,2 @@
-export { Icon } from './icon'
-export { Button } from './button'
+export { FIcon } from './icon'
+export { FButton } from './button'

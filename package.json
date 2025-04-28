@@ -48,7 +48,7 @@
     "tslib": "^2.8.1",
     "unplugin-vue-define-options": "3.0.0-beta.8",
     "vite": "^6.3.1",
-    "vite-plugin-dts": "1.4.1",
+    "vite-plugin-dts": "4.5.3",
     "vue": "^3.5.13"
   }
 }

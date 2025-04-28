@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
-    "@vicons/ionicons5": "^0.13.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
