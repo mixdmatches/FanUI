@@ -1,17 +1,12 @@
-<!-- <script setup>
-import Basic from '../example/button/basic.vue'
-import Disabled from '../example/button/disabled.vue'
-import Link from '../example/button/link.vue'
-import Text from '../example/button/text.vue'
-</script> -->
-
 # Button 按钮
 
 ## 基础用法
 
-<div class="example">
+<!-- <div class="example">
 <Basic />
-</div>
+</div> -->
+
+<demo vue="../example/button/Basic.vue" />
 
 <details>
 <summary>查看组件源代码</summary>

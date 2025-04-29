@@ -32,8 +32,9 @@ const rollupOptions = defineConfig({
   output: {
     globals: {
       vue: "Vue"
-    }
-  }
+    },
+    exports: "named",
+  },
 })
 
 // 生成 package.json

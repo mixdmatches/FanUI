@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Search } from '@icon-park/vue-next'
 // import { FButton,FIcon } from '../../build/index.js'
-import type { FButton } from '../../build/index.d.ts'
 import { ref } from 'vue'
 
 interface TreeNode {

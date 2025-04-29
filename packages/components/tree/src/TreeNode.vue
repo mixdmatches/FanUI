@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import Switcher from './icon/Switcher'
+import Switcher from './icon/Switcher.vue'
 import { treeNodeEmit, treeNodeProps } from './tree'
 import { createNamespace } from '@Fan-ui/utils/create'
 import FIcon from '@Fan-ui/components/icon'

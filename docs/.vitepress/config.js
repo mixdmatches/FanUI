@@ -1,3 +1,4 @@
+import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 module.exports = {
   title: 'Fan-ui',
   description: 'Fan-ui',
@@ -15,6 +16,11 @@ module.exports = {
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
       { text: '组件', link: '/components/icon', activeMatch: '/components/' }
     ],
+    markdown: {
+      config(md) {
+        md.use(vitepressDemoPlugin)
+      },
+    },
     sidebar: {
       '/guide/': [
         {

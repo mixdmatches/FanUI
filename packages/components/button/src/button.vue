@@ -35,7 +35,7 @@ import { computed } from 'vue'
 import '../style/index'
 import { createNamespace } from '@Fan-ui/utils/create'
 import { buttonProps, buttonEmits } from './button'
-import iconLoading from './icon/loading'
+import iconLoading from './icon/loading.vue'
 defineOptions({ name: 'f-button' })
 
 const bem = createNamespace('button')
