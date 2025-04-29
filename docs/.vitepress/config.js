@@ -1,7 +1,12 @@
 import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
-module.exports = {
+export default {
   title: 'Fan-ui',
   description: 'Fan-ui',
+  markdown: {
+    config(md) {
+      md.use(vitepressDemoPlugin)
+    },
+  },
   themeConfig: {
     lastUpdated: '最后更新时间',
     docsDir: 'docs',
@@ -16,11 +21,6 @@ module.exports = {
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
       { text: '组件', link: '/components/icon', activeMatch: '/components/' }
     ],
-    markdown: {
-      config(md) {
-        md.use(vitepressDemoPlugin)
-      },
-    },
     sidebar: {
       '/guide/': [
         {

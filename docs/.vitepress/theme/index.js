@@ -1,9 +1,9 @@
 import './style/style.css'
-import './style/var.css'
 import 'vitepress-demo-plugin/dist/style.css'
+
 import DefaultTheme from 'vitepress/theme'
 import FanUI from '@Fan-ui/components/index.ts'
-import { VitepressDemoBox,VitepressDemoPlaceholder} from 'vitepress-demo-plugin'
+
 // 批量导入所有 .vue 组件（包括子目录）
 const modules = import.meta.glob('../../example/**/*.vue', { eager: true })
 
@@ -19,6 +19,5 @@ export default {
         app.component(name, module.default)
       }
     })
-    // app.component('demo',VitepressDemoBox)
   }
 }
