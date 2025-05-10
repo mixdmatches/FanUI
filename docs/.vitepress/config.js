@@ -5,7 +5,7 @@ export default {
   markdown: {
     config(md) {
       md.use(vitepressDemoPlugin)
-    },
+    }
   },
   themeConfig: {
     lastUpdated: '最后更新时间',

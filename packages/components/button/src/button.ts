@@ -1,5 +1,5 @@
 import { ButtonSizeType, ButtonType, ButtonNativeType } from './interface'
-import { Component, ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
 
 export const buttonProps = {
   size: {
@@ -23,7 +23,7 @@ export const buttonProps = {
     default: false
   },
   icon: {
-    type: [String, Object] as PropType<string | Record<string, any>>
+    type: [String, Object] as PropType<string | Record<string, unknown>>
   },
   disabled: {
     type: Boolean,

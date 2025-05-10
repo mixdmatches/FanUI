@@ -34,13 +34,17 @@ const createOption = (label: string, key: string, children: string) => {
   }
 }
 
-const treeOptions = createOption(props.labelField, props.keyField, props.childrenField)
+const treeOptions = createOption(
+  props.labelField,
+  props.keyField,
+  props.childrenField
+)
 
 // 有了props要对用户数据进行格式化，格式化一个固定结果
 // 格式化后的结点 label, key,chilldren
 const tree = ref<TreeNode[]>([])
 // 格式化数据函数
-function createTree(data: TreeOption[]): any {
+function createTree(data: TreeOption[]): TreeNode[] {
   function tranversal(data: TreeOption[], parent: TreeNode | null = null) {
     return data.map((node: TreeOption) => {
       const children = treeOptions.getChildren(node) || []
@@ -66,7 +70,6 @@ watch(
   () => props.data,
   (data: TreeOption[]) => {
     tree.value = createTree(data)
-    console.log(tree.value)
   },
   { immediate: true }
 )
@@ -99,9 +102,9 @@ const flattenTree = computed(() => {
 })
 
 // 判断是否展开
-function isExpanded(node: TreeNode): boolean {
-  return expandedKeysSet.value.has(node.key)
-}
+// function isExpanded(node: TreeNode): boolean {
+//   return expandedKeysSet.value.has(node.key)
+// }
 
 // 折叠功能
 function collpase(node: TreeNode) {

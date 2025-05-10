@@ -6,7 +6,12 @@
 // :class=[bem.b('button')]
 
 // 前缀名 f-button-box__element--modifier
-function _bem(prefixName: string, blockSuffix: string, element: string, modifier: string) {
+function _bem(
+  prefixName: string,
+  blockSuffix: string,
+  element: string,
+  modifier: string
+) {
   if (blockSuffix) {
     prefixName += `-${blockSuffix}`
   }
@@ -21,7 +26,8 @@ function _bem(prefixName: string, blockSuffix: string, element: string, modifier
 
 function createBEM(prefixName: string) {
   const b = (blockSuffix: string = '') => _bem(prefixName, blockSuffix, '', '')
-  const e = (element: string = '') => (element ? _bem(prefixName, '', element, '') : '')
+  const e = (element: string = '') =>
+    element ? _bem(prefixName, '', element, '') : ''
   const m = (modifier: string = '') => _bem(prefixName, '', '', modifier)
   const be = (blockSuffix: string = '', element: string = '') =>
     blockSuffix && element ? _bem(prefixName, blockSuffix, element, '') : ''
@@ -29,9 +35,16 @@ function createBEM(prefixName: string) {
     blockSuffix && modifier ? _bem(prefixName, blockSuffix, '', modifier) : ''
   const em = (element: string = '', modifier: string = '') =>
     element && modifier ? _bem(prefixName, '', element, modifier) : ''
-  const bem = (blockSuffix: string = '', element: string = '', modifier: string = '') =>
-    blockSuffix && element && modifier ? _bem(prefixName, blockSuffix, element, modifier) : ''
-  const is = (name: string, state: boolean | string) => (state ? `is-${name}` : '')
+  const bem = (
+    blockSuffix: string = '',
+    element: string = '',
+    modifier: string = ''
+  ) =>
+    blockSuffix && element && modifier
+      ? _bem(prefixName, blockSuffix, element, modifier)
+      : ''
+  const is = (name: string, state: boolean | string) =>
+    state ? `is-${name}` : ''
 
   return {
     b,

@@ -71,7 +71,12 @@ $E: null;
   $selector: &;
   $currentSelector: '';
   @each $unit in $element {
-    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
+    $currentSelector: #{$currentSelector +
+      '.' +
+      $B +
+      $element-separator +
+      $unit +
+      ','};
   }
 
   @if hitAllSpecialNestRule($selector) {
@@ -95,7 +100,11 @@ $E: null;
   $selector: &;
   $currentSelector: '';
   @each $unit in $modifier {
-    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
+    $currentSelector: #{$currentSelector +
+      $selector +
+      $modifier-separator +
+      $unit +
+      ','};
   }
 
   @at-root {
@@ -122,7 +131,12 @@ $E: null;
   }
 }
 
-@mixin spec-selector($specSelector: '', $element: $E, $modifier: false, $block: $B) {
+@mixin spec-selector(
+  $specSelector: '',
+  $element: $E,
+  $modifier: false,
+  $block: $B
+) {
   $modifierCombo: '';
 
   @if $modifier {
@@ -130,7 +144,10 @@ $E: null;
   }
 
   @at-root {
-    #{&}#{$specSelector}.#{$block + $element-separator + $element + $modifierCombo} {
+    #{&}#{$specSelector}.#{$block
+      + $element-separator
+      + $element
+      + $modifierCombo} {
       @content;
     }
   }
@@ -192,7 +209,8 @@ $E: null;
     }
 
     @each $placement,
-      $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
+      $adjacency
+        in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
     {
       &[data-popper-placement^='#{$placement}'] {
         .#{$namespace}-popper__arrow::before {

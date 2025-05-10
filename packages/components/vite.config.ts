@@ -32,14 +32,14 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'index.ts'),
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`
+      fileName: format => `index.${format === 'es' ? 'mjs' : 'js'}`
     }
   },
   plugins: [
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.includes('-')
+          isCustomElement: tag => tag.includes('-')
         }
       }
     }),

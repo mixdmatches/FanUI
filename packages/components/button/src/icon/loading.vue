@@ -8,7 +8,7 @@
       stroke-linecap="round"
       stroke-dasharray="125.66"
       stroke-dashoffset="0"
-      style="animation: rotate 1.5s linear infinite;"
+      style="animation: rotate 1.5s linear infinite"
     />
   </svg>
 </template>

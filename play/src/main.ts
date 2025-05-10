@@ -8,5 +8,5 @@ import FanUI from '../../build'
 
 const app = createApp(App)
 
-app.use(FanUI) 
+app.use(FanUI)
 app.mount('#app')

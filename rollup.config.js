@@ -1,14 +1,14 @@
-import typescript from '@rollup/plugin-typescript';
-import vue from 'rollup-plugin-vue';
-import vueJSX from '@vitejs/plugin-vue-jsx';
-import dts from 'vite-plugin-dts';
-import { readdirSync } from 'fs';
-import { join } from 'path';
+import typescript from '@rollup/plugin-typescript'
+import vue from 'rollup-plugin-vue'
+import vueJSX from '@vitejs/plugin-vue-jsx'
+import dts from 'vite-plugin-dts'
+import { readdirSync } from 'fs'
+import { join } from 'path'
 
-const componentsDir = './packages/components';
+const componentsDir = './packages/components'
 const components = readdirSync(componentsDir)
   .filter(item => !item.startsWith('.'))
-  .map(item => join(componentsDir, item, 'index.ts'));
+  .map(item => join(componentsDir, item, 'index.ts'))
 
 export default [
   // 全量加载配置
@@ -63,8 +63,8 @@ export default [
       dir: './lib',
       format: 'es',
       sourcemap: false,
-      preserveModules: true, 
-      preserveModulesRoot: 'packages/components' 
+      preserveModules: true,
+      preserveModulesRoot: 'packages/components'
     },
     plugins: [
       typescript(),
@@ -86,4 +86,4 @@ export default [
     ],
     external: ['vue']
   }
-];
+]

@@ -49,7 +49,8 @@
 
 // 检查选择器是否满足任何特殊嵌套规则。
 @function hitAllSpecialNestRule($selector) {
-  @return containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
+  @return containsModifier($selector) or containWhenFlag($selector) or
+    containPseudoClass($selector);
 }
 
 // join var name

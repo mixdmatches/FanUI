@@ -3,7 +3,7 @@ import { App } from 'vue'
 
 const install = (app: App) => {
   Object.entries(components).forEach(([key, value]) => {
-    app.component(key,value)
+    app.component(key, value)
   })
 }
 

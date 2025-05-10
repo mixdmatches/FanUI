@@ -1,6 +1,9 @@
 <template>
   <div :class="bem.b()">
-    <div :class="bem.e('content')" :style="{ paddingLeft: `${node.level * 16}px` }">
+    <div
+      :class="bem.e('content')"
+      :style="{ paddingLeft: `${node.level * 16}px` }"
+    >
       <span
         :class="[
           bem.e('expand-icon'),
