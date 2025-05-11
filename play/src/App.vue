@@ -30,34 +30,6 @@ import { ref } from 'vue'
 // }
 
 // const treeData = ref(createTree(4))
-
-const username = ref('hello')
 </script>
 
-<template>
-  <div>
-    {{ username }}
-    <f-input v-model="username" style="width: 240px" placeholder="请输入">
-      <template #prefix>
-        <f-icon>
-          <Search></Search>
-        </f-icon>
-      </template>
-      <template #prepend>
-        <f-icon>
-          <Search></Search>
-        </f-icon>
-      </template>
-      <template #suffix>
-        <f-icon>
-          <Search></Search>
-        </f-icon>
-      </template>
-      <template #append>
-        <f-icon>
-          <Search></Search>
-        </f-icon>
-      </template>
-    </f-input>
-  </div>
-</template>
+<template></template>

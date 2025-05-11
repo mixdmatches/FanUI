@@ -1,11 +1,19 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import { Component, ExtractPropTypes, PropType } from 'vue'
 import { isString } from '@vue/shared'
+
+export const componentSizes = ['', 'default', 'small', 'large'] as const
+export const useSizeProp = {
+  type: String,
+  values: componentSizes,
+  required: false
+} as const
 
 export const inputProps = {
   type: {
     type: String,
     default: 'text'
   },
+  size: useSizeProp,
   modelValue: {
     type: [String, Number] as PropType<string | number>,
     default: ''
@@ -26,12 +34,22 @@ export const inputProps = {
     type: Boolean,
     default: false
   },
+  autofocus: {
+    type: Boolean,
+    default: false
+  },
   readonly: {
     type: Boolean,
     default: false
   },
   label: {
     type: String
+  },
+  prefixIcon: {
+    type: [String, Object] as PropType<string | Component>
+  },
+  suffixIcon: {
+    type: [String, Object] as PropType<string | Component>
   }
 } as const
 
