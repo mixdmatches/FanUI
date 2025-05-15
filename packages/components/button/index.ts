@@ -1,7 +1,7 @@
-import { widthInstall } from '@Fan-ui/utils/width-install'
+import { withInstall } from '@Fan-ui/utils/with-install'
 import _Button from './src/button.vue'
 
-export const FButton = widthInstall(_Button)
+export const FButton = withInstall(_Button)
 declare module 'vue' {
   export interface GlobalComponents {
     FButton: typeof FButton

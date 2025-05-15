@@ -1,9 +1,9 @@
 // 整合组件最后实现导出组件
 
 import _Input from './src/input.vue'
-import { widthInstall } from '@Fan-ui/utils/width-install'
+import { withInstall } from '@Fan-ui/utils/with-install'
 
-export const FInput = widthInstall(_Input)
+export const FInput = withInstall(_Input)
 
 // 这里添加的类型可以在模板中被解析
 declare module 'vue' {

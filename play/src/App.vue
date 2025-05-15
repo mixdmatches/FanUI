@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import FInput from '@Fan-ui/components/input/index.ts'
-import { Search } from '@icon-park/vue-next'
+import FFormItem from '@Fan-ui/components/form/index.ts'
 import { ref } from 'vue'
+import FInput from '@Fan-ui/components/input/index.ts'
+// import { Search } from '@icon-park/vue-next'
+// import { ref } from 'vue'
 
 // interface TreeNode {
 //   label: string
@@ -30,6 +32,23 @@ import { ref } from 'vue'
 // }
 
 // const treeData = ref(createTree(4))
+const user = ref({ username: '', password: '' })
 </script>
 
-<template></template>
+<template>
+  <f-form-item
+    label="姓名"
+    :prop="user.username"
+    :rules="[
+      { required: true, message: '请输入用户名', trigger: 'blur' },
+      {
+        min: 6,
+        max: 10,
+        message: '用户名6-10',
+        trigger: ['blur', 'change']
+      }
+    ]"
+  >
+    <f-input v-model="user.username" placeholder="请输入"></f-input>
+  </f-form-item>
+</template>

@@ -71,8 +71,10 @@ import {
   StyleValue,
   useAttrs,
   useSlots,
-  watch
+  watch,
+  inject
 } from 'vue'
+import { formItemContextKey } from '../../form/src/form-item'
 import { CloseOne, PreviewOpen, PreviewClose } from '@icon-park/vue-next'
 import { createNamespace } from '@Fan-ui/utils/create'
 import { inputProps, inputEmits } from './input'
@@ -85,6 +87,8 @@ defineOptions({
   name: 'f-input',
   inheritAttrs: false
 })
+
+const formItemContext = inject(formItemContextKey)
 
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
@@ -146,6 +150,8 @@ const hendlePasswordVisible = () => {
 }
 
 const handleClear = () => {
+  emit('clear')
+  emit('input', '')
   emit('update:modelValue', '')
   focus()
 }
@@ -153,6 +159,7 @@ const handleClear = () => {
 watch(
   () => props.modelValue,
   () => {
+    formItemContext?.validate('change')
     setNativeInputValue()
   }
 )
@@ -172,6 +179,7 @@ const handleChange = (e: Event) => {
   emit('change', value)
 }
 const handleBlur = (e: FocusEvent) => {
+  formItemContext?.validate('blur')
   emit('blur', e)
 }
 const handleFocus = (e: FocusEvent) => {

@@ -1,7 +1,7 @@
 import _FTree from './src/tree.vue'
-import { widthInstall } from '@Fan-ui/utils/width-install'
+import { withInstall } from '@Fan-ui/utils/with-install'
 
-const FTree = widthInstall(_FTree)
+const FTree = withInstall(_FTree)
 
 export default FTree
 

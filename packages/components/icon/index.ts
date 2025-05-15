@@ -1,9 +1,9 @@
 // 整合组件最后实现导出组件
 
 import _Icon from './src/icon.vue'
-import { widthInstall } from '@Fan-ui/utils/width-install'
+import { withInstall } from '@Fan-ui/utils/with-install'
 
-export const FIcon = widthInstall(_Icon)
+export const FIcon = withInstall(_Icon)
 
 // 这里添加的类型可以在模板中被解析
 declare module 'vue' {

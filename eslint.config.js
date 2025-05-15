@@ -32,7 +32,7 @@ export default defineConfig([
     rules: {
       'no-console': 'warn',
       'no-unused-vars': [
-        'error',
+        'warn',
         {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
@@ -67,7 +67,7 @@ export default defineConfig([
     rules: {
       'no-console': 'warn',
       'no-unused-vars': [
-        'error',
+        'warn',
         {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
