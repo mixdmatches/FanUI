@@ -1,12 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import '@Fan-ui/theme-chalk/src/index.scss' // 全局样式
 
-// 引入样式文件
-import '../../build/index.css'
-// 全部引入
-import FanUI from '../../build'
+import { FButton, FIcon } from '@Fan-ui/components'
+import FInput from '@Fan-ui/components/input'
+import { Form, FormItem } from '@Fan-ui/components/form'
+
+const plugins = [Form, FormItem, FInput, FButton, FIcon]
 
 const app = createApp(App)
-
-app.use(FanUI)
+plugins.forEach(plugin => {
+  app.use(plugin)
+})
 app.mount('#app')

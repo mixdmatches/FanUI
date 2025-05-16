@@ -3,7 +3,7 @@ import { ExtractPropTypes, InjectionKey, PropType } from 'vue'
 
 export type Arrayable<T> = T | T[]
 
-interface FormItemRule extends RuleItem {
+export interface FormItemRule extends RuleItem {
   trigger?: Arrayable<string>
 }
 
@@ -26,7 +26,7 @@ export interface FormItemContext extends FormItemProps {
   validate: (
     trigger: string,
     callback?: (isValid: boolean) => void
-  ) => Promise<void>
+  ) => Promise<unknown>
 }
 
 export const formItemContextKey: InjectionKey<FormItemContext> =

@@ -159,7 +159,7 @@ const handleClear = () => {
 watch(
   () => props.modelValue,
   () => {
-    formItemContext?.validate('change')
+    formItemContext?.validate('change').catch(() => {})
     setNativeInputValue()
   }
 )
@@ -173,13 +173,14 @@ const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value
   emit('update:modelValue', value)
   emit('input', value)
+  formItemContext?.validate('input')
 }
 const handleChange = (e: Event) => {
   const value = (e.target as HTMLInputElement).value
   emit('change', value)
 }
 const handleBlur = (e: FocusEvent) => {
-  formItemContext?.validate('blur')
+  formItemContext?.validate('blur').catch(() => {})
   emit('blur', e)
 }
 const handleFocus = (e: FocusEvent) => {
