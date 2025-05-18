@@ -1,4 +1,4 @@
-# Button 按钮
+<!-- # Button 按钮
 
 ## 基础用法
 
@@ -16,4 +16,4 @@
 
 没有背景和边框的按钮
 
-<!-- <demo vue="../example/button/Text.vue" /> -->
+<demo vue="../example/button/Text.vue" /> -->
