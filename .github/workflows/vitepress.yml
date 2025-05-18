@@ -11,6 +11,10 @@ jobs:
     # 运行环境为最新版的Ubuntu
     runs-on: ubuntu-latest
     steps:
+      # 设置文件权限
+      - name: Set file permissions
+        run: chmod -R 755 .
+
       # 检出代码到工作目录
       - name: Checkout
         uses: actions/checkout@v4
