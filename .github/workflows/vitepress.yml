@@ -15,12 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 安装 pnpm
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
-
       # 安装依赖并构建Vitepress文档
       - name: Install and Build
         run: |
