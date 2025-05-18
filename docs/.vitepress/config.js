@@ -39,6 +39,14 @@ export default {
             {
               text: 'Button',
               link: '/components/button'
+            },
+            {
+              text: 'Input',
+              link: '/components/input'
+            },
+            {
+              text: 'Form',
+              link: '/components/form'
             }
           ]
         }

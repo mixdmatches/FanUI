@@ -5,6 +5,7 @@
     </div>
 
     <div :class="wrapperKls">
+      <!-- prefix -->
       <span v-if="slots.prefix || prefixIcon" :class="[bem.e('prefix')]">
         <span :class="[bem.e('prefix-inner')]">
           <slot name="prefix"></slot>
@@ -13,10 +14,11 @@
           </f-icon>
         </span>
       </span>
+      <!-- input框 -->
       <input
         ref="inputRef"
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
-        v-bind="attrs"
+        v-bind="{ ...attrs, style: undefined }"
         :disabled="disabled"
         :autofocus="autofocus"
         :class="[bem.e('inner')]"
@@ -94,6 +96,10 @@ const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 const inputRef = ref<HTMLInputElement>()
 
+const rawAttrs = useAttrs()
+
+const isFocused = ref(false)
+
 const containerKls = computed(() => {
   return [
     bem.b(),
@@ -105,12 +111,13 @@ const containerKls = computed(() => {
       [bem.m('suffix')]: slots.suffix || props.clearable || props.showPassword,
       [bem.bm('suffix', 'password-clear')]:
         showClear.value && showPwdVisible.value
-    }
+    },
+    rawAttrs.class
   ]
 })
 
 const wrapperKls = computed(() => {
-  return [bem.e('wrapper'), bem.is('focus', props.autofocus)]
+  return [bem.e('wrapper'), bem.is('focus', isFocused.value)]
 })
 
 const suffixVisible = computed(() => {
@@ -182,9 +189,11 @@ const handleChange = (e: Event) => {
 const handleBlur = (e: FocusEvent) => {
   formItemContext?.validate('blur').catch(() => {})
   emit('blur', e)
+  isFocused.value = false
 }
 const handleFocus = (e: FocusEvent) => {
   emit('focus', e)
+  isFocused.value = true
 }
 
 onMounted(() => {

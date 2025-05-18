@@ -50,6 +50,10 @@ export const inputProps = {
   },
   suffixIcon: {
     type: [String, Object] as PropType<string | Component>
+  },
+  inputStyle: {
+    type: Object as PropType<CSSStyleDeclaration>,
+    default: () => ({})
   }
 } as const
 
@@ -62,6 +66,6 @@ export const inputEmits = {
   clear: () => true
 }
 
-export type InputProps = ExtractPropTypes<typeof inputProps>
+export type InputProps = Partial<ExtractPropTypes<typeof inputProps>>
 
 export type InputEmits = typeof inputEmits

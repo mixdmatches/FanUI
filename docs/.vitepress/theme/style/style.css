@@ -34,3 +34,12 @@ details > summary:first-of-type {
 .mb-10 {
   margin-bottom: 1rem;
 }
+.flex {
+  display: flex;
+}
+.gap-4 {
+  gap: 4px;
+}
+.align-center {
+  align-items: center;
+}
