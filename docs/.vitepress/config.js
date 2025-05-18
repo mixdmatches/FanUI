@@ -33,21 +33,20 @@ export default {
       ],
       '/components/': [
         {
-          text: '基础组件',
+          text: 'Basic基础组件',
           items: [
             { text: 'Icon', link: '/components/icon' },
             {
               text: 'Button',
               link: '/components/button'
-            },
-            {
-              text: 'Input',
-              link: '/components/input'
-            },
-            {
-              text: 'Form',
-              link: '/components/form'
             }
+          ]
+        },
+        {
+          text: 'Form表单组件',
+          items: [
+            { text: 'Input', link: '/components/input' },
+            { text: 'Form', link: '/components/form' }
           ]
         }
       ]
