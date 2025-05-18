@@ -1,0 +1,42 @@
+# GitHub Actions工作流：Storybook构建与部署
+# 当代码推送到'rollup_comp'分支时触发
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # 构建并部署作业
+  build-and-deploy:
+    # 运行环境为最新版的Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码到工作目录
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 安装依赖并构建Vitepress文档
+      - name: Install and Build
+        run: |
+          pnpm install
+          pnpm -C docs build
+
+      # 部署到GitHub Pages
+      # 仅当前面的步骤成功时执行
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          # 目标分支为'gh-pages'
+          target_branch: gh-pages
+          # 构建目录为'vitepress-static'
+          build_dir: vitepress-static
+          # 提交信息为'chore(deploy): Vitepress'
+          commit_message: 'chore(deploy): Vitepress'
+          # 不保留历史记录
+          keep_history: false
+          # 禁用Jekyll
+          jekyll: false
+        env:
+          # 设置GitHub Token
+          GITHUB_TOKEN: ${{ secrets.DELOY_STORYBOOK }}
