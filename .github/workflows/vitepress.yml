@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   # 构建并部署作业
@@ -30,7 +30,7 @@ jobs:
           # 目标分支为'gh-pages'
           target_branch: gh-pages
           # 构建目录为'vitepress-static'
-          build_dir: vitepress-static
+          build_dir: docs/.vitepress/dist
           # 提交信息为'chore(deploy): Vitepress'
           commit_message: 'chore(deploy): Vitepress'
           # 不保留历史记录
@@ -39,4 +39,4 @@ jobs:
           jekyll: false
         env:
           # 设置GitHub Token
-          GITHUB_TOKEN: ${{ secrets.DELOY_STORYBOOK }}
+          GITHUB_TOKEN: ${{ secrets.DELOY_VITEPRESS }}
