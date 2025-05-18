@@ -27,6 +27,9 @@
     "@Fan-ui/utils": "workspace:*",
     "@icon-park/vue-next": "^1.4.2",
     "async-validator": "^4.2.5",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "multer": "1.4.5-lts.2",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
@@ -74,16 +77,16 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "eslint --config .eslintrc.js"
+      "eslint"
     ],
     "*.{css,less,scss}": [
-      "stylelint --config .stylelintrc.js"
+      "eslint"
     ],
     "*.{ts,tsx,js,json,html,yml,css,less,scss,md}": [
       "prettier --write"
     ],
     "*.vue": [
-      "eslint --config.eslintrc.js --parser vue-eslint-parser"
+      "eslint --parser vue-eslint-parser"
     ]
   }
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { FormInstance } from '@Fan-ui/components/form'
+import type { UploadRawFile } from '@Fan-ui/components/upload/src/upload'
 
 const user = ref({ username: '', password: '' })
 const formRef = ref<FormInstance>()
@@ -9,12 +10,21 @@ const validate = () => {
     console.log(valid, error)
   })
 }
+const handleBeforeUpload = (rawFile: UploadRawFile) => {
+  console.log(rawFile)
+  return true
+}
+const fileList = ref<UploadRawFile[]>([])
+watch(fileList, newVal => {
+  console.log(newVal)
+})
 </script>
 
 <template>
   <f-form
     ref="formRef"
     :model="user"
+    action="http://localhost:3000/upload"
     :rules="{
       username: {
         min: 6,
@@ -49,8 +59,16 @@ const validate = () => {
         show-password
       ></f-input>
     </f-form-item>
-    <f-form-item>
+    <f-form-item label="">
       <f-button type="primary" @click="validate">校验表单</f-button>
     </f-form-item>
   </f-form>
+  <f-upload
+    v-model="fileList"
+    multiple
+    :before-upload="handleBeforeUpload"
+    drag
+  >
+    <f-button>点击上传</f-button>
+  </f-upload>
 </template>

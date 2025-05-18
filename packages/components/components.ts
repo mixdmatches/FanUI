@@ -1,2 +1,5 @@
 export { FIcon } from './icon'
 export { FButton } from './button'
+export { FInput } from './input'
+export { FForm, FFormItem } from './form'
+export { FUpload } from './upload'
