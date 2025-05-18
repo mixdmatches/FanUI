@@ -1,9 +1,9 @@
 # GitHub Actions工作流：Storybook构建与部署
-# 当代码推送到'rollup_comp'分支时触发
+# 当代码推送到'develop'分支时触发
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   # 构建并部署作业
@@ -39,4 +39,4 @@ jobs:
           jekyll: false
         env:
           # 设置GitHub Token
-          GITHUB_TOKEN: ${{ secrets.DELOY_STORYBOOK }}
+          GITHUB_TOKEN: ${{ secrets.DELOY_VITEPRESS }}
