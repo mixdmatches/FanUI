@@ -4,6 +4,32 @@ import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import path from 'path'
 import { resolve } from 'path'
+import fs from 'fs-extra'
+import packageJson from './package.json' // 引入现有的 package.json 文件
+
+const fileStr = `{
+  "name": "@mixed_matches/fanui",
+  "version": "${packageJson.version}",
+  "description": "",
+  "main": "./lib/packages/components/index.js",
+  "module": "./es/packages/components/index.mjs",
+  "types": "./es/index.d.ts",
+  "files": [
+    "./es",
+    "./lib"
+  ],
+  "keywords": [
+    "组件库",
+    "fanui",
+    "vue3",
+    "vue",
+    "typescript"
+  ],
+  "author": "mixed_mathces",
+  "license": "ISC"
+}
+  `
+
 export default defineConfig({
   plugins: [
     vue({
@@ -81,6 +107,16 @@ export default defineConfig({
               return 'style.css'
             }
             return '[name].[ext]'
+          }
+        }
+      ],
+      plugins: [
+        {
+          name: 'package.json',
+          closeBundle: () => {
+            const outputDir = path.resolve(__dirname, '../../build')
+            const filePath = path.resolve(outputDir, `package.json`)
+            fs.outputFile(filePath, fileStr, 'utf-8')
           }
         }
       ]

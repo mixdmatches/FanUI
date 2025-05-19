@@ -1,0 +1,48 @@
+# GitHub Actions 工作流：组件库打包并发布到 npm
+# 当代码推送到 'main' 分支时触发
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # 打包并发布作业
+  build-and-publish:
+    # 运行环境为最新版的 Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码到工作目录
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 安装 pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      # 安装依赖
+      - name: Install dependencies
+        run: pnpm install
+
+      # 打包组件库
+      - name: Build component library
+        run: pnpm run build
+
+      # 设置 npm 认证令牌
+      - name: Set up npm auth
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@fan-ui' # 替换为你的 npm 作用域，如果没有则可以删除这一行
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # 切换到 build 目录并发布到 npm
+      - name: Publish to npm
+        run: |
+          cd build
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

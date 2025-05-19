@@ -1,4 +1,4 @@
-# GitHub Actions工作流：Storybook构建与部署
+# GitHub Actions工作流：vitepress构建与部署
 # 当代码推送到'develop'分支时触发
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
         with:
           # 目标分支为'gh-pages'
           target_branch: gh-pages
-          # 构建目录为'vitepress-static'
+          # 构建目录为'docs/.vitepress/dist'
           build_dir: docs/.vitepress/dist
           # 提交信息为'chore(deploy): Vitepress'
           commit_message: 'chore(deploy): Vitepress'
