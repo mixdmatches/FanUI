@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Search } from '@icon-park/vue-next'
+// import { FCheckBox } from '@fan-ui/components/checkbox'
 </script>
 
 <template>
@@ -7,4 +8,5 @@ import { Search } from '@icon-park/vue-next'
   <f-icon>
     <Search></Search>
   </f-icon>
+  <f-checkbox></f-checkbox>
 </template>
