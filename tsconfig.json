@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "declaration": false,
     "noImplicitAny": true,
     "removeComments": true,
     "moduleResolution": "node",
@@ -16,7 +15,10 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false
   },
   "exclude": ["node_modules", "**/__tests__", "dist/**"]
 }

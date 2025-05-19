@@ -1,4 +1,4 @@
-# GitHub Actions工作流：Storybook构建与部署
+# GitHub Actions工作流：vitepress构建与部署
 # 当代码推送到'develop'分支时触发
 on:
   push:
@@ -11,9 +11,19 @@ jobs:
     # 运行环境为最新版的Ubuntu
     runs-on: ubuntu-latest
     steps:
+      # 设置文件权限
+      - name: Set file permissions
+        run: chmod -R 755 .
+
       # 检出代码到工作目录
       - name: Checkout
         uses: actions/checkout@v4
+
+      # 安装 pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
 
       # 安装依赖并构建Vitepress文档
       - name: Install and Build
@@ -29,8 +39,8 @@ jobs:
         with:
           # 目标分支为'gh-pages'
           target_branch: gh-pages
-          # 构建目录为'vitepress-static'
-          build_dir: vitepress-static
+          # 构建目录为'docs/.vitepress/dist'
+          build_dir: docs/.vitepress/dist
           # 提交信息为'chore(deploy): Vitepress'
           commit_message: 'chore(deploy): Vitepress'
           # 不保留历史记录
