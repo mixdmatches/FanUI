@@ -1,4 +1,4 @@
-import { withInstall } from '@Fan-ui/utils/with-install'
+import { withInstall } from '@fan-ui/utils/with-install'
 import _Button from './src/button.vue'
 
 export const FButton = withInstall(_Button)

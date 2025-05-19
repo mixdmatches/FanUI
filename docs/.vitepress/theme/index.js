@@ -2,7 +2,7 @@ import './style/style.css'
 import 'vitepress-demo-plugin/dist/style.css'
 
 import DefaultTheme from 'vitepress/theme'
-import FanUI from '@Fan-ui/components/index.ts'
+import FanUI from '@fan-ui/components/index.ts'
 
 // 批量导入所有 .vue 组件（包括子目录）
 const modules = import.meta.glob('../../example/**/*.vue', { eager: true })
