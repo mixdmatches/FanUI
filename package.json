@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "fanui",
   "private": "false",
   "description": "",
@@ -8,11 +8,11 @@
   "scripts": {
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
-    "build": "pnpm --filter @Fan-ui/components... build",
+    "build": "pnpm --filter @fan-ui/components... build",
     "build:docs": "pnpm -C docs build",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage",
+    "test": "pnpm -C packages/components test",
+    "test:ui": "pnpm -C packages/components test:ui",
+    "coverage": "pnpm -C packages/components coverage",
     "check:unused": "depcheck",
     "lint": "eslint --ext .js,.vue,.ts .",
     "lint:fix": "eslint --fix --ext .js,.vue,.ts .",

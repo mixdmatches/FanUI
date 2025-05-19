@@ -1,5 +1,6 @@
 import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 export default {
+  base: '/FanUI/',
   title: 'Fan-ui',
   description: 'Fan-ui',
   markdown: {
