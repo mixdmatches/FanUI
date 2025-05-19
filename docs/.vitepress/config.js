@@ -14,11 +14,12 @@ export default {
     editLinks: true,
     editLinkText: '编辑此网站',
     repo: 'https://gitee.com/login',
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2025-present Fan-ui'
-    },
     nav: [
+      {
+        text: 'GitHub',
+        link: 'https://github.com/mixdmatches/FanUI',
+        activeMatch: ''
+      },
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
       { text: '组件', link: '/components/icon', activeMatch: '/components/' }
     ],
@@ -52,5 +53,7 @@ export default {
         }
       ]
     }
-  }
+  },
+  // 引入自定义 CSS
+  head: [['link', { rel: 'stylesheet', href: './theme/style/custom.css' }]]
 }
