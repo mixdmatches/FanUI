@@ -1,5 +1,5 @@
 import _Input from './src/input.vue'
-import { withInstall } from '@Fan-ui/utils/with-install'
+import { withInstall } from '@fan-ui/utils/with-install'
 
 export const FInput = withInstall(_Input)
 

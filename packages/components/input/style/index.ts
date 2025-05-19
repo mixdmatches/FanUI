@@ -1,1 +1,1 @@
-import '@Fan-ui/theme-chalk/src/input.scss'
+import '@fan-ui/theme-chalk/src/input.scss'

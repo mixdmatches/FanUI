@@ -1,4 +1,4 @@
-import { withInstall } from '@Fan-ui/utils/with-install'
+import { withInstall } from '@fan-ui/utils/with-install'
 import _FormItem from './src/form-item.vue'
 import _Form from './src/form.vue'
 

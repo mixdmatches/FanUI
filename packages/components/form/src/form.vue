@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 import { computed, provide } from 'vue'
 import { formProps, FormContext, FormContextKey } from './form'
 import '../style/index'
