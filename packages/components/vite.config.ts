@@ -1,40 +1,10 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import path from 'path'
-
+import { resolve } from 'path'
 export default defineConfig({
-  build: {
-    outDir: 'es',
-    rollupOptions: {
-      // 忽略打包vue文件
-      external: ['vue'],
-      input: path.resolve(__dirname, 'index.ts'),
-      output: [
-        {
-          format: 'es',
-          entryFileNames: '[name].mjs',
-          preserveModules: true,
-          preserveModulesRoot: 'packages/components',
-          exports: 'named',
-          dir: '../fanui/es'
-        },
-        {
-          format: 'cjs',
-          entryFileNames: '[name].js',
-          preserveModules: true,
-          preserveModulesRoot: 'packages/components',
-          exports: 'named',
-          dir: '../fanui/lib'
-        }
-      ]
-    },
-    lib: {
-      entry: path.resolve(__dirname, 'index.ts'),
-      formats: ['es', 'cjs'],
-      fileName: format => `index.${format === 'es' ? 'mjs' : 'js'}`
-    }
-  },
   plugins: [
     vue({
       template: {
@@ -44,11 +14,18 @@ export default defineConfig({
       }
     }),
     dts({
+      // 确保 entryRoot 指向正确的入口目录
       entryRoot: './',
-      outDir: ['../fanui/es', '../fanui/lib'],
+      // 输出目录
+      outDir: [
+        resolve(__dirname, '../../build/es'),
+        resolve(__dirname, '../../build/lib')
+      ],
       tsconfigPath: '../../tsconfig.json',
-      include: ['./components/**/*.ts', './components/**/*.vue', './index.ts'],
-      exclude: ['node_modules', 'dist'],
+      // 包含需要生成类型声明的文件
+      include: ['./**/*.ts', './**/*.vue', './index.ts'],
+      // 排除 vite.config.ts 以及其他不需要的目录和文件
+      exclude: ['node_modules', 'dist', './**/__test__', './vite.config.ts'],
       copyDtsFiles: true,
       insertTypesEntry: true,
       compilerOptions: {
@@ -58,9 +35,86 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    target: 'modules',
+    //打包文件目录
+    outDir: 'es',
+    //压缩
+    minify: false,
+    //css分离
+    //cssCodeSplit: true,
+    rollupOptions: {
+      //忽略打包 vue 文件和 vite.config.ts
+      external: ['vue', './vite.config.ts'],
+      input: './index.ts',
+      output: [
+        {
+          format: 'es',
+          //不用打包成.es.js,这里我们想把它打包成.js
+          entryFileNames: '[name].mjs',
+          //让打包目录和我们目录对应
+          preserveModules: true,
+          preserveModulesRoot: 'packages/components',
+          exports: 'named',
+          //配置打包根目录
+          dir: resolve(__dirname, '../../build/es'),
+          // 假设这里可以处理 CSS 命名，将 components.css 重命名为 style.css
+          assetFileNames: assetInfo => {
+            if (assetInfo.name === 'components.css') {
+              return 'style.css'
+            }
+            return '[name].[ext]'
+          }
+        },
+        {
+          format: 'cjs',
+          entryFileNames: '[name].js',
+          //让打包目录和我们目录对应
+          preserveModules: true,
+          preserveModulesRoot: 'packages/components',
+          exports: 'named',
+          //配置打包根目录
+          dir: resolve(__dirname, '../../build/lib'),
+          // 假设这里可以处理 CSS 命名，将 components.css 重命名为 style.css
+          assetFileNames: assetInfo => {
+            if (assetInfo.name === 'components.css') {
+              return 'style.css'
+            }
+            return '[name].[ext]'
+          }
+        }
+      ]
+    },
+    lib: {
+      entry: './index.ts',
+      formats: ['es', 'cjs'],
+      name: 'fan-ui'
+    }
+  },
+  // 配置别名
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './')
+    }
+  },
+  // 测试配置
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    testTransformMode: {
+      web: ['.tsx', '.jsx']
+    },
+    // 修改匹配测试文件的规则
+    include: ['**/__test__/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    // 覆盖率配置
+    coverage: {
+      // 启用覆盖率收集
+      enabled: true,
+      // 指定覆盖率收集器
+      provider: 'v8',
+      // 生成多种格式的覆盖率报告
+      reporter: ['html'],
+      reportsDirectory: resolve(__dirname, '../../../coverage')
     }
   }
 })

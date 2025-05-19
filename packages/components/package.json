@@ -1,14 +1,27 @@
 {
-  "name": "@Fan-ui/components",
-  "version": "1.0.0",
+  "name": "@fan-ui/components",
+  "version": "1.1.0",
   "description": "",
+  "main": "build/lib/packages/components/index.js",
+  "module": "build/es/packages/components/index.mjs",
+  "types": "build/es/index.d.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage"
   },
   "files": [
-    "dist"
+    "build/es",
+    "build/lib"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "组件库",
+    "fanui",
+    "vue3",
+    "vue",
+    "typescript"
+  ],
+  "author": "陈下饭",
   "license": "ISC"
 }
