@@ -1,7 +1,7 @@
 // 整合组件最后实现导出组件
 
 import _Upload from './src/upload.vue'
-import { withInstall } from '@Fan-ui/utils/with-install'
+import { withInstall } from '@fan-ui/utils/with-install'
 
 export const FUpload = withInstall(_Upload)
 

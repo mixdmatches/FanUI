@@ -14,7 +14,7 @@
 import { computed, ref, watch } from 'vue'
 import { treeProps, TreeNode, TreeOption } from './tree'
 import ZTreeNode from './TreeNode.vue'
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 defineOptions({ name: 'f-tree' })
 const props = defineProps(treeProps)
 

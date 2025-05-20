@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 import { computed, inject, onMounted, provide, ref } from 'vue'
 import type {
   FormItemValidateState,

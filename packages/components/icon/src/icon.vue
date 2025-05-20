@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import '../style/index'
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 import { computed } from 'vue'
 import { iconProps } from './icon'
 const bem = createNamespace('icon') // 生成icon-namespace类名，用于设置icon的样式

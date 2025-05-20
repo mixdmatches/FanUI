@@ -78,9 +78,9 @@ import {
 } from 'vue'
 import { formItemContextKey } from '../../form/src/form-item'
 import { CloseOne, PreviewOpen, PreviewClose } from '@icon-park/vue-next'
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 import { inputProps, inputEmits } from './input'
-import { FIcon } from '@Fan-ui/components/icon'
+import { FIcon } from '@fan-ui/components/icon'
 import '../style/index'
 const slots = useSlots()
 const bem = createNamespace('input')

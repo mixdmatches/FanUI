@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { FormInstance } from '@Fan-ui/components/form'
+import { FormInstance } from '@fan-ui/components/form'
 import { ref } from 'vue'
 
 const user = ref({ username: '', password: '' })

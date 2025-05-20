@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { genId, UploadRawFile } from './upload'
-import { createNamespace } from '@Fan-ui/utils/create'
+import { createNamespace } from '@fan-ui/utils/create'
 import '../style'
 import { ref } from 'vue'
 import { uploadContentProps } from './upload-content'

@@ -10,6 +10,14 @@ $ pnpm install @icon-park/vue-next
 
 <demo vue="../example/icon/Basic.vue" />
 
+## 更改颜色
+
+<demo vue="../example/icon/Color.vue" />
+
+## 更改大小
+
+<demo vue="../example/icon/Size.vue" />
+
 ## API
 
 ### Icon Props
