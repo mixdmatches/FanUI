@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@fan-ui/utils/create'
 import '../style/index'
+import { createNamespace } from '@fan-ui/utils/create'
 import { computed, provide } from 'vue'
 import {
   checkboxGroupContextKey,

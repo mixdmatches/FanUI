@@ -31,7 +31,8 @@ export const checkboxProps = {
     type: String,
     default: undefined
   },
-  size: String as PropType<'large' | 'default' | 'small'>
+  size: String as PropType<'large' | 'default' | 'small'>,
+  border: Boolean
 } as const
 
 export const checkboxEmits = {
