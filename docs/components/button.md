@@ -24,7 +24,7 @@
 
 没有背景和边框的按钮
 
-<demo vue="../example/button/Text.vue" />
+<!-- <demo vue="../example/button/Text.vue" /> -->
 
 ## 图标按钮
 
