@@ -27,12 +27,18 @@ describe('测试checkbox组件', () => {
   //   expect(input.element.checked).toBe(true)
   // })
 
-  // // 测试点击复选框是否触发 change 事件
-  // test('点击复选框触发 change 事件', async () => {
-  //   const wrapper = mount(Checkbox)
-  //   const input = wrapper.find('input[type="checkbox"]')
-  //   await input.trigger('click')
-  //   expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-  //   expect(wrapper.emitted('update:modelValue')[0]).toEqual([true])
-  // })
+  // 测试点击复选框是否触发 change 事件
+  test('点击复选框触发 change 事件', async () => {
+    const wrapper = mount(Checkbox)
+    const input = wrapper.find('input[type="checkbox"]')
+    await input.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+    const emittedEvents = wrapper.emitted('update:modelValue')
+    if (emittedEvents) {
+      expect(emittedEvents[0]).toEqual([true])
+    } else {
+      // 如果事件未触发，抛出错误
+      expect.fail('"update:modelValue" 事件未触发')
+    }
+  })
 })

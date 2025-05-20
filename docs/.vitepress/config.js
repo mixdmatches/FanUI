@@ -48,6 +48,7 @@ export default {
           text: 'Form表单组件',
           items: [
             { text: 'Input', link: '/components/input' },
+            { text: 'checkbox', link: '/components/checkbox' },
             { text: 'Form', link: '/components/form' }
           ]
         }

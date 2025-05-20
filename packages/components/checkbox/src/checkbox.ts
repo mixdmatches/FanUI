@@ -23,6 +23,10 @@ export const checkboxProps = {
   },
   indeterminate: Boolean,
   disabled: Boolean,
+  checked: {
+    type: Boolean,
+    default: false
+  },
   name: {
     type: String,
     default: undefined
@@ -33,7 +37,7 @@ export const checkboxProps = {
 export const checkboxEmits = {
   'update:modelValue': (val: CheckboxValueType) =>
     isString(val) || isNumber(val) || isBoolean(val),
-  change: (val: CheckboxValueType) =>
+  change: (val: CheckboxValueType): boolean =>
     isString(val) || isNumber(val) || isBoolean(val)
 }
 
