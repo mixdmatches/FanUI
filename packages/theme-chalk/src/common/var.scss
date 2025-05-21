@@ -19,7 +19,7 @@ $colors: map.deep-merge(
     'white': #ffffff,
     'black': #000000,
     'primary': (
-      'base': #3fb8e0
+      'base': #ea6ec9
     ),
     'success': (
       'base': #6edba8
@@ -151,9 +151,9 @@ $border-color-hover: getCssVar('text-color', 'disabled') !default;
 $border-radius: () !default;
 $border-radius: map.merge(
   (
-    'base': 2px,
-    'small': 1px,
-    'round': 15px,
+    'base': 4px,
+    'small': 2px,
+    'round': 20px,
     'circle': 100%
   ),
   $border-radius
