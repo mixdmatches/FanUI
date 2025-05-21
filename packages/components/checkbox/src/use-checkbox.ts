@@ -2,12 +2,16 @@ import { CheckboxProps } from './checkbox'
 import { ComponentInternalInstance, computed, inject } from 'vue'
 import { checkboxGroupContextKey } from './checkbox-group'
 import { isArray, isBoolean } from '@fan-ui/utils/types'
+import { formItemContextKey } from '../../form/src/form-item'
 
 export const useCheckbox = (
   props: CheckboxProps,
   emit,
   slots: ComponentInternalInstance['slots']
 ) => {
+  // 注入form-item上下文
+  const formItemContext = inject(formItemContextKey, undefined)
+
   // 注入checkbox-group的值
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isGroup = computed(() => !!checkboxGroup)
@@ -56,6 +60,8 @@ export const useCheckbox = (
   const handleChange = (e: Event) => {
     const target = e.target as HTMLInputElement
     emit('change', target.checked)
+    // 新增：触发 form-item 校验
+    formItemContext?.validate('change')
   }
 
   // 计算大小，优先级：组件props > 组件group的size > 组件的默认size

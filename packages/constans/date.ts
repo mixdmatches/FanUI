@@ -10,7 +10,7 @@ export const datePickTypes = [
   'datetimerange',
   'daterange',
   'monthrange',
-  'yearrange',
+  'yearrange'
 ] as const
 
 export const WEEK_DAYS = [
@@ -20,7 +20,7 @@ export const WEEK_DAYS = [
   'wed',
   'thu',
   'fri',
-  'sat',
+  'sat'
 ] as const
 
-export type DatePickType = typeof datePickTypes[number]
+export type DatePickType = (typeof datePickTypes)[number]
