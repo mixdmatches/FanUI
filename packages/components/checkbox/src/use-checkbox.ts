@@ -19,7 +19,6 @@ export const useCheckbox = (
   // 如果是group模式，需要返回checkboxGroup的modelValue，否则返回props.modelValue
   const model = computed({
     get() {
-      // group模式下，需要返回checkboxGroup的modelValue，否则返回props.modelValue
       return isGroup.value ? checkboxGroup?.modelValue?.value : props.modelValue
     },
     set(val) {
