@@ -12,18 +12,18 @@ html.dark {
     @include set-css-color-type($colors, $type);
   }
 
-  // --el-box-shadow-#{$type}
-  // 这个混合宏的作用可能是为不同类型的阴影生成对应的 CSS 变量，变量名前缀为 --el-box-shadow-
+  // --f-box-shadow-#{$type}
+  // 这个混合宏的作用可能是为不同类型的阴影生成对应的 CSS 变量，变量名前缀为 --f-box-shadow-
   @include set-component-css-var('box-shadow', $box-shadow);
 
   // color-scheme
-  // Background --el-bg-color-#{$type}
+  // Background --f-bg-color-#{$type}
   @include set-component-css-var('bg-color', $bg-color);
-  // --el-text-color-#{$type}
+  // --f-text-color-#{$type}
   @include set-component-css-var('text-color', $text-color);
-  // --el-border-color-#{$type}
+  // --f-border-color-#{$type}
   @include set-component-css-var('border-color', $border-color);
-  // Fill --el-fill-color-#{$type}
+  // Fill --f-fill-color-#{$type}
   @include set-component-css-var('fill-color', $fill-color);
   @include set-component-css-var('mask-color', $mask-color);
 }

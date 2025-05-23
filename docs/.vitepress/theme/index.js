@@ -1,6 +1,6 @@
 import './style/style.css'
 import 'vitepress-demo-plugin/dist/style.css'
-
+import '@fan-ui/theme-chalk/src/dark/css-vars.scss'
 import DefaultTheme from 'vitepress/theme'
 import FanUI from '@fan-ui/components/index.ts'
 

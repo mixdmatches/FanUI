@@ -7,15 +7,18 @@
 <script setup lang="ts">
 import '../style/index'
 import { createNamespace } from '@fan-ui/utils/create'
-import { computed, provide } from 'vue'
+import { computed, inject, provide } from 'vue'
 import {
   checkboxGroupContextKey,
   checkboxGroupEmits,
   checkboxGroupProps,
   CheckboxGroupValueType
 } from './checkbox-group'
+import { formItemContextKey } from '../../form/src/form-item'
 
 defineOptions({ name: 'f-checkbox-group' })
+
+const formItemContext = inject(formItemContextKey, undefined)
 
 const bem = createNamespace('checkbox-group')
 
@@ -34,6 +37,7 @@ const modelValue = computed({
 const changeEvent = (val: CheckboxGroupValueType) => {
   emit('update:modelValue', val)
   emit('change', val)
+  formItemContext?.validate('change')
 }
 
 // 提供给checkbox的一些值和方法

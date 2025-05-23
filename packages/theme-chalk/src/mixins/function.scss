@@ -54,7 +54,7 @@
 }
 
 // join var name
-// joinVarName(('button', 'text-color')) => '--el-button-text-color'
+// joinVarName(('button', 'text-color')) => '--f-button-text-color'
 // 将列表中的元素拼接成 CSS 变量名。
 @function joinVarName($list) {
   $name: '--' + config.$namespace;
@@ -66,19 +66,19 @@
   @return $name;
 }
 
-// getCssVarName('button', 'text-color') => '--el-button-text-color'
+// getCssVarName('button', 'text-color') => '--f-button-text-color'
 // 获取 CSS 变量名。
 @function getCssVarName($args...) {
   @return joinVarName($args);
 }
 
-// getCssVar('button', 'text-color') => var(--el-button-text-color)
+// getCssVar('button', 'text-color') => var(--f-button-text-color)
 // 功能：获取 CSS 变量表达式。
 @function getCssVar($args...) {
   @return var(#{joinVarName($args)});
 }
 
-// getCssVarWithDefault(('button', 'text-color'), red) => var(--el-button-text-color, red)
+// getCssVarWithDefault(('button', 'text-color'), red) => var(--f-button-text-color, red)
 // 获取带有默认值的 CSS 变量表达式。
 @function getCssVarWithDefault($args, $default) {
   @return var(#{joinVarName($args)}, #{$default});
