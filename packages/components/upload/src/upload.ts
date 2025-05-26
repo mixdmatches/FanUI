@@ -13,7 +13,7 @@ export interface UploadFile {
 export type UploadFiles = UploadFile[]
 
 export const baseProps = {
-  FileList: {
+  fileList: {
     type: Array as PropType<UploadFiles>,
     default: () => [] as const
   },

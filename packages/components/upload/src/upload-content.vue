@@ -39,15 +39,19 @@ defineOptions({
 const props = defineProps(uploadContentProps)
 
 const inputRef = ref<HTMLInputElement>()
+
 const handleClick = () => {
   inputRef.value!.value = ''
   inputRef.value!.click()
 }
 
 const upload = async (rawFile: UploadRawFile) => {
+  console.log(rawFile, 'rawFile')
+
   inputRef.value!.value = ''
+  // 上传前逻辑
   let result = await props.beforeUpload(rawFile)
-  if (!result) {
+  if (result === false) {
     return props.onRemove(rawFile)
   } // 停止上传
 

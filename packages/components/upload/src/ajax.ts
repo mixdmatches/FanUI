@@ -5,8 +5,6 @@ export function httpRequest(options: RequestOptions) {
   const xhr = new XMLHttpRequest()
   const action = options.action
   const method = options.method.toUpperCase()
-  console.log('options', options.action)
-
   xhr.open(method, action, true)
   xhr.upload.addEventListener('progress', e => {
     const processEvents = e as UploadProgressEvent

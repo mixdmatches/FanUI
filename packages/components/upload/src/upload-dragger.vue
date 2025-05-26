@@ -18,6 +18,6 @@ const onDraggerOver = () => {
 
 const onDrop = (e: DragEvent) => {
   e.stopPropagation()
-  emit('file', Array.from(e.dataTransfer!.files)) // 调用父组件的onChange方法
+  emit('file', Array.from(e.dataTransfer!.files))
 }
 </script>

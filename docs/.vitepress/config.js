@@ -49,7 +49,8 @@ export default {
           items: [
             { text: 'Input', link: '/components/input' },
             { text: 'checkbox', link: '/components/checkbox' },
-            { text: 'Form', link: '/components/form' }
+            { text: 'Form', link: '/components/form' },
+            { text: 'Upload', link: '/components/upload' }
           ]
         }
       ]

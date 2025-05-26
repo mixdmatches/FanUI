@@ -2,11 +2,12 @@
   <div>
     <f-upload
       v-model:file-list="fileList"
-      action="http://localhost:3000/upload"
+      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
       multiple
       :on-remove="handleRemove"
+      :before-remove="beforeRemove"
     >
-      <f-button :icon="Upload" type="primary">上传文件</f-button>
+      <f-button :icon="Upload" type="primary">上传</f-button>
       <template #tip>
         <div class="f-upload__tip">不超过500kb</div>
       </template>
@@ -17,20 +18,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Upload } from '@icon-park/vue-next'
-type UploadUserFile = { name: string; url: string }
-const fileList = ref<UploadUserFile[]>([
-  {
-    name: '文件1',
-    url: 'https://element-plus.org/images/element-plus-logo.svg'
-  },
-  {
-    name: '文件2',
-    url: 'https://element-plus.org/images/element-plus-logo.svg'
-  }
-])
+const fileList = ref([])
 const handleRemove = (file, fileList) => {
   console.log(file, fileList)
 }
+const beforeRemove = (file, fileList) => {
+  console.log(file, fileList)
+}
 </script>
-
-<style scoped></style>

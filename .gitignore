@@ -9,3 +9,4 @@ fanui
 build
 coverage
 docs/.vitepress/cache
+server
