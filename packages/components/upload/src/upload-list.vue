@@ -4,7 +4,10 @@
     <li
       v-for="file in files"
       :key="file.uid || file.name"
-      :class="[nsUpload.be('list', 'item'), 'is-error']"
+      :class="[
+        nsUpload.be('list', 'item'),
+        nsUpload.is('success', file.status)
+      ]"
     >
       <!-- file-info -->
       <div :class="nsUpload.be('list', 'item-info')">

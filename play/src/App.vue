@@ -4,6 +4,7 @@
       v-model:file-list="fileList"
       action="http://localhost:3000/upload"
       multiple
+      show-file-list
       :on-remove="handleRemove"
     >
       <f-button :icon="Upload" type="primary">上传文件</f-button>
@@ -17,17 +18,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Upload } from '@icon-park/vue-next'
-type UploadUserFile = { name: string; url: string }
-const fileList = ref<UploadUserFile[]>([
-  {
-    name: '文件1',
-    url: 'https://element-plus.org/images/element-plus-logo.svg'
-  },
-  {
-    name: '文件2',
-    url: 'https://element-plus.org/images/element-plus-logo.svg'
-  }
-])
+
+const fileList = ref([])
 const handleRemove = (file, fileList) => {
   console.log(file, fileList)
 }

@@ -5,7 +5,11 @@
   </UploadContent>
   <slot name="tip" />
   <!-- 上传列表展示 -->
-  <UploadList :files="uploadFiles" @remove="handleRemove"></UploadList>
+  <UploadList
+    v-if="showFileList"
+    :files="uploadFiles"
+    @remove="handleRemove"
+  ></UploadList>
 </template>
 
 <script setup lang="ts">

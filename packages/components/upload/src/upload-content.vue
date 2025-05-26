@@ -46,8 +46,6 @@ const handleClick = () => {
 }
 
 const upload = async (rawFile: UploadRawFile) => {
-  console.log(rawFile, 'rawFile')
-
   inputRef.value!.value = ''
   // 上传前逻辑
   let result = await props.beforeUpload(rawFile)

@@ -50,6 +50,10 @@ export const baseProps = {
   drag: {
     type: Boolean,
     default: false
+  },
+  showFileList: {
+    type: Boolean,
+    default: false
   }
 } as const
 
