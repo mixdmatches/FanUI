@@ -52,6 +52,10 @@ export default {
             { text: 'Form', link: '/components/form' },
             { text: 'Upload', link: '/components/upload' }
           ]
+        },
+        {
+          text: '反馈组件',
+          items: [{ text: 'Message', link: '/components/message' }]
         }
       ]
     }
