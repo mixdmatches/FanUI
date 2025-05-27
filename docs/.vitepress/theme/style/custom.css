@@ -1,6 +1,0 @@
-/* 定义渐变蓝色 */
-.gradient-blue {
-  background: -webkit-linear-gradient(left, #007bff, #00c3ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}

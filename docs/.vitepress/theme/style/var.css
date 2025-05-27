@@ -1,38 +1,65 @@
+/* var.css */
 :root {
-  /* 标题 */
+  --vp-c-brand-1: #1677ff;
+  --vp-c-brand-2: #4096ff;
+  --vp-c-brand-3: #69b1ff;
+}
+
+.dark {
+  --vp-c-brand-1: #4096ff;
+  --vp-c-brand-2: #69b1ff;
+  --vp-c-brand-3: #93c8ff;
+}
+/* 以前的vp-c-brand已弃用 */
+
+:root {
+  /* hero标题渐变色 */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(
-    135deg,
-    #9090c0 10%,
-    #595b83 100%
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #bd34fe,
+    #41d1ff
   );
 
-  /* 图标背景 */
+  /*hero logo背景渐变色 */
   --vp-home-hero-image-background-image: linear-gradient(
-    135deg,
-    #9090c0 10%,
-    #595b83 100%
+    -45deg,
+    #bd34fe 50%,
+    #47caff 50%
   );
-  --vp-home-hero-image-filter: blur(150px);
+  --vp-home-hero-image-filter: blur(40px);
+}
 
-  /* brand按钮 */
-  --vp-button-brand-border: #9090c0;
-  --vp-button-brand-text: #fff;
-  --vp-button-brand-bg: #9090c0;
+/* 也可自行单独修改brand按钮 */
+/* :root {
+  --vp-button-brand-border: #F6CEEC;
+  --vp-button-brand-text: #F6CEEC;
+  --vp-button-brand-bg: #D939CD;
 
-  --vp-button-brand-hover-border: #595b83;
+  --vp-button-brand-hover-border: #F6CEEC;
   --vp-button-brand-hover-text: #fff;
-  --vp-button-brand-hover-bg: #595b83;
+  --vp-button-brand-hover-bg: #D939CD;
 
-  --vp-button-brand-active-border: #595b83;
-  --vp-button-brand-active-text: #fff;
-  --vp-button-brand-active-bg: #595b83;
+  --vp-button-brand-active-border: #F6CEEC;
+} */
+/* 提示框背景颜色 */
+:root {
+  --vp-custom-block-tip-bg: var(--vp-c-green-soft);
+}
 
-  /* 主页 */
-  --vp-c-brand: #8888d0;
-  --vp-c-brand-dark: #8888d0;
+/* 提示框 */
+.custom-block.tip {
+  border-color: var(--vp-c-green-2);
+}
 
-  --vp-custom-block-tip-border: #9090c0;
-  --vp-custom-block-tip-text: #fff;
-  --vp-custom-block-tip-bg: #9090c0;
+/* 警告框 */
+.custom-block.warning {
+  /* border-color: #d97706; */
+  border-color: var(--vp-c-yellow-2);
+}
+
+/* 危险框 */
+.custom-block.danger {
+  /* border-color: #f43f5e; */
+  border-color: var(--vp-c-red-2);
 }

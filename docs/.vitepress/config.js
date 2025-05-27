@@ -9,6 +9,7 @@ export default {
     }
   },
   themeConfig: {
+    logo: '../public/logo.png',
     lastUpdated: '最后更新时间',
     docsDir: 'docs',
     editLinks: true,
@@ -59,7 +60,5 @@ export default {
         }
       ]
     }
-  },
-  // 引入自定义 CSS
-  head: [['link', { rel: 'stylesheet', href: './theme/style/custom.css' }]]
+  }
 }
