@@ -53,7 +53,13 @@ const context: FormContext = {
   addField
 }
 
-const formClasses = computed(() => [bem.b()])
+const formClasses = computed(() => [
+  bem.b(),
+  {
+    [bem.m('inline')]: props.inline,
+    [bem.m(`label-${props.labelPosition}`)]: props.labelPosition
+  }
+])
 
 provide(FormContextKey, context)
 

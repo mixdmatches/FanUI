@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick" :class="bem.b()">
+  <div @click="handleClick" :class="[bem.b(), bem.is('drag', drag)]">
     <template v-if="drag">
       <UploadDragger @file="uploadFiles">
         <slot></slot>

@@ -170,4 +170,50 @@ describe('测试 upload 组件', () => {
     expect(beforeRemove).toHaveBeenCalledWith(mockFile, expect.any(Array))
     expect(onRemove).toHaveBeenCalledWith(mockFile, expect.any(Array))
   })
+
+  // 测试文件拖拽上传事件
+  test('文件拖拽上传事件', async () => {
+    const onFile = vi.fn()
+    const wrapper = mount(FUpload, {
+      props: {
+        onFile
+      }
+    })
+
+    const mockFile = {
+      uid: 1,
+      name: 'test.txt',
+      size: 1024,
+      type: 'text/plain'
+    } as UploadRawFile
+
+    const dataTransfer = {
+      files: [mockFile]
+    } as DataTransfer
+
+    // 模拟 dragenter 事件
+    await wrapper.trigger('dragenter', { dataTransfer })
+
+    // 模拟 dragover 事件
+    await wrapper.trigger('dragover', { dataTransfer })
+
+    // 模拟 drop 事件
+    await wrapper.trigger('drop', { dataTransfer })
+
+    expect(onFile).toHaveBeenCalledWith(Array.from(dataTransfer.files))
+  })
+
+  // 测试文件拖拽离开事件
+  test('文件拖拽离开事件', async () => {
+    const wrapper = mount(FUpload)
+    const isOverSpy = vi.spyOn(wrapper.vm as any, 'isOver', 'set')
+
+    // 模拟 dragenter 事件
+    await wrapper.trigger('dragenter')
+
+    // 模拟 dragleave 事件
+    await wrapper.trigger('dragleave')
+
+    expect(isOverSpy).toHaveBeenCalledWith(false)
+  })
 })

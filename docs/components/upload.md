@@ -7,3 +7,8 @@
 通过 slot 你可以传入自定义的上传按钮类型和文字提示,可通过设置 before-remove 来阻止文件移除操作。
 
 <demo vue="../example/upload/Basic.vue"/>
+
+## 拖拽上传
+
+你可以将文件拖拽到特定区域以进行上传。
+<demo vue="../example/upload/Drag.vue"/>
