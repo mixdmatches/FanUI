@@ -1,5 +1,5 @@
 <template>
-  <div @click="handleClick" :class="bem.b()">
+  <div @click="handleClick" :class="[bem.b(), bem.is('drag', drag)]">
     <template v-if="drag">
       <UploadDragger @file="uploadFiles">
         <slot></slot>
@@ -39,6 +39,7 @@ defineOptions({
 const props = defineProps(uploadContentProps)
 
 const inputRef = ref<HTMLInputElement>()
+
 const handleClick = () => {
   inputRef.value!.value = ''
   inputRef.value!.click()
@@ -46,8 +47,9 @@ const handleClick = () => {
 
 const upload = async (rawFile: UploadRawFile) => {
   inputRef.value!.value = ''
+  // 上传前逻辑
   let result = await props.beforeUpload(rawFile)
-  if (!result) {
+  if (result === false) {
     return props.onRemove(rawFile)
   } // 停止上传
 

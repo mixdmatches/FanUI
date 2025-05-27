@@ -5,7 +5,7 @@
         {{ label }}
       </slot>
     </label>
-    <div :class="bem.e('content')">
+    <div :class="bem.e('content')" :style="contentStyle">
       <slot></slot>
       <div :class="bem.e('error')">
         <slot name="error">{{ validateMessage }}</slot>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils/create'
-import { computed, inject, onMounted, provide, ref } from 'vue'
+import { computed, inject, onMounted, provide, ref, useSlots } from 'vue'
 import type {
   FormItemValidateState,
   FormItemContext,
@@ -113,11 +113,34 @@ const context: FormItemContext = {
 
 provide(formItemContextKey, context)
 
+const slots = useSlots()
+
+const labelPosition = computed(
+  () => props.labelPosition || formContext?.labelPosition
+)
+
 const formItemClasses = computed(() => [
   bem.b(),
   bem.is('success', validateState.value == 'success'),
-  bem.is('error', validateState.value == 'error')
+  bem.is('error', validateState.value == 'error'),
+  {
+    [bem.m(`label-${labelPosition.value}`)]: labelPosition.value
+  }
 ])
+
+const contentStyle = computed(() => {
+  if (labelPosition.value === 'top' || formContext?.inline) {
+    return {}
+  }
+  if (!props.label && !props.labelWidth) {
+    return {}
+  }
+  const labelWidth = props.labelWidth || formContext?.labelWidth || ''
+  if (!props.label && !slots.label) {
+    return { marginLeft: labelWidth }
+  }
+  return {}
+})
 
 defineOptions({
   name: 'f-form-item',

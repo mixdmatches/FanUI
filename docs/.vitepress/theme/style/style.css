@@ -52,3 +52,14 @@ details > summary:first-of-type {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+li {
+  list-style: none;
+}
+ol {
+  padding: 0;
+  margin: 0;
+}
+ul {
+  padding: 0;
+  margin: 0;
+}

@@ -17,6 +17,10 @@ export const formItemProps = {
   showMessage: {
     type: Boolean,
     default: true
+  },
+  labelPosition: {
+    type: String as PropType<'left' | 'right' | 'top'>,
+    default: ''
   }
 } as const
 

@@ -19,22 +19,22 @@ $colors: map.deep-merge(
     'white': #ffffff,
     'black': #000000,
     'primary': (
-      'base': #ea6ec9
+      'base': #1677ff
     ),
     'success': (
-      'base': #6edba8
+      'base': #52c41a
     ),
     'warning': (
-      'base': #ffd666
+      'base': #faad14
     ),
     'danger': (
-      'base': #ff9797
+      'base': #ff4d4f
     ),
     'error': (
-      'base': #ff9797
+      'base': #ff4d4f
     ),
     'info': (
-      'base': #74b0cc
+      'base': #1677ff
     )
   ),
   $colors
@@ -636,6 +636,21 @@ $upload: map.merge(
     'dragger-padding-vertical': 10px
   ),
   $upload
+);
+
+// Message
+// css3 var in packages/theme-chalk/src/message.scss
+$message: () !default;
+$message: map.merge(
+  (
+    'bg-color': getCssVar('color', 'info', 'light-9'),
+    'border-color': getCssVar('border-color-lighter'),
+    'padding': 11px 15px,
+    'close-size': 16px,
+    'close-icon-color': getCssVar('text-color-placeholder'),
+    'close-hover-color': getCssVar('text-color-secondary')
+  ),
+  $message
 );
 
 // transition
