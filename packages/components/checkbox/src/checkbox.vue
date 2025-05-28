@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import '../style/index'
 import { computed } from 'vue'
-import { checkboxProps, checkboxEmits, CheckboxEmits } from './checkbox'
+import { checkboxProps, checkboxEmits } from './checkbox'
 import { createNamespace } from '@fan-ui/utils/create'
 import { useCheckbox } from './use-checkbox'
 
@@ -37,7 +37,7 @@ const emit = defineEmits(checkboxEmits)
 const slots = defineSlots()
 
 const { model, isChecked, isDisabled, hasOwnLabel, handleChange, size } =
-  useCheckbox(props, emit as unknown as CheckboxEmits, slots)
+  useCheckbox(props, emit, slots)
 
 const compKls = computed(() => [
   bem.b(),

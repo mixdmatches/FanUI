@@ -1,12 +1,12 @@
-import { CheckboxProps } from './checkbox'
-import { ComponentInternalInstance, computed, inject } from 'vue'
+import { CheckboxEmits, CheckboxProps } from './checkbox'
+import { ComponentInternalInstance, computed, inject, SetupContext } from 'vue'
 import { checkboxGroupContextKey } from './checkbox-group'
 import { isArray, isBoolean } from '@fan-ui/utils/types'
 import { formItemContextKey } from '../../form/src/form-item'
 
 export const useCheckbox = (
   props: CheckboxProps,
-  emit,
+  emit: SetupContext<CheckboxEmits>['emit'],
   slots: ComponentInternalInstance['slots']
 ) => {
   // 注入form-item上下文

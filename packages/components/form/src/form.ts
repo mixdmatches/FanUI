@@ -17,6 +17,10 @@ export const formProps = {
   labelPosition: {
     type: String as PropType<'left' | 'right' | 'top'>,
     default: 'right'
+  },
+  labelWidth: {
+    type: [String, Number] as PropType<string | number>,
+    default: ''
   }
 }
 

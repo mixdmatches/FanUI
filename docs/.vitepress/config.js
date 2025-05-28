@@ -51,7 +51,8 @@ export default {
             { text: 'Input', link: '/components/input' },
             { text: 'checkbox', link: '/components/checkbox' },
             { text: 'Form', link: '/components/form' },
-            { text: 'Upload', link: '/components/upload' }
+            { text: 'Upload', link: '/components/upload' },
+            { text: 'Radio', link: '/components/radio' }
           ]
         },
         {
