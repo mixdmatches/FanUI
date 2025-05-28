@@ -7,6 +7,17 @@ import { resolve } from 'path'
 import fs from 'fs-extra'
 import packageJson from './package.json' // 引入现有的 package.json 文件
 
+// 读取根目录的 README.md 文件内容
+const rootReadmePath = path.join(
+  'd:',
+  '1Study',
+  'ForeEndMaterial',
+  'myProject',
+  'cxfComponents',
+  'README.md'
+)
+const readmeContent = fs.readFileSync(rootReadmePath, 'utf-8')
+
 const fileStr = `{
   "name": "@mixed_matches/fanui",
   "version": "${packageJson.version}",
@@ -14,6 +25,8 @@ const fileStr = `{
   "main": "./lib/packages/components/index.js",
   "module": "./es/packages/components/index.mjs",
   "types": "./es/index.d.ts",
+  "homepage": "https://mixdmatches.github.io/FanUI/",
+  "repository": "https://github.com/mixdmatches/FanUI",
   "files": [
     "./es",
     "./lib"
@@ -117,6 +130,16 @@ export default defineConfig({
             const outputDir = path.resolve(__dirname, '../../build')
             const filePath = path.resolve(outputDir, `package.json`)
             fs.outputFile(filePath, fileStr, 'utf-8')
+          }
+        },
+        {
+          name: 'README.md',
+          closeBundle: () => {
+            const outputDir = path.resolve(__dirname, '../../build')
+            const filePath = path.resolve(outputDir, `README.md`)
+            const readmePath = path.resolve(__dirname, '../../README.md')
+            const readmeContent = fs.readFileSync(readmePath, 'utf-8')
+            fs.outputFile(filePath, readmeContent, 'utf-8')
           }
         }
       ]

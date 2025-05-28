@@ -1,8 +1,9 @@
 # FanUI组件库
 
-## 文档
+## 地址链接
 
 [文档地址](https://mixdmatches.github.io/FanUI/)
+[github地址](https://github.com/mixdmatches/FanUI)
 
 ## 介绍
 
