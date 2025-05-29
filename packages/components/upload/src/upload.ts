@@ -47,7 +47,7 @@ export const baseProps = {
   },
   showFileList: {
     type: Boolean,
-    default: false
+    default: true
   }
 } as const
 
@@ -78,7 +78,7 @@ export const uploadProps = {
   },
   onRemove: {
     type: Function as PropType<
-      (file: UploadFile, uploadFiles: UploadFiles) => Promise<boolean> | boolean
+      (file: UploadFile, uploadFiles: UploadFiles) => void
     >,
     default: NOOP
   },

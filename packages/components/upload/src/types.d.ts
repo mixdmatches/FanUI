@@ -14,7 +14,7 @@ export type UploadFiles = UploadFile[]
 // 用户手动上传的原始文件类型
 export type UploadRawFile = File & { uid: number }
 
-export type UploadProgressEvent = ProgressEvent & { pecetange: number }
+export type UploadProgressEvent = ProgressEvent & { percent: number }
 
 export interface RequestOptions {
   method: string

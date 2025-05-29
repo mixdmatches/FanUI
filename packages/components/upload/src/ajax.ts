@@ -7,8 +7,7 @@ export function httpRequest(options: RequestOptions) {
   xhr.open(method, action, true)
   xhr.upload.addEventListener('progress', e => {
     const processEvents = e as UploadProgressEvent
-    processEvents.pecetange = e.total > 0 ? (e.loaded / e.total) * 100 : 0
-
+    processEvents.percent = e.total > 0 ? (e.loaded / e.total) * 100 : 0
     options.onProgress(processEvents) // 调用上传进度事件
   })
 
