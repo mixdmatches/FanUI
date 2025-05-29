@@ -5,7 +5,7 @@ export const uploadDraggerProps = {
     type: Boolean,
     default: false
   }
-}
+} as const
 
 export const uploadDraggerEmits = {
   file: (file: File[]) => Array.isArray(file)

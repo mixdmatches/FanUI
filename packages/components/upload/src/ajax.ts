@@ -1,5 +1,4 @@
-import { UploadProgressEvent } from './upload'
-import { RequestOptions } from './upload-content'
+import type { UploadProgressEvent, RequestOptions } from './types'
 
 export function httpRequest(options: RequestOptions) {
   const xhr = new XMLHttpRequest()

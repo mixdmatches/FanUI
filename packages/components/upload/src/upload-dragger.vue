@@ -23,7 +23,6 @@ const isOver = ref(false)
 
 const onDraggerOver = () => {
   isOver.value = true
-  console.log(isOver.value, 'isOver')
 }
 
 const onDrop = (e: DragEvent) => {

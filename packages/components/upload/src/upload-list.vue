@@ -22,6 +22,10 @@
             {{ file.name }}
           </span>
         </a>
+        <f-progress
+          v-if="file.status === 'uploading'"
+          :percentage="Number(file.percentage)"
+        />
       </div>
       <!-- file-status -->
       <label :class="nsUpload.be('list', 'item-status-label')">
@@ -38,14 +42,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { uploadListProps } from './upload-list'
+import FProgress from '@fan-ui/components/index'
+import { uploadListEmits, uploadListProps } from './upload-list'
 import { createNamespace } from '@fan-ui/utils/create'
 import { FIcon } from '@fan-ui/components/icon'
 import { DocDetail, CheckOne, Close } from '@icon-park/vue-next'
+import { UploadFile } from './types'
 
 defineProps(uploadListProps)
 
-const emit = defineEmits(['remove'])
+const emit = defineEmits(uploadListEmits)
 
 const nsUpload = createNamespace('upload')
 const nsList = createNamespace('list')
@@ -55,7 +61,7 @@ const containerKls = computed(() => {
   return [nsUpload.b('list')]
 })
 
-const handleRemove = file => {
+const handleRemove = (file: UploadFile) => {
   emit('remove', file)
 }
 </script>

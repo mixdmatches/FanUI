@@ -21,7 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { genId, UploadRawFile } from './upload'
+import { genId } from './upload'
+import type { UploadProgressEvent, UploadRawFile } from './types'
 import { createNamespace } from '@fan-ui/utils/create'
 import '../style'
 import { ref } from 'vue'
@@ -62,7 +63,7 @@ const upload = async (rawFile: UploadRawFile) => {
     headers,
     data,
     file: rawFile,
-    onProgress: e => {
+    onProgress: (e: UploadProgressEvent) => {
       props.onProgress(e, rawFile)
     },
     onSuccess: res => {
@@ -74,7 +75,7 @@ const upload = async (rawFile: UploadRawFile) => {
   })
 }
 
-const uploadFiles = (files: FileList) => {
+const uploadFiles = (files: File[]) => {
   for (let i = 0; i < files!.length; i++) {
     const rawFile = files![i] as UploadRawFile
     rawFile.uid = genId()
@@ -85,6 +86,7 @@ const uploadFiles = (files: FileList) => {
 
 const handleChange = (e: Event) => {
   const files = (e.target as HTMLInputElement).files!
-  uploadFiles(files)
+  const fileArray = Array.from(files)
+  uploadFiles(fileArray)
 }
 </script>

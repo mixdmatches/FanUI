@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { FUpload } from '../index'
 import { describe, expect, test, vi } from 'vitest'
-import { UploadRawFile } from '../src/upload'
+import type { UploadRawFile } from '../src/types'
 
 describe('测试 upload 组件', () => {
   // 测试组件是否能正常渲染
@@ -189,7 +189,7 @@ describe('测试 upload 组件', () => {
 
     const dataTransfer = {
       files: [mockFile]
-    } as DataTransfer
+    } as unknown as DataTransfer
 
     // 模拟 dragenter 事件
     await wrapper.trigger('dragenter', { dataTransfer })
