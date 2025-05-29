@@ -1,10 +1,11 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes, PropType, SVGAttributes } from 'vue'
 
 export type ProgressFn = (percentage: number) => string
 export type ProgressColor = {
   color: string
   percentage: number
 }
+
 export const progressProps = {
   /** @description 进度值 */
   percentage: {
@@ -47,7 +48,28 @@ export const progressProps = {
       ProgressFn | string | ProgressColor[]
     >,
     default: ''
-  }
+  },
+  /** @description 圆形进度条宽高 */
+  width: {
+    type: Number,
+    default: 126
+  },
+  /** @description 路线两端形状  */
+  strokeLinecap: {
+    type: String as PropType<SVGAttributes['stroke-linecap']>,
+    default: 'round'
+  },
+  /** @description 是否显示条纹 */
+  striped: Boolean,
+  /** @description 条纹是否流动 */
+  stripedFlow: Boolean,
+  /** @description 动画时间 */
+  duration: {
+    type: Number,
+    default: 3
+  },
+  /** @description 是否要动画 */
+  indeterminate: Boolean
 } as const
 
 export type ProgressProps = ExtractPropTypes<typeof progressProps>

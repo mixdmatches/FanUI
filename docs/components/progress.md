@@ -22,6 +22,18 @@
 
 <demo vue="../example/progress/Color.vue"/>
 
+## 环状进度条
+
+`Progress` 组件设置 `type` 属性为 `circle` 即可显示环状进度条。
+
+<demo vue="../example/progress/Circle.vue"/>
+
+## 自定义内容
+
+`Progress` 组件可以通过 `slot` 来自定义进度条的内容。
+
+<demo vue="../example/progress/Slot.vue"/>
+
 ## API
 
 ### Progress Props​
