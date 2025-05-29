@@ -56,6 +56,10 @@ export default {
           ]
         },
         {
+          text: 'Data数据展示',
+          items: [{ text: 'Progress', link: '/components/progress' }]
+        },
+        {
           text: '反馈组件',
           items: [{ text: 'Message', link: '/components/message' }]
         }

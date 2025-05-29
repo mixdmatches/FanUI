@@ -28,7 +28,7 @@
 
 ## API
 
-### `f-radio` 组件属性
+### FRadio Attributes
 
 | 属性名     | 类型                          | 默认值  | 说明                              |
 | ---------- | ----------------------------- | ------- | --------------------------------- |
@@ -39,14 +39,13 @@
 | size       | `string`                      | -       | 大小，取值范围为 `componentSizes` |
 | disabled   | `boolean`                     | `false` | 是否禁用                          |
 
-### `f-radio` 组件事件
+### FRadio Events
 
-| 事件名              | 回调参数                                          | 说明             |
-| ------------------- | ------------------------------------------------- | ---------------- |
-| `update:modelValue` | `(val: string \| number \| boolean \| undefined)` | 绑定值变化时触发 |
-| `change`            | `(val: string \| number \| boolean \| undefined)` | 选中时触发       |
+| 事件名 | 回调参数                                          | 说明       |
+| ------ | ------------------------------------------------- | ---------- |
+| change | `(val: string \| number \| boolean \| undefined)` | 选中时触发 |
 
-### `f-radio-group` 组件属性
+### FRadioGroup Attributes
 
 | 属性名     | 类型                          | 默认值      | 说明                              |
 | ---------- | ----------------------------- | ----------- | --------------------------------- |
@@ -56,8 +55,8 @@
 | size       | `string`                      | -           | 大小，取值范围为 `componentSizes` |
 | disabled   | `boolean`                     | `false`     | 是否禁用                          |
 
-### `f-radio-group` 组件事件
+### FRadioGroup Events
 
-| 事件名   | 回调参数                                          | 说明       |
-| -------- | ------------------------------------------------- | ---------- |
-| `change` | `(val: string \| number \| boolean \| undefined)` | 选中时触发 |
+| 事件名 | 回调参数                                          | 说明       |
+| ------ | ------------------------------------------------- | ---------- |
+| change | `(val: string \| number \| boolean \| undefined)` | 选中时触发 |
