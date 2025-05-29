@@ -28,7 +28,7 @@
 | headers      | `Object`                                                                        | `{}`    | 上传请求的头部信息                        |
 | data         | `Object`                                                                        | `{}`    | 上传请求的数据                            |
 | drag         | `boolean`                                                                       | `false` | 是否支持拖拽上传                          |
-| showFileList | `boolean`                                                                       | `false` | 是否显示文件列表                          |
+| showFileList | `boolean`                                                                       | `true`  | 是否显示文件列表                          |
 | onPreview    | `(file: UploadFile) => void`                                                    | `-`     | 文件预览回调                              |
 | beforeUpload | `(file: UploadRawFile) => Promise<boolean> \| boolean`                          | `-`     | 上传前的钩子，返回 `false` 则停止上传     |
 | onChange     | `(file: UploadFile) => void`                                                    | `-`     | 文件状态改变时的回调                      |

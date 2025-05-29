@@ -11,10 +11,7 @@
     >
       <!-- file-info -->
       <div :class="nsUpload.be('list', 'item-info')">
-        <a
-          :class="nsUpload.be('list', 'item-name')"
-          v-if="file.status == 'success'"
-        >
+        <a :class="nsUpload.be('list', 'item-name')">
           <f-icon :class="nsIcon.m('document')">
             <DocDetail />
           </f-icon>
