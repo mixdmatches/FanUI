@@ -6,7 +6,7 @@
       :key="file.uid || file.name"
       :class="[
         nsUpload.be('list', 'item'),
-        nsUpload.is('success', file.status)
+        nsUpload.is(file.status, file.status)
       ]"
     >
       <!-- file-info -->
@@ -22,6 +22,11 @@
             {{ file.name }}
           </span>
         </a>
+        <f-progress
+          v-if="file.status == 'uploading'"
+          :stroke-width="2"
+          :percentage="Number(Number(file.percentage).toFixed(2))"
+        ></f-progress>
       </div>
       <!-- file-status -->
       <label :class="nsUpload.be('list', 'item-status-label')">
@@ -33,19 +38,22 @@
         <Close />
       </f-icon>
     </li>
+    <slot name="append"></slot>
   </transition-group>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { uploadListProps } from './upload-list'
+// import FProgress from '@fan-ui/components/index'
+import { uploadListEmits, uploadListProps } from './upload-list'
 import { createNamespace } from '@fan-ui/utils/create'
 import { FIcon } from '@fan-ui/components/icon'
 import { DocDetail, CheckOne, Close } from '@icon-park/vue-next'
+import { UploadFile } from './types'
 
 defineProps(uploadListProps)
 
-const emit = defineEmits(['remove'])
+const emit = defineEmits(uploadListEmits)
 
 const nsUpload = createNamespace('upload')
 const nsList = createNamespace('list')
@@ -55,7 +63,7 @@ const containerKls = computed(() => {
   return [nsUpload.b('list')]
 })
 
-const handleRemove = file => {
+const handleRemove = (file: UploadFile) => {
   emit('remove', file)
 }
 </script>

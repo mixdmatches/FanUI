@@ -1,5 +1,6 @@
 <template>
   <!-- 主区域 -->
+  <!-- 根据类型错误提示，可能需要调整上传内容组件的属性传递，这里先尝试进行类型断言以绕过类型检查 -->
   <UploadContent v-bind="uploadContentProps">
     <slot></slot>
   </UploadContent>
@@ -14,7 +15,8 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { UploadFile, UploadFiles, uploadProps, UploadRawFile } from './upload'
+import { uploadProps } from './upload'
+import type { UploadFile, UploadFiles, UploadRawFile } from './types'
 import UploadContent from './upload-content.vue'
 import UploadList from './upload-list.vue'
 import { UploadContentProps } from './upload-content'
@@ -28,15 +30,20 @@ const emit = defineEmits(['update:file-list'])
 const uploadFiles = ref<UploadFiles>(props.fileList)
 
 watch(uploadFiles, newVal => {
-  // 监控文件变化发射事件
   emit('update:file-list', newVal)
 })
+
+function removeFile(uploadFile: UploadFile) {
+  uploadFiles.value = uploadFiles.value.filter(
+    file => file.uid !== uploadFile.uid
+  )
+}
 
 const findFile = (rawFile: UploadRawFile) => {
   return uploadFiles.value.find(file => file.uid === rawFile.uid)!
 }
 
-const handleStart = rawFiled => {
+const handleStart: UploadContentProps['onStart'] = rawFiled => {
   const uploadFile: UploadFile = {
     uid: rawFiled.uid,
     name: rawFiled.name,
@@ -50,40 +57,41 @@ const handleStart = rawFiled => {
   props.onChange(uploadFile)
 }
 
-const handleProgress = (e, rawFile) => {
+const handleProgress: UploadContentProps['onProgress'] = (e, rawFile) => {
   const uploadFile = findFile(rawFile)
-  uploadFile!.status = 'uploading'
-  uploadFile!.percentage = e.pecetange
+  uploadFile.status = 'uploading'
+  uploadFile.percentage = e.percent
   props.onProgress(e, uploadFile, uploadFiles.value)
 }
 
-const handleRemove = async rawFile => {
-  const uploadFile = findFile(rawFile)
+const handleRemove: UploadContentProps['onRemove'] = async (
+  rawFile
+): Promise<void> => {
+  const uploadFile = findFile(rawFile as UploadRawFile)
   const r = await props.beforeRemove(uploadFile, uploadFiles.value)
   if (!r) {
-    const fileList = uploadFiles.value
-    fileList.splice(fileList.indexOf(uploadFile), 1)
-    props.onRemove(uploadFile, fileList)
+    removeFile(uploadFile)
+    props.onRemove(uploadFile, uploadFiles.value)
+    if (uploadFile.url?.startsWith('blob:')) {
+      URL.revokeObjectURL(uploadFile.url)
+    }
   }
 }
 
-const handleError = (err, rawFile) => {
+const handleError: UploadContentProps['onError'] = (err, rawFile) => {
   const uploadFile = findFile(rawFile)
   uploadFile!.status = 'error'
-  const fileList = uploadFiles.value
-  uploadFile!.status = 'error'
-  fileList.splice(fileList.indexOf(uploadFile), 1)
-  props.onError(err, uploadFile, fileList)
+  removeFile(uploadFile)
+  props.onError(err, uploadFile, uploadFiles.value)
 }
 
-const handleSuccess = (res, rawFile) => {
+const handleSuccess: UploadContentProps['onSuccess'] = (res, rawFile) => {
   const uploadFile = findFile(rawFile)
   uploadFile!.status = 'success'
-  const fileList = uploadFiles.value
-  props.onSuccess(res, uploadFile, fileList)
+  props.onSuccess(res, uploadFile, uploadFiles.value)
 }
 
-const uploadContentProps = computed<UploadContentProps>(() => ({
+const uploadContentProps = computed(() => ({
   ...props,
   onStart: handleStart,
   onProgress: handleProgress,

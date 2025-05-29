@@ -22,7 +22,7 @@ $ pnpm install @icon-park/vue-next
 
 ### Icon Props
 
-| 属性名 | 类型           | 默认值    | 说明     |
-| ------ | -------------- | --------- | -------- |
-| color  | string         | undefined | 图标颜色 |
-| size   | string\|number | undefined | 图标大小 |
+| 属性名 | 类型               | 默认值    | 说明     |
+| ------ | ------------------ | --------- | -------- |
+| color  | `string`           | undefined | 图标颜色 |
+| size   | `string`\|`number` | undefined | 图标大小 |

@@ -9,6 +9,7 @@ export default {
     }
   },
   themeConfig: {
+    logo: '../public/logo.png',
     lastUpdated: '最后更新时间',
     docsDir: 'docs',
     editLinks: true,
@@ -50,8 +51,13 @@ export default {
             { text: 'Input', link: '/components/input' },
             { text: 'checkbox', link: '/components/checkbox' },
             { text: 'Form', link: '/components/form' },
-            { text: 'Upload', link: '/components/upload' }
+            { text: 'Upload', link: '/components/upload' },
+            { text: 'Radio', link: '/components/radio' }
           ]
+        },
+        {
+          text: 'Data数据展示',
+          items: [{ text: 'Progress', link: '/components/progress' }]
         },
         {
           text: '反馈组件',
@@ -59,7 +65,5 @@ export default {
         }
       ]
     }
-  },
-  // 引入自定义 CSS
-  head: [['link', { rel: 'stylesheet', href: './theme/style/custom.css' }]]
+  }
 }

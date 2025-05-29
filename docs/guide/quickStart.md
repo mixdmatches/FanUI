@@ -6,7 +6,6 @@
 
 ```typescript
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import App from './App.vue'
 
 // 引入样式文件

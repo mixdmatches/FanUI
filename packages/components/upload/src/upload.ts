@@ -1,16 +1,10 @@
 import { ExtractPropTypes, PropType } from 'vue'
-
-export interface UploadFile {
-  uid: number
-  name: string
-  url?: string // URL.createObjectURL()
-  percentage?: number
-  raw?: File
-  size?: number //上传文件大小
-  status: string // 上传状态
-}
-
-export type UploadFiles = UploadFile[]
+import {
+  UploadFile,
+  UploadFiles,
+  UploadProgressEvent,
+  UploadRawFile
+} from './types'
 
 export const baseProps = {
   fileList: {
@@ -53,12 +47,10 @@ export const baseProps = {
   },
   showFileList: {
     type: Boolean,
-    default: false
+    default: true
   }
 } as const
 
-export type UploadRawFile = File & { uid: number }
-export type UploadProgressEvent = ProgressEvent & { pecetange: number }
 const NOOP = () => {}
 
 export const uploadProps = {
@@ -86,7 +78,7 @@ export const uploadProps = {
   },
   onRemove: {
     type: Function as PropType<
-      (file: UploadFile, uploadFiles: UploadFiles) => Promise<boolean> | boolean
+      (file: UploadFile, uploadFiles: UploadFiles) => void
     >,
     default: NOOP
   },

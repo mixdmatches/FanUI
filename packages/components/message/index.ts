@@ -56,4 +56,12 @@ FMessage.error = (msg: string) => message({ message: msg, type: 'error' })
 FMessage.info = (msg: string) => message({ message: msg, type: 'info' })
 FMessage.warning = (msg: string) => message({ message: msg, type: 'warning' })
 
+declare module 'vue' {
+  export interface GlobalComponents {
+    FMessage: typeof FMessage
+  }
+}
+
+export * from './src/message'
+
 export default FMessage

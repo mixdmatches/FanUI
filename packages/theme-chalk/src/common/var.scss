@@ -653,6 +653,82 @@ $message: map.merge(
   $message
 );
 
+// Radio
+/// fontSize||Font|1
+$radio: () !default;
+$radio: map.merge(
+  (
+    'font-size': getCssVar('font-size-base'),
+    'text-color': getCssVar('text-color-regular'),
+    'font-weight': getCssVar('font-weight-primary'),
+    'input-height': 14px,
+    'input-width': 14px,
+    'input-border-radius': getCssVar('border-radius-circle'),
+    'input-bg-color': getCssVar('fill-color', 'blank'),
+    'input-border': getCssVar('border'),
+    'input-border-color': getCssVar('border-color'),
+    'input-border-color-hover': getCssVar('color-primary')
+  ),
+  $radio
+);
+
+$radio-height: () !default;
+$radio-height: map.merge($common-component-size, $radio-height);
+
+$radio-button: () !default;
+$radio-button: map.merge(
+  (
+    'checked-bg-color': getCssVar('color-primary'),
+    'checked-text-color': getCssVar('color-white'),
+    'checked-border-color': getCssVar('color-primary'),
+    'disabled-checked-fill': getCssVar('border-color-extra-light')
+  ),
+  $radio-button
+);
+
+$radio-disabled: () !default;
+$radio-disabled: map.merge(
+  (
+    'input-border-color': getCssVar('disabled-border-color'),
+    'input-fill': getCssVar('disabled-bg-color'),
+    'icon-color': getCssVar('disabled-bg-color'),
+    'checked-input-border-color': getCssVar('disabled-border-color'),
+    'checked-input-fill': getCssVar('disabled-bg-color'),
+    'checked-icon-color': getCssVar('text-color-placeholder')
+  ),
+  $radio-disabled
+);
+
+$radio-checked: () !default;
+$radio-checked: map.merge(
+  (
+    'text-color': getCssVar('color-primary'),
+    'input-border-color': getCssVar('color-primary'),
+    'icon-color': getCssVar('color-primary')
+  ),
+  $radio-checked
+);
+
+$radio-bordered-input-height: () !default;
+$radio-bordered-input-height: map.merge(
+  (
+    'large': 14px,
+    'default': 12px,
+    'small': 12px
+  ),
+  $radio-bordered-input-height
+);
+
+$radio-bordered-input-width: () !default;
+$radio-bordered-input-width: map.merge(
+  (
+    'large': 14px,
+    'default': 12px,
+    'small': 12px
+  ),
+  $radio-bordered-input-width
+);
+
 // transition
 $transition: () !default;
 $transition: map.merge(

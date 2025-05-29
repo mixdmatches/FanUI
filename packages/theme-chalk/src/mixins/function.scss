@@ -84,7 +84,7 @@
   @return var(#{joinVarName($args)}, #{$default});
 }
 
-// bem('block', 'element', 'modifier') => 'el-block__element--modifier'
+// bem('block', 'element', 'modifier') => 'f-block__element--modifier'
 // 根据 BEM 命名规范生成类名。
 @function bem($block, $element: '', $modifier: '') {
   $name: config.$namespace + config.$common-separator + $block;

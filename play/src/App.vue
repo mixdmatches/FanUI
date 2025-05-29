@@ -1,50 +1,30 @@
 <template>
   <div>
-    <f-button plain @click="open1">info</f-button>
-    <f-button plain @click="open2">success</f-button>
-    <f-button plain @click="open3">warning</f-button>
-    <f-button plain @click="open4">error</f-button>
-    <f-button plain @click="oprn5">duration = 0</f-button>
+    <f-upload
+      v-model:file-list="fileList"
+      action="http://localhost:3000/upload"
+      multiple
+      :on-remove="handleRemove"
+      :before-remove="beforeRemove"
+    >
+      <f-button :icon="Upload" type="primary">上传</f-button>
+      <template #tip>
+        <div class="f-upload__tip">不超过500kb</div>
+      </template>
+    </f-upload>
   </div>
 </template>
 
 <script setup lang="ts">
-import { FMessage } from '@fan-ui/components'
-const open1 = () => {
-  FMessage({ type: 'info', message: 'info消息', plain: true, showClose: true })
+import { ref } from 'vue'
+import { Upload } from '@icon-park/vue-next'
+import type { UploadProps } from '@fan-ui/components/upload'
+const fileList = ref([])
+const handleRemove: UploadProps['onRemove'] = (file, fileList) => {
+  console.log(file, fileList)
 }
-const open2 = () => {
-  FMessage({
-    type: 'success',
-    message: 'success消息',
-    plain: true,
-    showClose: true,
-    duration: 5000
-  })
-}
-const open3 = () => {
-  FMessage({
-    type: 'warning',
-    message: 'warning消息',
-    plain: true,
-    showClose: true
-  })
-}
-const open4 = () => {
-  FMessage({
-    type: 'error',
-    message: 'error消息',
-    plain: true,
-    showClose: true
-  })
-}
-const oprn5 = () => {
-  FMessage({
-    type: 'info',
-    message: 'info消息',
-    plain: true,
-    showClose: true,
-    duration: 0
-  })
+const beforeRemove: UploadProps['beforeRemove'] = (file, fileList) => {
+  console.log(file, fileList)
+  return false
 }
 </script>

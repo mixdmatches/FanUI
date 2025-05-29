@@ -1,17 +1,26 @@
 <template>
-  <f-form :label-position="formAlign" style="max-width: 600px" :model="user">
+  <f-form
+    :label-position="formAlign"
+    label-width="auto"
+    style="max-width: 600px"
+    :model="user"
+  >
     <f-form-item label="Form Align">
-      <f-button @click="formAlign = 'Left'">Left</f-button>
-      <f-button @click="formAlign = 'Right'">Right</f-button>
-      <f-button @click="formAlign = 'Top'">Top</f-button>
+      <f-radio-group v-model="formAlign">
+        <f-radio value="left">Left</f-radio>
+        <f-radio value="right">Right</f-radio>
+        <f-radio value="top">Top</f-radio>
+      </f-radio-group>
     </f-form-item>
     <f-form-item label="Form Item Align">
-      <f-button @click="formItemAlign = ''">Empty</f-button>
-      <f-button @click="formItemAlign = 'Left'">Left</f-button>
-      <f-button @click="formItemAlign = 'Right'">Right</f-button>
-      <f-button @click="formItemAlign = 'Top'">Top</f-button>
+      <f-radio-group v-model="formItemAlign">
+        <f-radio value="">Empty</f-radio>
+        <f-radio value="left">Left</f-radio>
+        <f-radio value="right">Right</f-radio>
+        <f-radio value="top">Top</f-radio>
+      </f-radio-group>
     </f-form-item>
-    <f-form-item label="姓名" :label-position="formItemAlign">
+    <f-form-item label="姓名姓名姓名姓名" :label-position="formItemAlign">
       <f-input
         style="width: 200px"
         v-model="user.username"
@@ -41,18 +50,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { FormItemProps, FormProps } from '@fan-ui/components/form'
+import { ref } from 'vue'
 const user = ref({ username: '', password: '', city: ['南京', '苏州'] })
 const checkGroup = ref(['武汉', '北京', '天津', '南京', '苏州'])
-const formAlign = ref('left')
-const formItemAlign = ref('left')
-
-watch(
-  [formAlign, formItemAlign],
-  () => {
-    console.log('formAlign', formAlign.value)
-    console.log('formItemAlign', formItemAlign.value)
-  },
-  { immediate: true }
-)
+const formAlign = ref<FormProps['labelPosition']>('left')
+const formItemAlign = ref<FormItemProps['labelPosition']>('left')
 </script>

@@ -18,11 +18,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Upload } from '@icon-park/vue-next'
+import type { UploadProps } from '@fan-ui/components/upload'
 const fileList = ref([])
-const handleRemove = (file, fileList) => {
+const handleRemove: UploadProps['onRemove'] = (file, fileList) => {
   console.log(file, fileList)
 }
-const beforeRemove = (file, fileList) => {
+const beforeRemove: UploadProps['beforeRemove'] = (file, fileList) => {
   console.log(file, fileList)
+  return false
 }
 </script>

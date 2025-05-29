@@ -12,12 +12,14 @@
  * @return 计算得到的最终颜色的十六进制字符串表示，用于在 CSS 中应用
  */
 @function mix-overlay-color($upper, $lower) {
-  $opacity: color.alpha($upper); //计算上层颜色的透明度
+  $opacity: color.alpha($upper);
 
-  // 计算最终颜色的红、绿、蓝通道值
-  $red: color.red($upper) * $opacity + color.red($lower) * (1 - $opacity);
-  $green: color.green($upper) * $opacity + color.green($lower) * (1 - $opacity);
-  $blue: color.blue($upper) * $opacity + color.blue($lower) * (1 - $opacity);
-  // 将计算得到的 RGB 值转换为十六进制字符串并返回
+  $red: color.channel($upper, 'red') * $opacity + color.channel($lower, 'red') *
+    (1 - $opacity);
+  $green: color.channel($upper, 'green') * $opacity +
+    color.channel($lower, 'green') * (1 - $opacity);
+  $blue: color.channel($upper, 'blue') * $opacity +
+    color.channel($lower, 'blue') * (1 - $opacity);
+
   @return rgb2hex(rgb($red, $green, $blue));
 }
