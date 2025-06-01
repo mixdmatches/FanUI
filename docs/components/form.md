@@ -27,12 +27,12 @@
 
 ### Form Props
 
-| 属性名        | 类型                                      | 默认值    | 描述                                                                                             |
-| ------------- | ----------------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| model         | `Object`                                  | 必需      | 表单数据对象                                                                                     |
-| rules         | `Record<string, Arrayable<FormItemRule>>` | -         | 表单验证规则，`FormItemRule` 继承自 `async-validator` 的 `RuleItem`，并可额外指定 `trigger` 属性 |
-| inline        | `Boolean`                                 | `false`   | 是否为行内表单                                                                                   |
-| labelPosition | `'left' \| 'right' \| 'top'`              | `'right'` | 表单域标签的位置                                                                                 |
+| 属性名        | 类型                                      | 默认值  | 描述                                                                                             |
+| ------------- | ----------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| model         | `Object`                                  | 必需    | 表单数据对象                                                                                     |
+| rules         | `Record<string, Arrayable<FormItemRule>>` | -       | 表单验证规则，`FormItemRule` 继承自 `async-validator` 的 `RuleItem`，并可额外指定 `trigger` 属性 |
+| inline        | `Boolean`                                 | `false` | 是否为行内表单                                                                                   |
+| labelPosition | `left \| right \| top`                    | `right` | 表单域标签的位置                                                                                 |
 
 ### Form Event
 
@@ -43,13 +43,13 @@
 
 ### FormItem Props
 
-| 属性名        | 类型                         | 默认值 | 描述                                                                                                 |
-| ------------- | ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
-| prop          | `String`                     | -      | 表单域的字段名，用于和 `form` 的 `rules` 对应                                                        |
-| label         | `String`                     | -      | 表单域标签                                                                                           |
-| rules         | `Arrayable<FormItemRule>`    | -      | 表单项的验证规则，`FormItemRule` 继承自 `async-validator` 的 `RuleItem`，并可额外指定 `trigger` 属性 |
-| showMessage   | `Boolean`                    | `true` | 是否显示验证错误信息                                                                                 |
-| labelPosition | `'left' \| 'right' \| 'top'` | `''`   | 表单域标签的位置，若为空则使用 `f-form` 的 `labelPosition`                                           |
+| 属性名        | 类型                      | 默认值 | 描述                                                                                                 |
+| ------------- | ------------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| prop          | `String`                  | -      | 表单域的字段名，用于和 `form` 的 `rules` 对应                                                        |
+| label         | `String`                  | -      | 表单域标签                                                                                           |
+| rules         | `Arrayable<FormItemRule>` | -      | 表单项的验证规则，`FormItemRule` 继承自 `async-validator` 的 `RuleItem`，并可额外指定 `trigger` 属性 |
+| showMessage   | `Boolean`                 | `true` | 是否显示验证错误信息                                                                                 |
+| labelPosition | `left \| right \| top`    | `''`   | 表单域标签的位置，若为空则使用 `f-form` 的 `labelPosition`                                           |
 
 ### FormItem Event
 

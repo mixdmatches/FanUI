@@ -6,7 +6,7 @@
 
 使用 type、plain、round 和 circle 来定义按钮的样式。
 
-<!-- <demo vue="../example/button/Basic.vue" /> -->
+<demo vue="../example/button/Basic.vue" />
 
 ## 禁用状态
 
@@ -14,17 +14,17 @@
 
 使用 `disabled` 属性来控制按钮是否为禁用状态。 该属性接受一个 `Boolean` 类型的值
 
-<!-- <demo vue="../example/button/Disabled.vue" /> -->
+<demo vue="../example/button/Disabled.vue" />
 
 ## 链接按钮
 
-<!-- <demo vue="../example/button/Link.vue" /> -->
+<demo vue="../example/button/Link.vue" />
 
 ## 文字按钮
 
 没有背景和边框的按钮
 
-<!-- <demo vue="../example/button/Text.vue" /> -->
+<demo vue="../example/button/Text.vue" />
 
 ## 图标按钮
 
@@ -42,22 +42,22 @@
 
 ### Props
 
-| 属性名        | 类型                                | 默认值      | 说明                                                                                        |
-| ------------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------- |
-| size          | `ButtonSizeType`                    | `'default'` | 按钮大小，可选值为 `'large'`, `'default'`, `'small'`                                        |
-| type          | `ButtonType`                        | `'default'` | 按钮类型，可选值为 `'default'`, `'primary'`, `'success'`, `'info'`, `'danger'`, `'warning'` |
-| plain         | `boolean`                           | `false`     | 是否为朴素按钮                                                                              |
-| round         | `boolean`                           | `false`     | 是否为圆角按钮                                                                              |
-| circle        | `boolean`                           | `false`     | 是否为圆形按钮                                                                              |
-| icon          | `string \| Record<string, unknown>` | -           | 按钮图标，可以是字符串或组件对象                                                            |
-| disabled      | `boolean`                           | `false`     | 是否禁用按钮                                                                                |
-| link          | `boolean`                           | `false`     | 是否为链接按钮                                                                              |
-| text          | `boolean`                           | `false`     | 是否为文字按钮                                                                              |
-| bg            | `boolean`                           | `false`     | 是否有背景                                                                                  |
-| loading       | `boolean`                           | `false`     | 是否为加载状态                                                                              |
-| tag           | `string`                            | `'button'`  | 按钮渲染的标签                                                                              |
-| nativeType    | `ButtonNativeType`                  | `'button'`  | 原生按钮类型                                                                                |
-| iconPlasement | `'left' \| 'right'`                 | `'left'`    | 图标位置                                                                                    |
+| 属性名        | 类型                                | 默认值    | 说明                                                                              |
+| ------------- | ----------------------------------- | --------- | --------------------------------------------------------------------------------- |
+| size          | `ButtonSizeType`                    | `default` | 按钮大小，可选值为 `large`, `default`, `small`                                    |
+| type          | `ButtonType`                        | `default` | 按钮类型，可选值为 `default`, `primary`, `success`, `info`, `danger`, `'warning'` |
+| plain         | `boolean`                           | `false`   | 是否为朴素按钮                                                                    |
+| round         | `boolean`                           | `false`   | 是否为圆角按钮                                                                    |
+| circle        | `boolean`                           | `false`   | 是否为圆形按钮                                                                    |
+| icon          | `string \| Record<string, unknown>` | -         | 按钮图标，可以是字符串或组件对象                                                  |
+| disabled      | `boolean`                           | `false`   | 是否禁用按钮                                                                      |
+| link          | `boolean`                           | `false`   | 是否为链接按钮                                                                    |
+| text          | `boolean`                           | `false`   | 是否为文字按钮                                                                    |
+| bg            | `boolean`                           | `false`   | 是否有背景                                                                        |
+| loading       | `boolean`                           | `false`   | 是否为加载状态                                                                    |
+| tag           | `string`                            | `button`  | 按钮渲染的标签                                                                    |
+| nativeType    | `ButtonNativeType`                  | `button`  | 原生按钮类型                                                                      |
+| iconPlasement | `left \| right`                     | `left`    | 图标位置                                                                          |
 
 ### Events
 
