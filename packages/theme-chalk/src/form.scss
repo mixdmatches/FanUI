@@ -217,6 +217,17 @@ $form-item-label-top-margin-bottom: map.merge(
       &:focus,
       &.is-focus {
         box-shadow: 0 0 0 1px getCssVar('color-danger') inset;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: inherit;
+          opacity: 0.4;
+          border-radius: getCssVar('input-border-radius');
+          box-shadow: 0 0 0 2px getCssVar('color-danger');
+          pointer-events: none;
+        }
       }
     }
 
