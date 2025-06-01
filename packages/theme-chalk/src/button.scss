@@ -7,19 +7,6 @@
 @use 'mixins/var' as *;
 @use './var.scss' as *;
 
-// 定义动画
-@keyframes borderExpandAndRetract {
-  0% {
-    box-shadow: 0 0 0 0 getCssVar('button', 'active', 'border-color');
-  }
-  50% {
-    box-shadow: 0 0 0 4px getCssVar('button', 'active', 'border-color');
-  }
-  100% {
-    box-shadow: 0 0 0 0 getCssVar('button', 'active', 'border-color');
-  }
-}
-
 $button-icon-span-gap: () !default;
 $button-icon-span-gap: map.merge(
   (
@@ -35,6 +22,7 @@ $button-icon-span-gap: map.merge(
 }
 
 @include b(button) {
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +36,7 @@ $button-icon-span-gap: map.merge(
   text-align: center;
   box-sizing: border-box;
   outline: none;
-  transition: 0.1s;
+  transition: 0.3s;
   font-weight: getCssVar('button', 'font-weight');
   // user-select: none;
   vertical-align: middle;
@@ -57,6 +45,29 @@ $button-icon-span-gap: map.merge(
   border: getCssVar('border');
   border-color: getCssVar('button', 'border-color');
 
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.3s;
+    // 默认使用 primary 颜色
+    box-shadow: 0 0 0 5px getCssVar('color', 'primary');
+  }
+
+  &:active:not(.is-disabled)::after {
+    box-shadow: none;
+    opacity: 1;
+    transition: 0s;
+  }
+
+  &:focus {
+    outline: 2px solid getCssVar('button', 'outline-color');
+  }
   &:hover {
     color: getCssVar('button', 'hover', 'text-color');
     border-color: getCssVar('button', 'hover', 'border-color');
@@ -69,7 +80,6 @@ $button-icon-span-gap: map.merge(
     border-color: getCssVar('button', 'active', 'border-color');
     background-color: getCssVar('button', 'active', 'bg-color');
     outline: none;
-    animation: borderExpandAndRetract 0.5s linear;
   }
 
   &:focus-visible {
@@ -124,6 +134,9 @@ $button-icon-span-gap: map.merge(
       ('button', 'hover', 'border-color'),
       ('color', 'primary')
     );
+    &::after {
+      box-shadow: 0 0 0 5px getCssVar('button', 'hover', 'border-color');
+    }
   }
 
   @include when(active) {
@@ -210,12 +223,18 @@ $button-icon-span-gap: map.merge(
         }
       }
     }
+    &::after {
+      box-shadow: none;
+    }
   }
 
   @include e(text) {
     @include m(expand) {
       letter-spacing: 0.3em;
       margin-right: -0.3em;
+    }
+    &::after {
+      box-shadow: none;
     }
   }
 
@@ -225,7 +244,9 @@ $button-icon-span-gap: map.merge(
     background: transparent;
     padding: 2px;
     height: auto;
-
+    &::after {
+      box-shadow: none;
+    }
     &:hover {
       color: getCssVar('button', 'hover', 'link-text-color');
     }
@@ -287,6 +308,9 @@ $button-icon-span-gap: map.merge(
   @each $type in (primary, success, warning, danger, info) {
     @include m($type) {
       @include button-variant($type);
+      &::after {
+        box-shadow: 0 0 0 5px getCssVar('button', 'bg-color');
+      }
     }
   }
 
