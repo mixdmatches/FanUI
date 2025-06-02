@@ -36,7 +36,10 @@ describe('测试icon组件', () => {
   test('renders slot content', () => {
     const wrapper = mount(Icon, {
       slots: {
-        default: () => mount(Search).element
+        default: Search
+      },
+      global: {
+        components: { Search }
       }
     })
     const searchComponent = wrapper.findComponent(Search)

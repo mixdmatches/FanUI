@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "noImplicitAny": true,
+    "noImplicitAny": false, // 是否在表达式和声明上有隐含的any类型时报错
     "removeComments": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "noLib": false,
     "target": "es6",
     "sourceMap": true,

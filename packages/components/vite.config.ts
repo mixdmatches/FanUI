@@ -6,7 +6,7 @@ import path from 'path'
 import { resolve } from 'path'
 import fs from 'fs-extra'
 import packageJson from './package.json' // 引入现有的 package.json 文件
-
+import vueJsx from '@vitejs/plugin-vue-jsx'
 // 读取根目录的 README.md 文件内容
 const rootReadmePath = path.join(
   'd:',
@@ -52,6 +52,7 @@ export default defineConfig({
         }
       }
     }),
+    vueJsx(),
     dts({
       // 确保 entryRoot 指向正确的入口目录
       entryRoot: './',
