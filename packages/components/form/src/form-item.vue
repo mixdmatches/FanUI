@@ -1,5 +1,6 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
-  <div :class="formItemClasses">
+  <div :class="formItemClasses" class="asterisk-left">
     <label :class="bem.e('label')">
       <slot name="label" :label="label">
         {{ label }}
@@ -16,7 +17,15 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils/create'
-import { computed, inject, onMounted, provide, ref, useSlots } from 'vue'
+import {
+  computed,
+  inject,
+  nextTick,
+  onMounted,
+  provide,
+  ref,
+  useSlots
+} from 'vue'
 import type {
   FormItemValidateState,
   FormItemContext,
@@ -27,6 +36,8 @@ import { formItemProps, formItemContextKey } from './form-item'
 import '../style/index'
 import { FormContextKey } from './form'
 import AsyncValidator, { Values } from 'async-validator'
+import { getProp } from '@fan-ui/utils/objects'
+import { clone } from 'lodash-unified'
 
 const bem = createNamespace('form-item')
 
@@ -34,6 +45,8 @@ const props = defineProps(formItemProps)
 
 const validateState = ref<FormItemValidateState>('')
 const validateMessage = ref('')
+
+let initialValue = undefined
 
 const formContext = inject(FormContextKey)
 
@@ -106,9 +119,29 @@ const validate: FormItemContext['validate'] = async trigger => {
     })
 }
 
+const clearValidate: FormItemContext['clearValidate'] = () => {
+  validateMessage.value = ''
+  validateState.value = ''
+}
+
+const resetField: FormItemContext['resetField'] = async () => {
+  validateState.value = ''
+  const model = formContext?.model
+  if (!model || !props.prop) return
+
+  const computedValue = getProp(model, props.prop)
+
+  computedValue.value = clone(initialValue)
+
+  await nextTick()
+  clearValidate()
+}
+
 const context: FormItemContext = {
   ...props,
-  validate
+  validate,
+  clearValidate,
+  resetField
 }
 
 provide(formItemContextKey, context)
@@ -119,13 +152,18 @@ const labelPosition = computed(
   () => props.labelPosition || formContext?.labelPosition
 )
 
+const isRequired = computed(() => {
+  return _rules.value.some(rule => rule.required)
+})
+
 const formItemClasses = computed(() => [
   bem.b(),
   bem.is('success', validateState.value == 'success'),
   bem.is('error', validateState.value == 'error'),
   {
     [bem.m(`label-${labelPosition.value}`)]: labelPosition.value
-  }
+  },
+  bem.is('required', isRequired.value)
 ])
 
 const contentStyle = computed(() => {

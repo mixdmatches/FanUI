@@ -30,11 +30,15 @@ export const formItemProps = {
 
 export type FormItemProps = Partial<ExtractPropTypes<typeof formItemProps>>
 
+export type FormItemProp = Arrayable<string>
+
 export interface FormItemContext extends FormItemProps {
   validate: (
     trigger: string,
     callback?: (isValid: boolean) => void
-  ) => Promise<unknown>
+  ) => Promise<boolean>
+  resetField(): void
+  clearValidate(): void
 }
 
 export const formItemContextKey: InjectionKey<FormItemContext> =
