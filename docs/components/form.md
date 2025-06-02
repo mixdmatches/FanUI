@@ -23,23 +23,33 @@
 
 <demo vue="../example/form/LabelPosition.vue" />
 
+## 表单验证
+
+<demo vue="../example/form/Validate.vue" />
+
+## 自定义表单验证
+
+<demo vue="../example/form/ValidateCustom.vue" />
+
 ## API
 
 ### Form Props
 
-| 属性名        | 类型                                      | 默认值  | 描述                                                                                             |
-| ------------- | ----------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| model         | `Object`                                  | 必需    | 表单数据对象                                                                                     |
-| rules         | `Record<string, Arrayable<FormItemRule>>` | -       | 表单验证规则，`FormItemRule` 继承自 `async-validator` 的 `RuleItem`，并可额外指定 `trigger` 属性 |
-| inline        | `Boolean`                                 | `false` | 是否为行内表单                                                                                   |
-| labelPosition | `left \| right \| top`                    | `right` | 表单域标签的位置                                                                                 |
+| 属性名        | 类型                   | 默认值  | 描述             |
+| ------------- | ---------------------- | ------- | ---------------- |
+| model         | `Object`               | 必需    | 表单数据对象     |
+| rules         | `FormRules`            | -       | 表单验证规则     |
+| inline        | `Boolean`              | `false` | 是否为行内表单   |
+| labelPosition | `left \| right \| top` | `right` | 表单域标签的位置 |
 
-### Form Event
+### Form Expose
 
-| 方法名   | 参数                                                  | 描述                                                                                                                             |
-| -------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| validate | `callback?: (valid: boolean, fields?: Value) => void` | 对整个表单进行校验，校验完成后会执行回调函数，返回校验结果和错误字段。如果没有提供回调函数，校验失败时会返回一个被拒绝的 Promise |
-| addField | `context: FormItemContext`                            | 用于向表单中添加表单项上下文，一般由内部使用                                                                                     |
+| 方法名        | 参数                                                    | 描述                                                                                                                   |
+| ------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| validate      | `(callback?: (valid: boolean, fields?: Value) => void)` | 对整个表单进行校验。校验完成后执行回调，返回校验结果和错误字段。如果未提供回调，校验失败时会返回一个被拒绝的 Promise。 |
+| resetFields   | `(props?: Arrayable<FormItemProp>)`                     | 重置指定的表单项（或全部表单项）为初始值。                                                                             |
+| clearValidate | `(props?: Arrayable<FormItemProp>)`                     | 清除指定表单项（或全部表单项）的校验结果。                                                                             |
+| addField      | `(context: FormItemContext)`                            | 向表单中注册表单项上下文（一般由内部自动调用，开发者无需手动调用）。                                                   |
 
 ### FormItem Props
 

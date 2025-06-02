@@ -1,4 +1,8 @@
 import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import {
+  componentPreview,
+  containerPreview
+} from '@vitepress-demo-preview/plugin'
 export default {
   base: '/FanUI/',
   title: 'Fan-ui',
@@ -6,6 +10,8 @@ export default {
   markdown: {
     config(md) {
       md.use(vitepressDemoPlugin)
+      md.use(componentPreview)
+      md.use(containerPreview)
     }
   },
   themeConfig: {
