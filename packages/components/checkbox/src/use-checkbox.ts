@@ -9,6 +9,7 @@ import {
 import { checkboxGroupContextKey } from './checkbox-group'
 import { isArray, isBoolean } from '@fan-ui/utils/types'
 import { formItemContextKey } from '../../form/src/form-item'
+import { debugWarn } from '@fan-ui/constans'
 
 export const useCheckbox = (
   props: CheckboxProps,
