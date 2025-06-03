@@ -1,0 +1,44 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(card) {
+  @include set-component-css-var('card', $card);
+}
+
+@include b(card) {
+  border: 1px solid getCssVar('card', 'border-color');
+  border-radius: getCssVar('card', 'border-radius');
+  background-color: getCssVar('card', 'bg-color');
+  overflow: hidden;
+  color: getCssVar('text-color', 'primary');
+  transition: getCssVar('transition-duration');
+
+  @include when(always-shadow) {
+    box-shadow: getCssVar('box-shadow', 'light');
+  }
+
+  @include when(hover-shadow) {
+    &:hover,
+    &:focus {
+      box-shadow: getCssVar('box-shadow', 'light');
+    }
+  }
+
+  @include e(head) {
+    padding: calc(#{getCssVar('card', 'padding')} - 2px)
+      getCssVar('card', 'padding');
+    border-bottom: 1px solid getCssVar('card', 'border-color');
+    box-sizing: border-box;
+    @include e(head-title) {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+  }
+
+  @include e(body) {
+    padding: getCssVar('card', 'padding');
+  }
+}

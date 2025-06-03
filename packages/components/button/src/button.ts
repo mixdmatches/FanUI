@@ -1,4 +1,4 @@
-import { ButtonSizeType, ButtonType, ButtonNativeType } from './interface'
+import { ButtonSizeType, ButtonType, ButtonNativeType } from './types'
 import { ExtractPropTypes, PropType } from 'vue'
 
 export const buttonProps = {
