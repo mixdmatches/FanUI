@@ -6,7 +6,7 @@
 
 使用 type、plain、round 和 circle 来定义按钮的样式。
 
-<demo vue="../example/button/Basic.vue" />
+<demo vue="../example/button/basic.vue" />
 
 ## 禁用状态
 
@@ -14,17 +14,17 @@
 
 使用 `disabled` 属性来控制按钮是否为禁用状态。 该属性接受一个 `Boolean` 类型的值
 
-<demo vue="../example/button/Disabled.vue" />
+<demo vue="../example/button/disabled.vue" />
 
 ## 链接按钮
 
-<demo vue="../example/button/Link.vue" />
+<demo vue="../example/button/link.vue" />
 
 ## 文字按钮
 
 没有背景和边框的按钮
 
-<demo vue="../example/button/Text.vue" />
+<demo vue="../example/button/text.vue" />
 
 ## 图标按钮
 
