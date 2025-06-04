@@ -1,6 +1,12 @@
 @import './var.css';
 @import './blur.css';
 
+.vitepress-demo-preview__ant-design__container {
+  box-shadow: none;
+}
+.vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+  color: var(--vp-c-text-1);
+}
 .mb-10 {
   margin-bottom: 1rem;
 }

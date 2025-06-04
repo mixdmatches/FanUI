@@ -1,5 +1,7 @@
 import 'vitepress-demo-plugin/dist/style.css'
 import '@fan-ui/theme-chalk/src/dark/css-vars.scss'
+import { AntDesignContainer } from '@vitepress-demo-preview/component'
+import '@vitepress-demo-preview/component/dist/style.css'
 import DefaultTheme from 'vitepress/theme'
 import './style/index.css'
 import FanUI from '@fan-ui/components/index.ts'
@@ -16,6 +18,7 @@ export default {
   enhanceApp({ app, router }) {
     app.component('Confetti', Confetti) //注册全局组件
     app.component('DataPanel', DataPanel) //注册全局组件
+    app.component('demo-preview', AntDesignContainer)
     if (inBrowser) {
       router.onAfterRouteChanged = () => {
         busuanzi.fetch()

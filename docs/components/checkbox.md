@@ -54,7 +54,7 @@
 | disabled           | `boolean`                               | -           | 禁用状态                   |
 | checked            | `boolean`                               | `false`     | 是否选中                   |
 | name               | `string`                                | `undefined` | 原生 `name` 属性           |
-| size               | `'large' \| 'default' \| 'small'`       | -           | 组件大小                   |
+| size               | `large \| default \| small`             | -           | 组件大小                   |
 
 ### Checkbox Events
 
@@ -66,11 +66,11 @@
 
 ### CheckboxGroup Attributes
 
-| 属性名             | 类型                                    | 默认值      | 描述                             |
-| ------------------ | --------------------------------------- | ----------- | -------------------------------- |
-| v-model\modelValue | `Exclude<CheckboxValueType, boolean>[]` | `[]`        | 用于双向绑定的数组，存储选中的值 |
-| disabled           | `boolean`                               | -           | 禁用状态                         |
-| size               | `'large' \| 'default' \| 'small'`       | `'default'` | 组件大小                         |
+| 属性名             | 类型                                    | 默认值    | 描述                             |
+| ------------------ | --------------------------------------- | --------- | -------------------------------- |
+| v-model\modelValue | `Exclude<CheckboxValueType, boolean>[]` | `[]`      | 用于双向绑定的数组，存储选中的值 |
+| disabled           | `boolean`                               | -         | 禁用状态                         |
+| size               | `large \| default \| small`             | `default` | 组件大小                         |
 
 ### CheckboxGroup Events
 
@@ -82,11 +82,11 @@
 
 ### CheckboxButton Attributes
 
-| 属性名             | 类型                                    | 默认值      | 描述                             |
-| ------------------ | --------------------------------------- | ----------- | -------------------------------- |
-| v-model\modelValue | `Exclude<CheckboxValueType, boolean>[]` | `[]`        | 用于双向绑定的数组，存储选中的值 |
-| disabled           | `boolean`                               | -           | 禁用状态                         |
-| size               | `'large' \| 'default' \| 'small'`       | `'default'` | 组件大小                         |
+| 属性名             | 类型                                    | 默认值    | 描述                             |
+| ------------------ | --------------------------------------- | --------- | -------------------------------- |
+| v-model\modelValue | `Exclude<CheckboxValueType, boolean>[]` | `[]`      | 用于双向绑定的数组，存储选中的值 |
+| disabled           | `boolean`                               | -         | 禁用状态                         |
+| size               | `large \| default \| small`             | `default` | 组件大小                         |
 
 ### CheckboxButton Events
 

@@ -1,4 +1,8 @@
 import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import {
+  componentPreview,
+  containerPreview
+} from '@vitepress-demo-preview/plugin'
 export default {
   base: '/FanUI/',
   title: 'Fan-ui',
@@ -6,6 +10,8 @@ export default {
   markdown: {
     config(md) {
       md.use(vitepressDemoPlugin)
+      md.use(componentPreview)
+      md.use(containerPreview)
     }
   },
   themeConfig: {
@@ -57,7 +63,10 @@ export default {
         },
         {
           text: 'Data数据展示',
-          items: [{ text: 'Progress', link: '/components/progress' }]
+          items: [
+            { text: 'card', link: '/components/card' },
+            { text: 'Progress', link: '/components/progress' }
+          ]
         },
         {
           text: '反馈组件',

@@ -46,21 +46,21 @@
 
 ### Props
 
-| 属性名       | 类型                                    | 默认值   | 说明                                 |
-| ------------ | --------------------------------------- | -------- | ------------------------------------ |
-| type         | `string`                                | `'text'` | 输入框类型，如 `text`, `password` 等 |
-| size         | `'' \| 'default' \| 'small' \| 'large'` | -        | 输入框尺寸                           |
-| modelValue   | `string \| number`                      | `''`     | 输入框绑定的值                       |
-| placeholder  | `string`                                | `''`     | 输入框占位文本                       |
-| clearable    | `boolean`                               | `false`  | 是否可清空                           |
-| showPassword | `boolean`                               | `false`  | 是否显示密码切换按钮                 |
-| disabled     | `boolean`                               | `false`  | 是否禁用输入框                       |
-| autofocus    | `boolean`                               | `false`  | 是否自动聚焦                         |
-| readonly     | `boolean`                               | `false`  | 是否为只读状态                       |
-| label        | `string`                                | -        | 输入框标签                           |
-| prefixIcon   | `string \| Component`                   | -        | 输入框头部图标                       |
-| suffixIcon   | `string \| Component`                   | -        | 输入框尾部图标                       |
-| inputStyle   | `CSSStyleDeclaration`                   | `{}`     | 输入框的样式                         |
+| 属性名       | 类型                              | 默认值  | 说明                                 |
+| ------------ | --------------------------------- | ------- | ------------------------------------ |
+| type         | `string`                          | `text`  | 输入框类型，如 `text`, `password` 等 |
+| size         | `'' \| default \| small \| large` | -       | 输入框尺寸                           |
+| modelValue   | `string \| number`                | `''`    | 输入框绑定的值                       |
+| placeholder  | `string`                          | `''`    | 输入框占位文本                       |
+| clearable    | `boolean`                         | `false` | 是否可清空                           |
+| showPassword | `boolean`                         | `false` | 是否显示密码切换按钮                 |
+| disabled     | `boolean`                         | `false` | 是否禁用输入框                       |
+| autofocus    | `boolean`                         | `false` | 是否自动聚焦                         |
+| readonly     | `boolean`                         | `false` | 是否为只读状态                       |
+| label        | `string`                          | -       | 输入框标签                           |
+| prefixIcon   | `string \| Component`             | -       | 输入框头部图标                       |
+| suffixIcon   | `string \| Component`             | -       | 输入框尾部图标                       |
+| inputStyle   | `CSSStyleDeclaration`             | `{}`    | 输入框的样式                         |
 
 ### Events
 

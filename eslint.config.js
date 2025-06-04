@@ -24,9 +24,19 @@ const scssProcessor = {
 
 export default defineConfig([
   {
-    ignores: ['node_modules', 'dist', 'public', 'build']
+    ignores: ['node_modules', 'dist', 'public', 'build', 'docs/example/*']
   },
   tseslint.configs.recommended,
+  {
+    files: ['docs/example/**/*.vue'],
+    rules: {
+      // 关闭所有 vue 相关规则
+      'vue/no-v-html': 'off',
+      'vue/require-default-prop': 'off',
+      'no-console': 'off'
+      // 如有其他 vue 规则也可在此关闭
+    }
+  },
   {
     files: ['**/*.{js,mjs,cjs,ts,vue}'],
     rules: {
@@ -39,6 +49,7 @@ export default defineConfig([
           caughtErrorsIgnorePattern: '^_'
         }
       ],
+      'no-explicit-any': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }]
     },
     plugins: { js },

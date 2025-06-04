@@ -38,101 +38,6 @@
   box-shadow: 0 0 0 1px $color inset;
 }
 
-@include b(textarea) {
-  @include set-component-css-var('input', $input);
-}
-
-@include b(textarea) {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  vertical-align: bottom;
-  font-size: getCssVar('font-size', 'base');
-
-  @include e(inner) {
-    position: relative;
-    display: block;
-    resize: vertical;
-    padding: 5px map.get($input-padding-horizontal, 'default')-$border-width;
-    line-height: 1.5;
-    box-sizing: border-box;
-    width: 100%;
-    font-size: inherit;
-    font-family: inherit;
-    color: var(
-      #{getCssVarName('input-text-color')},
-      map.get($input, 'text-color')
-    );
-    background-color: var(
-      #{getCssVarName('input-bg-color')},
-      map.get($input, 'bg-color')
-    );
-    background-image: none;
-    -webkit-appearance: none;
-    @include inset-input-border(
-      var(
-        #{getCssVarName('input-border-color')},
-        map.get($input, 'border-color')
-      )
-    );
-    border-radius: getCssVarWithDefault(
-      'input-border-radius',
-      map.get($input, 'border-radius')
-    );
-    transition: getCssVar('transition-box-shadow');
-    border: none;
-
-    &::placeholder {
-      color: getCssVarWithDefault(
-        'input-placeholder-color',
-        map.get($input, 'placeholder-color')
-      );
-    }
-
-    &:hover {
-      @include inset-input-border(#{getCssVar('input', 'hover-border-color')});
-    }
-
-    &:focus {
-      outline: none;
-      @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
-    }
-  }
-
-  & .#{$namespace}-input__count {
-    color: getCssVar('color-info');
-    background: getCssVar('fill-color', 'blank');
-    position: absolute;
-    font-size: 12px;
-    line-height: 14px;
-    bottom: 5px;
-    right: 10px;
-  }
-
-  @include when(disabled) {
-    .#{$namespace}-textarea__inner {
-      @include inset-input-border(#{getCssVar('disabled-border-color')});
-      background-color: map.get($input-disabled, 'fill');
-      color: map.get($input-disabled, 'text-color');
-      cursor: not-allowed;
-
-      &::placeholder {
-        color: map.get($input-disabled, 'placeholder-color');
-      }
-    }
-  }
-
-  @include when(exceed) {
-    .#{$namespace}-textarea__inner {
-      @include mixed-input-border(#{getCssVar('color-danger')});
-    }
-
-    .#{$namespace}-input__count {
-      color: getCssVar('color-danger');
-    }
-  }
-}
-
 @include b(input) {
   @include set-component-css-var('input', $input);
 }
@@ -207,6 +112,18 @@
 
     @include when(focus) {
       @include inset-input-border(#{getCssVar('input', 'focus-border-color')});
+      transition: all 0.5s;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        opacity: 0.4;
+        border-radius: getCssVar('input-border-radius');
+        box-shadow: 0 0 0 2px getCssVar('input', 'focus-border-color');
+        pointer-events: none;
+      }
     }
   }
 

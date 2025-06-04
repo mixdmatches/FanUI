@@ -41,10 +41,10 @@ import { FMessage } from '@mixdmatches/fan-ui'
 
 ### Message Props
 
-| 参数      | 说明                                  | 类型    | 可选值                     | 默认值 |
-| --------- | ------------------------------------- | ------- | -------------------------- | ------ |
-| type      | 消息类型                              | string  | success/warning/info/error | info   |
-| message   | 消息文字                              | string  | -                          | -      |
-| showClose | 是否显示关闭按钮                      | boolean | -                          | false  |
-| duration  | 显示时间, 毫秒。设为 0 则不会自动关闭 | number  | -                          | 3000   |
-| plain     | 是否为简洁的消息提示                  | boolean | -                          | false  |
+| 参数      | 说明                                  | 类型      | 可选值                                | 默认值  |
+| --------- | ------------------------------------- | --------- | ------------------------------------- | ------- |
+| type      | 消息类型                              | `string`  | `success \| error \| warning \| info` | `info`  |
+| message   | 消息文字                              | `string`  | -                                     | -       |
+| showClose | 是否显示关闭按钮                      | `boolean` | -                                     | `false` |
+| duration  | 显示时间, 毫秒。设为 0 则不会自动关闭 | `number`  | -                                     | `3000`  |
+| plain     | 是否为简洁的消息提示                  | `boolean` | -                                     | `false` |

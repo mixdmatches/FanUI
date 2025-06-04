@@ -1,8 +1,15 @@
 import { CheckboxEmits, CheckboxProps } from './checkbox'
-import { ComponentInternalInstance, computed, inject, SetupContext } from 'vue'
+import {
+  ComponentInternalInstance,
+  computed,
+  inject,
+  SetupContext,
+  watch
+} from 'vue'
 import { checkboxGroupContextKey } from './checkbox-group'
 import { isArray, isBoolean } from '@fan-ui/utils/types'
 import { formItemContextKey } from '../../form/src/form-item'
+import { debugWarn } from '@fan-ui/constans'
 
 export const useCheckbox = (
   props: CheckboxProps,
@@ -15,6 +22,13 @@ export const useCheckbox = (
   // 注入checkbox-group的值
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isGroup = computed(() => !!checkboxGroup)
+
+  watch(
+    () => props.modelValue,
+    () => {
+      formItemContext?.validate('change').catch(err => debugWarn(err))
+    }
+  )
 
   // 如果是group模式，需要返回checkboxGroup的modelValue，否则返回props.modelValue
   const model = computed({
@@ -60,7 +74,7 @@ export const useCheckbox = (
     const target = e.target as HTMLInputElement
     emit('change', target.checked)
     // 新增：触发 form-item 校验
-    formItemContext?.validate('change')
+    formItemContext?.validate('change').catch(err => debugWarn(err))
   }
 
   // 计算大小，优先级：组件props > 组件group的size > 组件的默认size

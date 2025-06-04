@@ -1,4 +1,4 @@
-/* Element Chalk Variables */
+/* Fanui Chalk Variables */
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:color';
@@ -543,7 +543,7 @@ $card: () !default;
 $card: map.merge(
   (
     'border-color': getCssVar('border-color', 'light'),
-    'border-radius': 4px,
+    'border-radius': 8px,
     'padding': 20px,
     'bg-color': getCssVar('fill-color', 'blank')
   ),
@@ -728,6 +728,8 @@ $radio-bordered-input-width: map.merge(
   ),
   $radio-bordered-input-width
 );
+
+$table: () !default;
 
 // transition
 $transition: () !default;

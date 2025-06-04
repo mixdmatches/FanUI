@@ -3,6 +3,8 @@ import Checkbox from '../src/checkbox.vue'
 import CheckboxGroup from '../src/checkbox-group.vue'
 import CheckboxButton from '../src/checkbox-button.vue'
 import { describe, expect, test } from 'vitest'
+import { nextTick, ref } from 'vue'
+import { CheckboxValueType } from '../src/checkbox'
 
 describe('测试checkbox组件', () => {
   // 测试组件是否能正常渲染
@@ -70,27 +72,30 @@ describe('测试checkbox-group组件', () => {
     expect(wrapper.props('modelValue')).toEqual(['value1'])
   })
 
-  // 测试 change 事件
-  test('change 事件', async () => {
+  test('checkbox group change', async () => {
+    const checkList = ref<CheckboxValueType[]>([])
     const wrapper = mount(CheckboxGroup, {
+      props: {
+        modelValue: checkList.value,
+        'onUpdate:modelValue': (val: CheckboxValueType[]) =>
+          (checkList.value = val)
+      },
       slots: {
         default: `
-          <Checkbox label="value1" />
-          <Checkbox label="value2" />
-        `,
-        Checkbox
+          <Checkbox label="a" value="a" />
+          <Checkbox label="b" value="b" />
+        `
+      },
+      global: {
+        components: { Checkbox }
       }
     })
 
-    // 找到第一个复选框的输入元素
-    const firstCheckbox = wrapper.find('input[value="value1"]')
-    await firstCheckbox.setValue(true)
-
-    expect(wrapper.emitted('change')).toBeTruthy()
-    const changeEvents = wrapper.emitted('change')
-    if (changeEvents) {
-      expect(changeEvents[0]).toEqual([['value1']])
-    }
+    const checkboxes = wrapper.findAllComponents(Checkbox)
+    await checkboxes[0].find('input').setValue(true)
+    await nextTick()
+    expect(checkList.value.length).toBe(1)
+    expect(checkList.value).toEqual(['a'])
   })
 })
 
