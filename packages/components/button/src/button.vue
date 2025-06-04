@@ -48,7 +48,18 @@ const handleClick = (evt: MouseEvent) => {
 }
 
 const classCustom = computed(() => {
-  const { type, size, plain, round, circle, disabled, link, text, bg } = props
+  const {
+    type,
+    size,
+    plain,
+    round,
+    circle,
+    disabled,
+    link,
+    text,
+    bg,
+    loading
+  } = props
   return [
     bem.b(),
     bem.m(type),
@@ -56,7 +67,7 @@ const classCustom = computed(() => {
     bem.is('plain', plain),
     bem.is('round', round),
     bem.is('circle', circle),
-    bem.is('disabled', disabled),
+    bem.is('disabled', disabled || loading),
     bem.is('link', link),
     bem.is('text', text),
     bem.is('has-bg', bg)
