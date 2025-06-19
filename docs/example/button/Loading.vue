@@ -6,6 +6,8 @@
     </template>
     Loading
   </f-button>
+  <f-button type="danger" loading></f-button>
+  <f-button type="danger" loading circle plain></f-button>
 </template>
 
 <script lang="ts" setup>

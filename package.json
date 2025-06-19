@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "pnpm -C play dev",
     "docs:dev": "pnpm -C docs dev",
-    "build": "pnpm --filter packages/components... build",
+    "build": "pnpm -C packages/components build",
     "build:docs": "pnpm -C docs build",
     "test": "pnpm -C packages/components test",
     "test:ui": "pnpm -C packages/components test:ui",
