@@ -153,6 +153,7 @@ $border-radius: map.merge(
   (
     'base': 4px,
     'small': 2px,
+    'large': 6px,
     'round': 20px,
     'circle': 100%
   ),
@@ -730,6 +731,19 @@ $radio-bordered-input-width: map.merge(
 );
 
 $table: () !default;
+
+$bubble: () !default;
+$bubble: map.merge(
+  (
+    'padding': 8px 12px,
+    'font-size': getCssVar('font-size-base'),
+    'bg-color': getCssVar('fill-color', 'light'),
+    'border-color': getCssVar('border-color-lighter'),
+    'border-radius': getCssVar('border-radius-large'),
+    'color': getCssVar('text-color-regular')
+  ),
+  $bubble
+);
 
 // transition
 $transition: () !default;
