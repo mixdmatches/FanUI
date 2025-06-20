@@ -153,6 +153,7 @@ $border-radius: map.merge(
   (
     'base': 4px,
     'small': 2px,
+    'large': 6px,
     'round': 20px,
     'circle': 100%
   ),
@@ -727,6 +728,43 @@ $radio-bordered-input-width: map.merge(
     'small': 12px
   ),
   $radio-bordered-input-width
+);
+
+$bubble: () !default;
+$bubble: map.merge(
+  (
+    'padding': 8px 12px,
+    'font-size': getCssVar('font-size-base'),
+    'bg-color': getCssVar('fill-color', 'light'),
+    'border-color': getCssVar('border-color-lighter'),
+    'border-radius': getCssVar('border-radius-large'),
+    'color': getCssVar('text-color-regular')
+  ),
+  $bubble
+);
+
+// Avatar
+// css3 var in packages/theme-chalk/src/avatar.scss
+$avatar: () !default;
+$avatar: map.merge(
+  (
+    'text-color': getCssVar('color-white'),
+    'bg-color': getCssVar('text-color', 'disabled'),
+    'text-size': 14px,
+    'icon-size': 18px,
+    'border-radius': getCssVar('border-radius-base')
+  ),
+  $avatar
+);
+
+$avatar-size: () !default;
+$avatar-size: map.merge(
+  (
+    'large': 56px,
+    'default': 40px,
+    'small': 24px
+  ),
+  $avatar-size
 );
 
 $table: () !default;

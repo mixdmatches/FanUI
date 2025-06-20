@@ -1,53 +1,36 @@
 <template>
-  <f-card title="card title">
-    <!-- <template #title> 卡片title </template> -->
-    <p>card content</p>
-    <p>card content</p>
-    <p>card content</p>
-  </f-card>
-  <f-virtual-scroll-list
-    class="virtual-scroll"
-    :data-sources="items"
-    data-key="id"
-    :keeps="30"
-    :estimate-size="80"
-    :data-component="Item"
-  ></f-virtual-scroll-list>
+  <div class="demo-container">
+    <f-bubble
+      :avatarConfig="userAvatar"
+      :avatarPosition="'top'"
+      content="Hello fanUIHello fanUIHello fanUI"
+    ></f-bubble>
+    <f-bubble
+      content="Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?Hello, what can I do for you?"
+      :avatarConfig="modelAvatar"
+      :align="'right'"
+      :avatarPosition="'top'"
+    ></f-bubble>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import Item from './item.vue'
-import { Random } from 'mockjs'
-const totalCount = 10000
-
-interface DataType {
-  id: number
-  name: string
-  desc: string
-  index: number
+const userAvatar = {
+  imgSrc: '../public/avatar.jpg',
+  isRound: true,
+  displayName: 'chat bot'
 }
-
-const data: Array<DataType> = []
-
-let index = 0
-while (index++ !== totalCount) {
-  data.push({
-    id: index,
-    name: Random.name(),
-    desc: Random.csentence(20, 120),
-    index
-  })
+const modelAvatar = {
+  imgSrc: '../public/avatar.jpg',
+  isRound: true,
+  displayName: 'user'
 }
-const items = ref<DataType[]>(data)
-console.log(items.value)
 </script>
 
-<style lang="scss" scoped>
-.virtual-scroll {
-  width: 100%;
-  height: 500px;
-  overflow: auto;
-  border: 1px solid red;
+<style scoped>
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 </style>

@@ -1,0 +1,89 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(bubble) {
+  @include set-component-css-var('bubble', $bubble);
+}
+
+@include b(bubble) {
+  width: 100%;
+  display: inline-flex;
+  gap: 10px;
+
+  // 添加头像容器样式，防止被挤压
+  > .f-avatar {
+    flex-shrink: 0; // 关键：禁止头像收缩
+  }
+
+  @include e(content) {
+    display: inline-block;
+    padding: getCssVar('bubble', 'padding');
+    background-color: getCssVar('bubble', 'bg-color');
+    border-radius: getCssVar('bubble', 'border-radius');
+    border-color: getCssVar('bubble', 'border-color');
+    color: getCssVar('bubble', 'color');
+    word-wrap: break-word; // 确保长文本换行
+  }
+
+  @include when(loading) {
+    position: relative;
+    pointer-events: none;
+
+    &:before {
+      z-index: 1;
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: inherit;
+      background-color: getCssVar('mask-color', 'extra-light');
+    }
+  }
+
+  @include m(border) {
+    border: 1px solid getCssVar('bubble', 'border-color');
+    background-color: getCssVar('bg-color');
+  }
+
+  @include m(none) {
+    border: none;
+    background-color: getCssVar('bg-color');
+  }
+
+  @include m(left) {
+    align-items: flex-start;
+  }
+
+  @include m(right) {
+    align-items: flex-end;
+  }
+
+  @include m(top) {
+    .f-avatar {
+      order: -1;
+    }
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @include b(bubble-avatar__right) {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    align-self: self-end;
+    order: -1;
+    .f-avatar {
+      order: 1;
+    }
+  }
+
+  @include b(bubble-avatar__left) {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
