@@ -26,6 +26,11 @@ export const bubbleProps = {
   avatarConfig: {
     type: Object as PropType<AvatarConfigType>,
     default: () => ({})
+  },
+  /** 头像位置 */
+  avatarPosition: {
+    type: String as PropType<'top' | 'side'>,
+    default: 'side'
   }
 } as const
 
