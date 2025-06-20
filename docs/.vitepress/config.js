@@ -64,6 +64,8 @@ export default {
         {
           text: 'Data数据展示',
           items: [
+            { text: 'Avatar', link: '/components/avatar' },
+            { text: 'Bubble', link: '/components/bubble' },
             { text: 'card', link: '/components/card' },
             { text: 'Progress', link: '/components/progress' }
           ]

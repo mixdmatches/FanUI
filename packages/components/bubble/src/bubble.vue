@@ -2,7 +2,7 @@
   <div :class="[bem.b(), bem.m(avatarPosition)]">
     <!-- 左边的头像和名字 -->
     <div
-      v-if="avatarConfig && align === 'left'"
+      v-if="(avatarConfig && align === 'left') || src"
       :class="[bem.be('avatar', 'left')]"
     >
       <span v-if="avatarPosition === 'top'" :class="bem.be('avatar', 'name')">{{
