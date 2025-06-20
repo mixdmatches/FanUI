@@ -17,21 +17,25 @@
         :shape="avatarConfig.isRound ? 'circle' : 'square'"
       ></f-avatar>
     </div>
-    <!-- content内容 -->
-    <div
-      :class="[bem.e('content'), { [bem.m(variant)]: variant }, bem.m(align)]"
-    >
-      <!-- 展示Loading -->
-      <template v-if="loading">
-        <slot v-if="$slots.loading" name="loading"></slot>
-        <f-icon v-else :class="bem.is('loading', loading)">
-          <component :is="Loading"></component>
-        </f-icon>
-      </template>
-      <!-- 内容 -->
-      <template v-else>
-        {{ content }}
-      </template>
+    <div :class="[{ [bem.m(variant)]: variant }, bem.m(align)]">
+      <slot name="top"></slot>
+      <!-- content内容 -->
+      <div :class="[bem.e('content')]">
+        <!-- 展示Loading -->
+        <template v-if="loading">
+          <slot v-if="$slots.loading" name="loading"></slot>
+          <f-icon v-else :class="bem.is('loading', loading)">
+            <component :is="Loading"></component>
+          </f-icon>
+        </template>
+
+        <!-- 内容 -->
+        <template v-else-if="content">
+          {{ content }}
+        </template>
+        <slot v-else></slot>
+      </div>
+      <slot name="bottom"></slot>
     </div>
     <!-- 右边的头像和名字 -->
     <div
