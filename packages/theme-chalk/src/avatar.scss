@@ -23,7 +23,7 @@
   width: getCssVar('avatar', 'size');
   height: getCssVar('avatar', 'size');
   color: getCssVar('avatar', 'text-color');
-  background: getCssVar('avatar', 'bg-color');
+  background-color: getCssVar('avatar', 'bg-color');
   font-size: getCssVar('avatar', 'text-size');
   overflow: hidden;
   outline: none;

@@ -3,10 +3,7 @@ import type { AvatarConfigType } from './type'
 
 export const bubbleProps = {
   /** 气泡内容 */
-  content: {
-    type: String,
-    required: true
-  },
+  content: String,
   /** 是否加载 */
   loading: {
     type: Boolean,
@@ -14,8 +11,8 @@ export const bubbleProps = {
   },
   /** 气泡样式 */
   variant: {
-    type: String as PropType<'none' | 'border'>,
-    default: ''
+    type: String as PropType<'none' | 'border' | 'filled'>,
+    default: 'filled'
   },
   /** 对齐方式 */
   align: {
@@ -23,10 +20,7 @@ export const bubbleProps = {
     default: 'left'
   },
   /** 头像配置 */
-  avatarConfig: {
-    type: Object as PropType<AvatarConfigType>,
-    default: () => ({})
-  },
+  avatarConfig: Object as PropType<AvatarConfigType>,
   /** 头像位置 */
   avatarPosition: {
     type: String as PropType<'top' | 'side'>,
@@ -34,4 +28,4 @@ export const bubbleProps = {
   }
 } as const
 
-export type BubbleProps = ExtractPropTypes<typeof bubbleProps>
+export type BubbleProps = Partial<ExtractPropTypes<typeof bubbleProps>>

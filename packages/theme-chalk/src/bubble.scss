@@ -19,9 +19,7 @@
   @include e(content) {
     display: inline-block;
     padding: getCssVar('bubble', 'padding');
-    background-color: getCssVar('bubble', 'bg-color');
     border-radius: getCssVar('bubble', 'border-radius');
-    border-color: getCssVar('bubble', 'border-color');
     color: getCssVar('bubble', 'color');
     word-wrap: break-word; // 确保长文本换行
   }
@@ -44,6 +42,11 @@
     }
   }
 
+  @include m(filled) {
+    background-color: getCssVar('bubble', 'bg-color');
+    border-color: getCssVar('bubble', 'border-color');
+  }
+
   @include m(border) {
     border: 1px solid getCssVar('bubble', 'border-color');
     background-color: getCssVar('bg-color');
@@ -55,11 +58,11 @@
   }
 
   @include m(left) {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   @include m(right) {
-    align-items: flex-end;
+    justify-content: flex-end;
   }
 
   @include m(top) {
@@ -67,7 +70,13 @@
       order: -1;
     }
     flex-direction: column;
-    align-items: flex-start;
+    &.f-bubble--right {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+    }
+    &.f-bubble--left {
+      align-items: flex-start;
+    }
   }
 
   @include b(bubble-avatar__right) {
@@ -75,7 +84,6 @@
     gap: 10px;
     align-items: center;
     align-self: self-end;
-    order: -1;
     .f-avatar {
       order: 1;
     }

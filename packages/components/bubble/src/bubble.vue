@@ -1,14 +1,15 @@
 <template>
-  <div :class="[bem.b(), bem.m(avatarPosition)]">
+  <div :class="[bem.b(), bem.m(avatarPosition), bem.m(align)]">
     <!-- 左边的头像和名字 -->
     <div
-      v-if="(avatarConfig && align === 'left') || src"
+      v-if="avatarConfig && align === 'left'"
       :class="[bem.be('avatar', 'left')]"
     >
       <span v-if="avatarPosition === 'top'" :class="bem.be('avatar', 'name')">{{
-        avatarConfig.displayName
+        avatarConfig?.displayName
       }}</span>
       <f-avatar
+        v-if="avatarConfig?.imgSrc"
         :style="{
           width: avatarConfig.width + 'px',
           height: avatarConfig.height + 'px'
@@ -16,11 +17,18 @@
         :src="avatarConfig.imgSrc"
         :shape="avatarConfig.isRound ? 'circle' : 'square'"
       ></f-avatar>
+      <f-avatar
+        v-else-if="avatarPosition !== 'top'"
+        :style="{
+          backgroundColor: 'inherit'
+        }"
+        >" "</f-avatar
+      >
     </div>
-    <div :class="[{ [bem.m(variant)]: variant }, bem.m(align)]">
+    <!-- content内容 -->
+    <div :class="[]">
       <slot name="top"></slot>
-      <!-- content内容 -->
-      <div :class="[bem.e('content')]">
+      <div :class="[{ [bem.m(variant)]: variant }, bem.e('content')]">
         <!-- 展示Loading -->
         <template v-if="loading">
           <slot v-if="$slots.loading" name="loading"></slot>
@@ -28,7 +36,6 @@
             <component :is="Loading"></component>
           </f-icon>
         </template>
-
         <!-- 内容 -->
         <template v-else-if="content">
           {{ content }}
@@ -46,6 +53,7 @@
         avatarConfig.displayName
       }}</span>
       <f-avatar
+        v-if="avatarConfig?.imgSrc"
         :style="{
           width: avatarConfig.width + 'px',
           height: avatarConfig.height + 'px'
@@ -53,6 +61,13 @@
         :src="avatarConfig.imgSrc"
         :shape="avatarConfig.isRound ? 'circle' : 'square'"
       ></f-avatar>
+      <f-avatar
+        v-else-if="avatarPosition !== 'top'"
+        :style="{
+          backgroundColor: 'inherit'
+        }"
+        >" "</f-avatar
+      >
     </div>
   </div>
 </template>
@@ -72,5 +87,3 @@ defineProps(bubbleProps)
 
 const bem = createNamespace('bubble')
 </script>
-
-<style scoped></style>
