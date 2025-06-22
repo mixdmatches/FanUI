@@ -31,7 +31,7 @@ export const virtualProps = {
     default: 80
   },
   /**
-   * description: 用户选哪个组件
+   * description: 用户选择的组件
    */
   dataComponent: {
     type: [Object, Function] as PropType<DefineComponent>,
