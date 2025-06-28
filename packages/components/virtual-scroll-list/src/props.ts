@@ -40,3 +40,27 @@ export const virtualProps = {
 } as const
 
 export type VirtualProps = ExtractPropTypes<typeof virtualProps>
+
+export const virtualItemProps = {
+  /**
+   * description: 数据源
+   */
+  dataSource: {
+    type: Object,
+    required: true
+  },
+  /**
+   * description: 数据源的唯一标识
+   */
+  uniqueKey: {
+    type: [String, Number] as PropType<string | number>
+  },
+  /**
+   * description: 用户选择的组件
+   */
+  component: {
+    type: [Object, Function] as PropType<DefineComponent>
+  }
+}
+
+export type VirtaulItemProps = ExtractPropTypes<typeof virtualItemProps>

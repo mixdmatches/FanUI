@@ -36,7 +36,7 @@ const item = ref(data)
 
 <style lang="scss" scoped>
 .virtual-list {
-  width: 100%;
+  width: 700px;
   height: 500px;
   overflow-y: scroll;
   border: 3px solid red;
