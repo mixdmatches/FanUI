@@ -65,7 +65,6 @@ export default {
           text: 'Data数据展示',
           items: [
             { text: 'Avatar', link: '/components/avatar' },
-            { text: 'Bubble', link: '/components/bubble' },
             { text: 'card', link: '/components/card' },
             { text: 'Progress', link: '/components/progress' }
           ]
@@ -73,6 +72,10 @@ export default {
         {
           text: '反馈组件',
           items: [{ text: 'Message', link: '/components/message' }]
+        },
+        {
+          text: 'AI应用组件',
+          items: [{ text: 'Bubble', link: '/components/bubble' }]
         }
       ]
     }
