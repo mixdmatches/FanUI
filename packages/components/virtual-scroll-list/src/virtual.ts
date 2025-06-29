@@ -1,3 +1,4 @@
+import { min } from 'lodash-unified'
 import { RangeOption, UpdateType, VirtualOptions } from './types'
 
 const enum CALC_TYPE {
@@ -10,6 +11,7 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
   let offsetValue = 0
   let calType = CALC_TYPE.INIT
   let fixedSizeVal = 0
+  let firstRangAvg = 0
   const sizes = new Map<string | number, number>()
   const range: RangeOption = {
     start: 0,
@@ -21,10 +23,26 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
     return calType === CALC_TYPE.FIXED
   }
   function getEstimateSize() {
-    return isFixed() ? fixedSizeVal : param.estimateSize
+    // 优化平均值
+    return isFixed() ? fixedSizeVal : firstRangAvg || param.estimateSize
+  }
+  function getIndexOffset(idx: number) {
+    if (!idx) return 0
+    let offset = 0
+    for (let i = 0; i < idx; i++) {
+      const indexSize = sizes.get(param.uniqueIds[i])
+      offset += typeof indexSize === 'number' ? indexSize : getEstimateSize()
+    }
+    return offset
   }
   function getPadFront() {
-    return getEstimateSize() * range.start
+    // 准确计算上偏移量
+    if (isFixed()) {
+      return fixedSizeVal * range.start
+    } else {
+      // 将滚动后的元素累加一遍，计算上高度
+      return getIndexOffset(range.start)
+    }
   }
   function getPadBehind() {
     const lastIndex = param.uniqueIds.length - 1
@@ -53,7 +71,29 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
   // 获取滑动的个数
   function getScrollOvers() {
     // 根据划过的偏移量 / 每项高度 = 划过的高度
-    return Math.floor(offsetValue / getEstimateSize())
+    // getEstimateSize()这个值是预估，要精确的找到滚动了多少个
+    if (isFixed()) {
+      return Math.floor(offsetValue / getEstimateSize())
+    } else {
+      // 获取最接近的滚动那一项，计算每一项的偏移量，看与哪一项最接近
+      // [10,30,50,200,900,1200] -> 1100
+      let low = 0
+      let high = param.uniqueIds.length - 1
+      let middle = 0
+      let middleOffset = 0
+      while (low <= high) {
+        middle = low + Math.floor((high - low) / 2)
+        middleOffset = getIndexOffset(middle)
+        if (middleOffset == offsetValue) {
+          return middle
+        } else if (middleOffset < offsetValue) {
+          low = middle + 1
+        } else if (middleOffset > offsetValue) {
+          high = middle - 1
+        }
+      }
+      return low > 0 ? --low : 0
+    }
   }
   // 通过start获取end
   function getEndByStart(start: number) {
@@ -103,6 +143,15 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
     }
     // 尽可能不要用 estiamteSize来进行操作
     // 有固定高度，动态高度
+    if (calType === CALC_TYPE.DYNAMIC) {
+      if (sizes.size < Math.min(param.keeps, param.uniqueIds.length)) {
+        const totalHeight = [...sizes.values()].reduce(
+          (acc, val) => acc + val,
+          0
+        )
+        firstRangAvg = Math.round(totalHeight / sizes.size)
+      }
+    }
   }
   checkRange(0, param.keeps - 1)
   return { handleScroll, saveSize }
