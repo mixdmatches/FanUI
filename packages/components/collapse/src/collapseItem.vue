@@ -2,10 +2,12 @@
   <div :class="rootKls">
     <!-- 头部 -->
     <div :class="bem.e('header')" @click="handleHeadClick">
-      <slot name="title">{{ title }}</slot>
+      <span :class="bem.e('title')">
+        <slot name="title">{{ title }}</slot>
+      </span>
       <slot name="icon" :is-active="isActive">
         <f-icon color="#abb2bd" :class="arrowKls">
-          <component :is="isActive ? Down : Right"></component>
+          <component :is="icon"></component>
         </f-icon>
       </slot>
     </div>
@@ -21,7 +23,6 @@
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils'
 import { collapseItemProps } from './collapse-item'
-import { Right, Down } from '@icon-park/vue-next'
 import FIcon from '@fan-ui/components/icon'
 import { useCollapseItem, useCollapseItemDom } from './use-collapse-item'
 

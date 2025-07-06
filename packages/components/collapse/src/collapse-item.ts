@@ -1,10 +1,9 @@
 import { ExtractPropTypes, PropType } from 'vue'
 import { CollapseActiveName } from './types'
-
+import { Right } from '@icon-park/vue-next'
 export const collapseItemProps = {
   name: {
     type: String as PropType<CollapseActiveName>,
-    default: '',
     require: true
   },
   title: {
@@ -14,6 +13,10 @@ export const collapseItemProps = {
   content: {
     type: String,
     default: ''
+  },
+  icon: {
+    type: Object,
+    default: Right
   }
 } as const
 

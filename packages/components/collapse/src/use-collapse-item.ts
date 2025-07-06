@@ -25,7 +25,7 @@ export const useCollapseItemDom = (
     return [ns.b(), ns.is('active', !!unref(isActive))]
   })
   const arrowKls = computed(() => [
-    ns.be('item', 'arrow'),
+    ns.e('arrow'),
     ns.is('active', !!unref(isActive))
   ])
   return { rootKls, arrowKls }

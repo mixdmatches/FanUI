@@ -13,16 +13,23 @@
     padding: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     cursor: pointer;
     transition: border-bottom-color getCssVar('transition-duration');
     height: 40px;
+    @include e(title) {
+      text-align: left;
+      flex: auto;
+    }
     @include when(active) {
       border-bottom-color: transparent;
     }
     @include e(arrow) {
       transition: transform getCssVar('transition-duration');
+      font-weight: 300;
+      @include when(active) {
+        transform: rotate(90deg);
+      }
     }
   }
   @include e(wrap) {
