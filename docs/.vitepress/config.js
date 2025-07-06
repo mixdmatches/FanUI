@@ -5,8 +5,8 @@ import {
 } from '@vitepress-demo-preview/plugin'
 export default {
   base: '/FanUI/',
-  title: 'Fan-ui',
-  description: 'Fan-ui',
+  title: 'fan-ui',
+  description: 'fan-ui',
   markdown: {
     config(md) {
       md.use(vitepressDemoPlugin)
@@ -66,7 +66,8 @@ export default {
           items: [
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'card', link: '/components/card' },
-            { text: 'Progress', link: '/components/progress' }
+            { text: 'Progress', link: '/components/progress' },
+            { text: 'Collapse', link: '/components/collapse' }
           ]
         },
         {
