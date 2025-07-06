@@ -1,6 +1,6 @@
 import { get, set } from 'lodash-unified'
 
-type Arrayable<T> = T | T[]
+export type Arrayable<T> = T | T[]
 
 export const getProp = <T = any>(
   obj: Record<string, any>,

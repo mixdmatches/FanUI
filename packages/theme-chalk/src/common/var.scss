@@ -730,6 +730,8 @@ $radio-bordered-input-width: map.merge(
   $radio-bordered-input-width
 );
 
+// Bubble
+// css3 var in packages/theme-chalk/src/bubble.scss
 $bubble: () !default;
 $bubble: map.merge(
   (
@@ -765,6 +767,20 @@ $avatar-size: map.merge(
     'small': 24px
   ),
   $avatar-size
+);
+
+// Collapse
+// css3 var in packages/theme-chalk/src/collapse.scss
+$collapse: () !default;
+$collapse: map.merge(
+  (
+    'bg-color': getCssVar('fill-color', 'blank'),
+    'font-size': getCssVar('font-size', 'base'),
+    'text-color': getCssVar('text-color', 'primary'),
+    'border-color': getCssVar('border-color-lighter'),
+    'header-height': 48px
+  ),
+  $collapse
 );
 
 $table: () !default;
