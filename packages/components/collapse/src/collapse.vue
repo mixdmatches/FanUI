@@ -1,5 +1,5 @@
 <template>
-  <div :class="[bem.b()]">
+  <div :class="bem.b()">
     <slot></slot>
   </div>
 </template>

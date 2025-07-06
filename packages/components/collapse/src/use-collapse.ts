@@ -4,6 +4,7 @@ import { castArray } from 'lodash-unified'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@fan-ui/constans'
 import { CollapseActiveName } from './types'
 import { collapseContextKey } from './constants'
+
 export const useCollapse = (
   props: CollapseProps,
   emit: SetupContext<CollapseEmits>['emit']

@@ -17,7 +17,7 @@ export const collapseProps = {
     type: [Array, String] as PropType<string[] | string>,
     default: () => []
   }
-}
+} as const
 
 export const emitChangeFn = (val: CollapseModuleValue) =>
   isNumber(val) || isString(val) || isArray(val)

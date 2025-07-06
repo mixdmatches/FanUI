@@ -15,7 +15,7 @@ export const collapseItemProps = {
     type: String,
     default: ''
   }
-}
+} as const
 
 export type CollapseItemProps = Partial<
   ExtractPropTypes<typeof collapseItemProps>

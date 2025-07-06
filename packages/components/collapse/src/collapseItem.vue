@@ -1,7 +1,7 @@
 <template>
   <div :class="rootKls">
     <!-- 头部 -->
-    <div :class="[bem.e('header')]" @click="handleHeadClick">
+    <div :class="bem.e('header')" @click="handleHeadClick">
       <slot name="title">{{ title }}</slot>
       <slot name="icon" :is-active="isActive">
         <f-icon color="#abb2bd" :class="arrowKls">
@@ -10,8 +10,8 @@
       </slot>
     </div>
 
-    <div :class="[bem.e('wrap')]">
-      <div :class="[bem.e('content')]" v-show="isActive">
+    <div :class="bem.e('wrap')">
+      <div :class="bem.e('content')" v-show="isActive">
         <slot></slot>
       </div>
     </div>
@@ -33,6 +33,5 @@ const props = defineProps(collapseItemProps)
 const bem = createNamespace('collapse-item')
 
 const { isActive, handleHeadClick } = useCollapseItem(props)
-
 const { rootKls, arrowKls } = useCollapseItemDom(props, { isActive })
 </script>
