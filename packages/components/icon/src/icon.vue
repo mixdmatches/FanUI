@@ -1,6 +1,8 @@
 <template>
   <i :class="bem.b()" :style="style">
-    <slot></slot>
+    <slot>
+      <component :is="icon" />
+    </slot>
   </i>
 </template>
 
