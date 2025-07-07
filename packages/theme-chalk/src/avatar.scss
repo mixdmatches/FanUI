@@ -1,0 +1,53 @@
+@use 'sass:map';
+
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(avatar) {
+  @include set-component-css-var('avatar', $avatar);
+  @include set-component-css-var('avatar-size', $avatar-size);
+}
+
+@include b(avatar) {
+  @include set-css-var-value(
+    ('avatar', 'size'),
+    map.get($avatar-size, 'default')
+  );
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+  width: getCssVar('avatar', 'size');
+  height: getCssVar('avatar', 'size');
+  color: getCssVar('avatar', 'text-color');
+  background-color: getCssVar('avatar', 'bg-color');
+  font-size: getCssVar('avatar', 'text-size');
+  overflow: hidden;
+  outline: none;
+
+  > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include m(circle) {
+    border-radius: 50%;
+  }
+
+  @include m(square) {
+    border-radius: getCssVar('avatar', 'border-radius');
+  }
+
+  @each $size in (small, large) {
+    @include m($size) {
+      @include set-css-var-value(
+        ('avatar', 'size'),
+        map.get($avatar-size, $size)
+      );
+    }
+  }
+}

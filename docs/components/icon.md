@@ -1,6 +1,6 @@
 # Icon 图标
 
-Fan-ui 推荐使用 `@icon-park/vue-next` 作为图标库
+fan-ui 推荐使用 `@icon-park/vue-next` 作为图标库
 
 ```bash
 $ pnpm install @icon-park/vue-next

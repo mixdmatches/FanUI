@@ -32,11 +32,13 @@
     "@fan-ui/theme-chalk": "workspace:*",
     "@fan-ui/utils": "workspace:*",
     "@icon-park/vue-next": "^1.4.2",
+    "@types/mockjs": "^1.0.10",
     "async-validator": "^4.2.5",
     "commitizen": "^4.3.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "lodash-unified": "^1.0.3",
+    "mockjs": "^1.1.0",
     "multer": "1.4.5-lts.2",
     "typescript": "^5.8.3"
   },

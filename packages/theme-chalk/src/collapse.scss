@@ -1,0 +1,48 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(collapse) {
+  @include set-component-css-var('collapse', $collapse);
+  border-top: 1px solid getCssVar('collapse-border-color');
+  border-bottom: 1px solid getCssVar('collapse-border-color');
+}
+
+@include b(collapse-item) {
+  @include e(header) {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: border-bottom-color getCssVar('transition-duration');
+    height: 40px;
+    @include e(title) {
+      text-align: left;
+      flex: auto;
+    }
+    @include when(active) {
+      border-bottom-color: transparent;
+    }
+    @include e(arrow) {
+      transition: transform getCssVar('transition-duration');
+      font-weight: 300;
+      @include when(active) {
+        transform: rotate(90deg);
+      }
+    }
+  }
+  @include e(wrap) {
+    overflow: hidden;
+    box-sizing: border-box;
+    border-bottom: 1px solid getCssVar('collapse-border-color');
+  }
+  @include e(content) {
+    padding-bottom: 10px;
+    font-size: getCssVar('collapse', 'font-size');
+    color: getCssVar('collapse', 'text-color');
+  }
+  &:last-child {
+    margin-bottom: -1px;
+  }
+}
