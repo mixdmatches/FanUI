@@ -111,7 +111,15 @@ export default defineConfig([
       ],
       'no-console': 'warn',
       'prettier/prettier': ['error', { endOfLine: 'auto' }]
-    }
+    },
+    overrides: [
+      {
+        files: ['packages/utils/log.ts'],
+        rules: {
+          'no-console': 'off'
+        }
+      }
+    ]
   },
   {
     files: ['**/*.vue'],
