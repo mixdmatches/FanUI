@@ -18,6 +18,12 @@ $ pnpm install @icon-park/vue-next
 
 <demo vue="../example/icon/Size.vue" />
 
+## icon属性传入
+
+icon组件的icon属性可以传入`@icon-park/vue-next`的图标组件
+
+<demo vue="../example/icon/Icon.vue" />
+
 ## API
 
 ### Icon Props
@@ -26,3 +32,4 @@ $ pnpm install @icon-park/vue-next
 | ------ | -------------------- | --------- | -------- |
 | color  | `string`             | undefined | 图标颜色 |
 | size   | `string` \| `number` | undefined | 图标大小 |
+| icon   | `object`             | undefined | 图标组件 |
