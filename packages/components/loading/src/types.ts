@@ -1,6 +1,11 @@
+import { MaybeRef } from 'vue'
 import { LoadingInstance } from './loading'
 
 export type LoadingOptionsResolved = {
+  text: MaybeRef<string>
+  svgViewBox: MaybeRef<string>
+  spinner: MaybeRef<boolean | string>
+  svg: MaybeRef<string>
   /**
    * @description v-show使用
    */
@@ -26,7 +31,7 @@ export type LoadingOptions = Partial<
 
 export const INSTANCE_KEY = Symbol('FLoading')
 
-export interface ElementLoading extends HTMLElement {
+export interface FLoading extends HTMLElement {
   [INSTANCE_KEY]: {
     options: LoadingOptions
     instance: LoadingInstance

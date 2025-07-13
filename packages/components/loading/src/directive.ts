@@ -1,11 +1,9 @@
 import type { Directive, DirectiveBinding } from 'vue'
-import { ElementLoading, INSTANCE_KEY, type LoadingOptions } from './types'
+import { FLoading, INSTANCE_KEY, type LoadingOptions } from './types'
 import Loading from './service'
 
-const createInstance = (
-  el: ElementLoading,
-  binding: DirectiveBinding<boolean>
-) => {
+// 新建实例
+const createInstance = (el: FLoading, binding: DirectiveBinding<boolean>) => {
   const options: LoadingOptions = {
     visible: binding.value,
     target: el
