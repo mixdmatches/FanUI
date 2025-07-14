@@ -71,8 +71,11 @@ export default {
           ]
         },
         {
-          text: '反馈组件',
-          items: [{ text: 'Message', link: '/components/message' }]
+          text: 'Feedback反馈组件',
+          items: [
+            { text: 'Message', link: '/components/message' },
+            { text: 'Loading', link: '/components/loading' }
+          ]
         },
         {
           text: 'AI应用组件',
