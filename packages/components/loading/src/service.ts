@@ -5,6 +5,7 @@ import { createLoadingComponent, LoadingInstance } from './loading'
 import { LoadingOptions, LoadingOptionsResolved } from './types'
 import { isString } from '@vue/shared'
 
+let fullscreenInstance: LoadingInstance | undefined = undefined
 /**
  * Loading 服务函数
  * @param options - Loading配置选项
@@ -13,11 +14,27 @@ import { isString } from '@vue/shared'
 const Loading = function (options: LoadingOptions): LoadingInstance {
   // 解析传入的options参数
   const resolvedOptions = resolveOptions(options)
+  // 如果已有全屏loading实例则返回
+  if (resolvedOptions.fullscreen && fullscreenInstance) {
+    return fullscreenInstance
+  }
+
   // 创建Loading组件实例
-  const instance = createLoadingComponent(resolvedOptions)
-  addClassList(options, resolvedOptions.parent, instance)
+  const instance = createLoadingComponent({
+    ...resolvedOptions,
+    closed: () => {
+      resolvedOptions.closed?.()
+      if (resolvedOptions.fullscreen) fullscreenInstance = undefined
+    }
+  })
+
+  addClassList(resolvedOptions, resolvedOptions.parent, instance)
   // 将Loading组件的DOM元素挂载到目标容器
   resolvedOptions.target.appendChild(instance.vm.$el)
+
+  if (resolvedOptions.fullscreen) {
+    fullscreenInstance = instance
+  }
   return instance
 }
 
@@ -33,6 +50,11 @@ const addClassList = (
     addClass(parent, bem.bm('parent', 'relative'))
   } else {
     removeClass(parent, bem.bm('parent', 'relative'))
+  }
+  if (options.fullscreen && options.lock) {
+    addClass(parent, bem.bm('parent', 'hidden'))
+  } else {
+    removeClass(parent, bem.bm('parent', 'hidden'))
   }
 }
 
@@ -59,7 +81,11 @@ const resolveOptions = (options: LoadingOptions): LoadingOptionsResolved => {
     svg: options.svg || '', // 自定义SVG图标
     svgViewBox: options.svgViewBox || '', // SVG viewBox属性
     spinner: options.spinner || false, // 是否显示旋转动画
-    text: options.text || '' // 加载文字
+    text: options.text || '', // 加载文字
+    background: options.background || '', // 背景色
+    fullscreen: target === document.body && (options.fullscreen ?? true),
+    lock: options.lock ?? false, // 是否锁定背景
+    closed: options.closed
   }
 }
 

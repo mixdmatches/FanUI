@@ -8,7 +8,7 @@ import {
   toRefs
 } from 'vue'
 import { LoadingOptionsResolved } from './types'
-import { createNamespace } from '@fan-ui/utils'
+import { createNamespace, removeClass } from '@fan-ui/utils'
 
 /**
  * 创建Loading组件实例
@@ -53,22 +53,28 @@ export function createLoadingComponent(options: LoadingOptionsResolved) {
           ? h('p', { class: bem.b('text') }, [data.text])
           : undefined
         // 创建loading容器
-        const loadingContainer = h('div', { class: bem.b('mask') }, [
-          h('div', { class: bem.b('spinner') }, [spinner, spinnerText])
-        ])
+        const loadingContainer = h(
+          'div',
+          {
+            style: { backgroundColor: data.background || '' },
+            class: [bem.b('mask'), data.fullscreen ? 'is-fullscreen' : '']
+          },
+          [h('div', { class: bem.b('spinner') }, [spinner, spinnerText])]
+        )
         // 绑定v-show指令控制显隐
         return withDirectives(loadingContainer, [[vShow, data.visible]])
       }
     }
   })
 
-  /** 关闭loading */
+  // 关闭loading
   const close = () => {
     data.visible = false
-  }
-  /** 打开loading */
-  const open = () => {
-    data.visible = true
+    const bem = createNamespace('loading')
+    removeClass(data.parent, bem.bm('parent', 'hidden'))
+    removeClass(data.parent, bem.bm('parent', 'relative'))
+    vm.$el?.parentNode?.removeChild(vm.$el)
+    options.closed?.()
   }
 
   // 创建并挂载Loading实例
@@ -78,8 +84,7 @@ export function createLoadingComponent(options: LoadingOptionsResolved) {
   return {
     ...toRefs(data),
     vm, // 组件实例
-    close, // 关闭方法
-    open // 打开方法
+    close // 关闭方法
   }
 }
 
