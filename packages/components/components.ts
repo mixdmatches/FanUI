@@ -12,6 +12,7 @@ export { FVirtualScrollList } from './virtual-scroll-list'
 export { FBubble } from './bubble'
 export { FAvatar } from './avatar'
 export { FCollapse, FCollapseItem } from './collapse'
+export { FTooltip } from './tooltip'
 
 // plugins
 export { FMessage } from './message'
