@@ -6,7 +6,7 @@ import VirtualItem from './virtual-item'
 export default defineComponent({
   name: 'f-virtual-scroll-list',
   props: virtualProps,
-  setup(props, { slots }) {
+  setup(props, ctx) {
     const range = ref<RangeOption | null>(null)
     const update: UpdateType = (newRange: RangeOption) => {
       range.value = newRange
@@ -35,7 +35,6 @@ export default defineComponent({
       installVirtual()
     })
     function onItemResize(id: string | number, size: number) {
-      console.log(id, size)
       virtual.saveSize(id, size)
     }
     // 生成需要渲染的组件
@@ -49,6 +48,7 @@ export default defineComponent({
         if (dataSource) {
           slots.push(
             <VirtualItem
+              key={uniqueKey}
               uniqueKey={uniqueKey}
               dataSource={dataSource}
               component={dataComponent}
@@ -65,6 +65,9 @@ export default defineComponent({
       if (root.value) {
         const offset = root.value.scrollTop
         virtual.handleScroll(offset)
+        if (range.value) {
+          ctx.emit('handleScroll', range.value)
+        }
       }
     }
     return () => {
