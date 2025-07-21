@@ -12,7 +12,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Item from './item.vue'
-import { Random } from 'mockjs'
+import pkg from 'mockjs'
+const { Random } = pkg
 const totalCount = 10000
 
 interface Datatype {
