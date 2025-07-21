@@ -67,7 +67,8 @@ export default {
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'card', link: '/components/card' },
             { text: 'Progress', link: '/components/progress' },
-            { text: 'Collapse', link: '/components/collapse' }
+            { text: 'Collapse', link: '/components/collapse' },
+            { text: 'VirtualScrollList', link: '/components/virtual-list' }
           ]
         },
         {
