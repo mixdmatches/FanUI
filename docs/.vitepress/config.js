@@ -75,7 +75,8 @@ export default {
           text: 'Feedback反馈组件',
           items: [
             { text: 'Message', link: '/components/message' },
-            { text: 'Loading', link: '/components/loading' }
+            { text: 'Loading', link: '/components/loading' },
+            { text: 'Tooltip', link: '/components/tooltip' }
           ]
         },
         {
