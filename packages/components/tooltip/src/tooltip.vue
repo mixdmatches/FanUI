@@ -1,13 +1,16 @@
 <template>
-  <div :class="bem.b" v-on="outerEvents" ref="popperContainer">
-    <div :class="bem.be('tooltip', 'trigger')" ref="triggerNode" v-on="events">
+  <div :class="bem.b()" v-on="outerEvents" ref="popperContainer">
+    <div :class="bem.e('trigger')" ref="triggerNode" v-on="events">
       <slot></slot>
     </div>
-    <div :class="bem.be('tooltip', 'popper')" ref="popperNode" v-if="isOpen">
-      <slot name="content">
-        {{ content }}
-      </slot>
-    </div>
+    <transition :name="transition">
+      <div :class="bem.e('popper')" ref="popperNode" v-if="isOpen">
+        <slot name="content">
+          {{ content }}
+        </slot>
+        <div id="arrow" data-popper-arrow></div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -15,7 +18,7 @@
 import { createNamespace } from '@fan-ui/utils'
 import { tooltipProps } from './tooltip'
 import { TooltipEmits, TooltipInstance } from './type'
-import { onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, onUnmounted, reactive, ref, watch } from 'vue'
 import { createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import { useClickOutside } from './useClickOutside'
@@ -38,10 +41,12 @@ watch(
   isOpen,
   val => {
     if (val) {
-      if (triggerNode && popperNode) {
-        popperInstance = createPopper(triggerNode.value, popperNode.value, {
-          placement: props.placement
-        })
+      if (triggerNode.value && popperNode.value) {
+        popperInstance = createPopper(
+          triggerNode.value,
+          popperNode.value,
+          popperOptions.value
+        )
       } else {
         popperInstance?.destroy()
       }
@@ -73,6 +78,21 @@ watch(
     }
   }
 )
+
+const popperOptions = computed(() => {
+  return {
+    placement: props.placement,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 10]
+        }
+      }
+    ],
+    ...props.popperOptions
+  }
+})
 
 const triggerPopper = () => {
   isOpen.value = !isOpen.value

@@ -1,5 +1,6 @@
 import type { PropType, ExtractPropTypes } from 'vue'
-import { Placement, Trigger } from './type'
+import type { Placement, Trigger } from './type'
+import type { Options } from '@popperjs/core'
 
 export const tooltipProps = {
   content: {
@@ -8,17 +9,25 @@ export const tooltipProps = {
   },
   placement: {
     type: String as PropType<Placement>,
-    default: Placement.Bottom
+    default: 'bottom'
   },
   trigger: {
     type: String as PropType<Trigger>,
-    default: Trigger.Hover
+    default: 'hover'
   },
   /** @description 手动模式 */
   manual: {
     type: Boolean,
     default: false
+  },
+  popperOptions: {
+    type: Object as PropType<Partial<Options>>,
+    default: () => ({})
+  },
+  transition: {
+    type: String,
+    default: 'fade'
   }
 } as const
 
-export type TooltipProps = ExtractPropTypes<typeof tooltipProps>
+export type TooltipProps = Partial<ExtractPropTypes<typeof tooltipProps>>
