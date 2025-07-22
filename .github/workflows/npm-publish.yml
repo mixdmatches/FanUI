@@ -28,8 +28,7 @@ jobs:
       # 打包组件库
       - name: Build component library
         run: |
-          cd packages/components
-          pnpm run build
+          pnpm build
 
       # 设置 npm 认证令牌
       - name: Set up npm auth
@@ -43,8 +42,6 @@ jobs:
       # 切换到 build 目录并发布到 npm
       - name: Publish to npm
         run: |
-          cd ..
-          cd ..
           cd build
           npm version patch
           npm publish --access public
