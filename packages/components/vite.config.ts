@@ -8,14 +8,7 @@ import fs from 'fs-extra'
 import packageJson from './package.json' // 引入现有的 package.json 文件
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // 读取根目录的 README.md 文件内容
-const rootReadmePath = path.join(
-  'd:',
-  '1Study',
-  'ForeEndMaterial',
-  'myProject',
-  'cxfComponents',
-  'README.md'
-)
+const rootReadmePath = path.join('../../README.md')
 const readmeContent = fs.readFileSync(rootReadmePath, 'utf-8')
 
 const fileStr = `{
