@@ -1,4 +1,3 @@
-import { min } from 'lodash-unified'
 import { RangeOption, UpdateType, VirtualOptions } from './types'
 
 const enum CALC_TYPE {
@@ -81,6 +80,11 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
       let high = param.uniqueIds.length - 1
       let middle = 0
       let middleOffset = 0
+
+      // 添加边界情况处理
+      if (offsetValue <= 0) return 0
+      if (offsetValue >= getIndexOffset(param.uniqueIds.length))
+        return param.uniqueIds.length - 1
       while (low <= high) {
         middle = low + Math.floor((high - low) / 2)
         middleOffset = getIndexOffset(middle)
@@ -92,7 +96,10 @@ export function initVirtual(param: VirtualOptions, update: UpdateType) {
           high = middle - 1
         }
       }
-      return low > 0 ? --low : 0
+      return Math.max(
+        0,
+        Math.min(param.uniqueIds.length - 1, low > 0 ? --low : low)
+      )
     }
   }
   // 通过start获取end

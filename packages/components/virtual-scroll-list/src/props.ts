@@ -36,6 +36,16 @@ export const virtualProps = {
   dataComponent: {
     type: [Object, Function] as PropType<DefineComponent>,
     required: true
+  },
+  /**
+   * description: 滚动时触发的回调函数
+   * params: { offset: 滚动距离, start: 可见区域起始索引, end: 可见区域结束索引 }
+   */
+  onScroll: {
+    type: Function as PropType<
+      (params: { offset: number; start: number; end: number }) => void
+    >,
+    default: undefined
   }
 } as const
 
@@ -63,4 +73,4 @@ export const virtualItemProps = {
   }
 }
 
-export type VirtaulItemProps = ExtractPropTypes<typeof virtualItemProps>
+export type VirtualItemProps = ExtractPropTypes<typeof virtualItemProps>

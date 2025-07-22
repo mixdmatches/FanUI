@@ -1,5 +1,6 @@
 import { defineComponent, onMounted, onUpdated, ref } from 'vue'
 import { virtualItemProps } from './props'
+import { debounce } from 'lodash-unified'
 
 export default defineComponent({
   name: 'virtual-item',
@@ -8,9 +9,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const root = ref<HTMLElement | null>(null)
     const { component: Comp, uniqueKey, dataSource } = props
-    function dispatchEvent() {
+    const dispatchEvent = debounce(() => {
       emit('itemResize', props.uniqueKey, root.value?.offsetHeight)
-    }
+    }, 50)
     onMounted(dispatchEvent)
     onUpdated(dispatchEvent)
     return () => {

@@ -67,12 +67,16 @@ export default {
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'card', link: '/components/card' },
             { text: 'Progress', link: '/components/progress' },
-            { text: 'Collapse', link: '/components/collapse' }
+            { text: 'Collapse', link: '/components/collapse' },
+            { text: 'VirtualScrollList', link: '/components/virtual-list' }
           ]
         },
         {
-          text: '反馈组件',
-          items: [{ text: 'Message', link: '/components/message' }]
+          text: 'Feedback反馈组件',
+          items: [
+            { text: 'Message', link: '/components/message' },
+            { text: 'Loading', link: '/components/loading' }
+          ]
         },
         {
           text: 'AI应用组件',

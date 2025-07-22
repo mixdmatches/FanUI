@@ -38,6 +38,12 @@ export default defineConfig([
   //   }
   // },
   {
+    files: ['packages/utils/log.ts'],
+    rules: {
+      'no-console': 'off'
+    }
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts,vue}'],
     rules: {
       'no-console': 'warn',

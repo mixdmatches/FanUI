@@ -35,3 +35,16 @@
 我们还为气泡提供了 `top` 和 `bottom` 两个自定义区域，方便你实现一些自定义需求
 
 <demo vue="../example/bubble/Slot.vue" />
+
+## API
+
+### props
+
+| 属性名         | 说明             | 类型                             | 默认值   |
+| -------------- | ---------------- | -------------------------------- | -------- |
+| content        | 气泡内容         | `string`                         | -        |
+| variant        | 气泡样式         | `filled` \| `bordered` \| `none` | `filled` |
+| align          | 气泡对齐方式     | `left` \| `right`                | `right`  |
+| avatarConfig   | 头像配置         | AvatarConfigType                 | -        |
+| avatarPosition | 头像位置         | `left` \| `top`                  | `left`   |
+| loading        | 是否显示加载状态 | `boolean`                        | `false`  |

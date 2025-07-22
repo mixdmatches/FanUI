@@ -32,6 +32,7 @@
     "@fan-ui/theme-chalk": "workspace:*",
     "@fan-ui/utils": "workspace:*",
     "@icon-park/vue-next": "^1.4.2",
+    "@popperjs/core": "^2.11.8",
     "@types/mockjs": "^1.0.10",
     "async-validator": "^4.2.5",
     "commitizen": "^4.3.1",

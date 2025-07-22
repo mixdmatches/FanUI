@@ -20,6 +20,9 @@ importers:
       '@icon-park/vue-next':
         specifier: ^1.4.2
         version: 1.4.2(vue@3.5.13(typescript@5.8.3))
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       '@types/mockjs':
         specifier: ^1.0.10
         version: 1.0.10
@@ -186,6 +189,9 @@ importers:
 
   docs:
     dependencies:
+      '@vitejs/plugin-vue-jsx':
+        specifier: ^4.1.2
+        version: 4.1.2(vite@5.4.18(@types/node@22.15.2)(sass@1.87.0)(terser@5.39.0))(vue@3.5.13(typescript@5.8.3))
       '@vitepress-demo-preview/component':
         specifier: ^2.3.2
         version: 2.3.2(vitepress@1.6.3(@algolia/client-search@5.23.4)(@types/node@22.15.2)(async-validator@4.2.5)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.3))(vue@3.5.13(typescript@5.8.3))
@@ -1079,6 +1085,9 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@popperjs/core@2.11.8':
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
   '@rollup/plugin-commonjs@28.0.3':
     resolution: {integrity: sha512-pyltgilam1QPdn+Zd9gaCfOLcnjMEJ9gV+bTw6/r73INdvzf1ah9zLIJBm+kW7R6IUFIQ1YO+VqZtYxZNWFPEQ==}
@@ -3466,6 +3475,7 @@ packages:
   multer@1.4.5-lts.2:
     resolution: {integrity: sha512-VzGiVigcG9zUAoCNU+xShztrlr1auZOlurXynNvO9GiWD1/mTBbUljOKY+qMeazBqXgRnjzeEgJI/wyjJUHg9A==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
 
   multimatch@5.0.0:
     resolution: {integrity: sha512-ypMKuglUrZUD99Tk2bUQ+xNQj43lPEfAeX2o9cTteAmShXy2VHDJpuwu1o0xqoKCt9jLVAvwyFKdLTPXKAfJyA==}
@@ -5715,6 +5725,8 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
+  '@popperjs/core@2.11.8': {}
+
   '@rollup/plugin-commonjs@28.0.3(rollup@4.40.0)':
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.40.0)
@@ -6072,6 +6084,16 @@ snapshots:
       eslint-visitor-keys: 4.2.0
 
   '@ungap/structured-clone@1.3.0': {}
+
+  '@vitejs/plugin-vue-jsx@4.1.2(vite@5.4.18(@types/node@22.15.2)(sass@1.87.0)(terser@5.39.0))(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      '@babel/core': 7.26.10
+      '@babel/plugin-transform-typescript': 7.27.0(@babel/core@7.26.10)
+      '@vue/babel-plugin-jsx': 1.4.0(@babel/core@7.26.10)
+      vite: 5.4.18(@types/node@22.15.2)(sass@1.87.0)(terser@5.39.0)
+      vue: 3.5.13(typescript@5.8.3)
+    transitivePeerDependencies:
+      - supports-color
 
   '@vitejs/plugin-vue-jsx@4.1.2(vite@6.3.2(@types/node@22.15.2)(jiti@2.4.2)(sass@1.87.0)(terser@5.39.0)(yaml@2.8.0))(vue@3.5.13(typescript@5.8.3))':
     dependencies:

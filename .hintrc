@@ -12,6 +12,7 @@
           "user-select"
         ]
       }
-    ]
+    ],
+    "no-inline-styles": "off"
   }
 }
