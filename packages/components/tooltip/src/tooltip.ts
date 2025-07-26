@@ -30,11 +30,11 @@ export const tooltipProps = {
   },
   openDelay: {
     type: Number,
-    default: 0
+    default: 200
   },
   closeDelay: {
     type: Number,
-    default: 0
+    default: 200
   }
 } as const
 

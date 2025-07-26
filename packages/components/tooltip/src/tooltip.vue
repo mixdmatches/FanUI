@@ -4,7 +4,13 @@
       <slot></slot>
     </div>
     <transition :name="transition">
-      <div :class="bem.e('popper')" ref="popperNode" v-if="isOpen">
+      <div
+        :class="bem.e('popper')"
+        ref="popperNode"
+        v-if="isOpen"
+        @mouseenter="handlePopperMouseEnter"
+        @mouseleave="handlePopperMouseLeave"
+      >
         <slot name="content">
           {{ content }}
         </slot>
@@ -32,6 +38,7 @@ const isOpen = ref(false)
 const triggerNode = ref<HTMLElement>()
 const popperNode = ref<HTMLElement>()
 const popperContainer = ref<HTMLElement>()
+const isMouseInPopper = ref(false)
 
 let popperInstance: Instance | null = null
 let events: Record<string, unknown> = reactive({})
@@ -86,7 +93,7 @@ const popperOptions = computed(() => {
       {
         name: 'offset',
         options: {
-          offset: [0, 10]
+          offset: [0, 9]
         }
       }
     ],
@@ -101,18 +108,13 @@ const triggerPopper = () => {
     openFinal()
   }
 }
-let openTimes = 0
-let closeTimes = 0
+
 const open = () => {
-  openTimes++
-  console.log(openTimes, 'openTimes')
   isOpen.value = true
   emit('visible-change', true)
 }
 
 const close = () => {
-  closeTimes++
-  console.log(closeTimes, 'closeTimes')
   isOpen.value = false
   emit('visible-change', false)
 }
@@ -129,10 +131,24 @@ const closeFinal = () => {
   closeDebounce()
 }
 
+const handlePopperMouseEnter = () => {
+  closeDebounce.cancel()
+  isMouseInPopper.value = true
+}
+
+const handlePopperMouseLeave = () => {
+  closeFinal()
+  isMouseInPopper.value = false
+}
+
 const attachEvents = () => {
   if (props.trigger === 'hover') {
     events['mouseenter'] = openFinal
-    outerEvents['mouseleave'] = closeFinal
+    outerEvents['mouseleave'] = () => {
+      if (!isMouseInPopper.value) {
+        closeFinal()
+      }
+    }
   }
   if (props.trigger === 'click') {
     events['click'] = triggerPopper
