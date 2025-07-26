@@ -27,6 +27,14 @@ export const tooltipProps = {
   transition: {
     type: String,
     default: 'fade'
+  },
+  openDelay: {
+    type: Number,
+    default: 0
+  },
+  closeDelay: {
+    type: Number,
+    default: 0
   }
 } as const
 

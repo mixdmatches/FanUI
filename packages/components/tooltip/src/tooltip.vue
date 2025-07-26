@@ -22,7 +22,7 @@ import { computed, onUnmounted, reactive, ref, watch } from 'vue'
 import { createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import { useClickOutside } from './useClickOutside'
-
+import { debounce } from 'lodash-es'
 const bem = createNamespace('tooltip')
 
 const props = defineProps(tooltipProps)
@@ -95,23 +95,44 @@ const popperOptions = computed(() => {
 })
 
 const triggerPopper = () => {
-  isOpen.value = !isOpen.value
-  emit('visible-change', isOpen.value)
+  if (isOpen.value) {
+    closeFinal()
+  } else {
+    openFinal()
+  }
 }
-
+let openTimes = 0
+let closeTimes = 0
 const open = () => {
+  openTimes++
+  console.log(openTimes, 'openTimes')
   isOpen.value = true
   emit('visible-change', true)
 }
+
 const close = () => {
+  closeTimes++
+  console.log(closeTimes, 'closeTimes')
   isOpen.value = false
   emit('visible-change', false)
 }
 
+const openDebounce = debounce(open, props.openDelay)
+const closeDebounce = debounce(close, props.closeDelay)
+
+const openFinal = () => {
+  closeDebounce.cancel()
+  openDebounce()
+}
+const closeFinal = () => {
+  openDebounce.cancel()
+  closeDebounce()
+}
+
 const attachEvents = () => {
   if (props.trigger === 'hover') {
-    events['mouseenter'] = open
-    outerEvents['mouseleave'] = close
+    events['mouseenter'] = openFinal
+    outerEvents['mouseleave'] = closeFinal
   }
   if (props.trigger === 'click') {
     events['click'] = triggerPopper
@@ -131,13 +152,13 @@ initEvents()
 
 useClickOutside(popperContainer, () => {
   if (props.trigger === 'click' && isOpen.value && !props.manual) {
-    close()
+    closeFinal()
   }
 })
 
 defineExpose<TooltipInstance>({
-  open,
-  close
+  open: openFinal,
+  close: closeFinal
 })
 
 onUnmounted(() => {
