@@ -13,6 +13,7 @@ export { FBubble } from './bubble'
 export { FAvatar } from './avatar'
 export { FCollapse, FCollapseItem } from './collapse'
 export { FTooltip } from './tooltip'
+export { FDropdown } from './dropdown'
 
 // plugins
 export { FMessage } from './message'

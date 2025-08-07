@@ -798,6 +798,16 @@ $tooltip: map.merge(
   $tooltip
 );
 
+$dropdown: () !default;
+$dropdown: map.merge(
+  (
+    'border-color': getCssVar('border-color', 'primary'),
+    'background': getCssVar('fill-color', 'blank'),
+    'disabled': getCssVar('text-color', 'disabled')
+  ),
+  $dropdown
+);
+
 // transition
 $transition: () !default;
 $transition: map.merge(

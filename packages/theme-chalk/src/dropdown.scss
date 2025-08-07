@@ -1,0 +1,31 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(dropdown) {
+  @include set-component-css-var('dropdown', $dropdown);
+  background-color: getCssVar('dropdown', 'background');
+
+  @include e(menu) {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+
+    @include e(item) {
+      padding: 2px 4px;
+      cursor: pointer;
+
+      @include when(disabled) {
+        color: getCssVar('dropdown', 'disabled');
+        cursor: no-drop;
+      }
+    }
+
+    @include m(separator) {
+      height: 1px;
+      width: 100%;
+      background-color: getCssVar('dropdown', 'disabled');
+    }
+  }
+}
