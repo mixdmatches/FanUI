@@ -10,3 +10,5 @@ build
 coverage
 docs/.vitepress/cache
 server
+.vscode
+.idea
