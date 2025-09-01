@@ -4,6 +4,8 @@
 
 @include b(dropdown) {
   @include set-component-css-var('dropdown', $dropdown);
+
+  display: inline-block;
   background-color: getCssVar('dropdown', 'background');
 
   @include e(menu) {
