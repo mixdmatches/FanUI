@@ -39,3 +39,12 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+.vp-doc li + li {
+  margin-top: 0;
+}
+.vp-doc ul,
+.vp-doc ol {
+  padding: 0;
+  margin: 0;
+}
