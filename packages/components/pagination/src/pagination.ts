@@ -1,8 +1,8 @@
-import { ExtractPropTypes } from 'vue'
+import { ExtractPropTypes, PropType } from 'vue'
 
 export const paginationProps = {
   // 当前页码
-  modelValue: {
+  current: {
     type: Number,
     default: 1
   },
@@ -15,6 +15,16 @@ export const paginationProps = {
   pageSize: {
     type: Number,
     default: 10
+  },
+  // 每页条数选项
+  pageSizeOptions: {
+    type: Array as PropType<Array<number>>,
+    default: () => [10, 20, 30, 40]
+  },
+  // 是否显示总条数
+  showTotal: {
+    type: Boolean,
+    default: false
   }
 } as const
 

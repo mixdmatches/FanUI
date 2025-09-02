@@ -1,21 +1,53 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { paginationProps } from './pagination'
+import { MenuOption } from '@fan-ui/components/dropdown/src/dropdown'
+import { Left, Right } from '@icon-park/vue-next'
+import { createNamespace } from '@fan-ui/utils'
+
+defineOptions({
+  name: 'f-pagination'
+})
+
+const bem = createNamespace('pagination')
 
 const props = defineProps(paginationProps)
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:current', 'update:pageSize', 'change'])
 
-const currentPage = ref(props.modelValue)
+const currentPage = ref(props.current)
 
 watch(
   () => currentPage.value,
   newVal => {
     currentPage.value = newVal
-    emit('update:modelValue', newVal)
+    emit('update:current', newVal)
   }
 )
 
-const pageCount = computed(() => Math.ceil(props.total / props.pageSize))
+const pageCount = computed(() => Math.ceil(props.total / currentPageSize.value))
+
+const currentPageSize = ref(props.pageSize)
+
+watch(
+  () => currentPageSize.value,
+  newVal => {
+    emit('update:pageSize', newVal)
+  }
+)
+
+// 这里是处理，如果 currentPage 是最后一页（即pageCount），pageSize从10变化到50，pageCount变小，那么 currentPage 也应该相应变小
+watchEffect(() => {
+  if (currentPage.value > pageCount.value) {
+    currentPage.value = pageCount.value
+  }
+})
+
+const pageSizeOptions = computed(() =>
+  props.pageSizeOptions.map(item => ({
+    label: item + ' 条/页',
+    key: item
+  }))
+)
 
 // 最多展示除开头页和尾页的5个中间页码
 const MAX_MEDDLE_PAGES_COUNT = 5
@@ -86,21 +118,26 @@ const handleNextClick = () => {
   currentPage.value++
   emit('change', currentPage.value)
 }
+
+const handleSelectPageSize = (menuOption: MenuOption) => {
+  emit('update:pageSize', menuOption.key)
+  currentPageSize.value = Number(menuOption.key)
+}
 </script>
 
 <template>
-  <div v-if="pageCount !== 1" class="page-container">
-    <span class="page-total">共{{ total }}条</span>
+  <div v-if="pageCount !== 1" :class="bem.b()">
+    <span :class="bem.e('total')" v-if="showTotal">共{{ total }}条</span>
     <button
       type="button"
-      :class="['page__button__prev', { disabled: currentPage <= 1 }]"
+      :class="[bem.e('prev'), bem.is('disabled', currentPage <= 1)]"
       @click="handlePrevClick"
     >
-      prev
+      <left theme="outline" size="24" />
     </button>
-    <ul class="page-list">
+    <ul :class="bem.b('list')">
       <li
-        :class="['page-list__item', { active: currentPage === 1 }]"
+        :class="[bem.be('list', 'item'), bem.is('active', currentPage === 1)]"
         @click="handleChange(1)"
       >
         1
@@ -109,14 +146,20 @@ const handleNextClick = () => {
       <li
         v-for="item in middlePages"
         :key="item"
-        :class="['page-list__item', { active: item === currentPage }]"
+        :class="[
+          bem.be('list', 'item'),
+          bem.is('active', item === currentPage)
+        ]"
         @click="handleChange(item)"
       >
         {{ item }}
       </li>
       <li v-if="isShowNextMore" class="more">...</li>
       <li
-        :class="['page-list__item', { active: currentPage === pageCount }]"
+        :class="[
+          bem.be('list', 'item'),
+          bem.is('active', currentPage === pageCount)
+        ]"
         @click="handleChange(pageCount)"
       >
         {{ pageCount }}
@@ -124,11 +167,20 @@ const handleNextClick = () => {
     </ul>
     <button
       type="button"
-      :class="['page__button__next', { disabled: currentPage >= pageCount }]"
+      :class="[bem.e('next'), bem.is('disabled', currentPage >= pageCount)]"
       @click="handleNextClick"
     >
-      next
+      <right theme="outline" size="24" />
     </button>
+    <!--pageSize下拉选择-->
+    <f-dropdown
+      :menuOptions="pageSizeOptions"
+      trigger="click"
+      v-if="total > 50"
+      @select="handleSelectPageSize"
+    >
+      <span :class="bem.e('dropdown')">{{ currentPageSize }} 条/页</span>
+    </f-dropdown>
   </div>
 </template>
 
@@ -136,7 +188,15 @@ const handleNextClick = () => {
 li {
   list-style: none;
 }
-button {
+.page__dropdown {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #1677ff;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.page__button__next,
+.page__button__prev {
   border: none;
   border-radius: 4px;
   background-color: inherit;

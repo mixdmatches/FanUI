@@ -18,7 +18,8 @@
               :class="[
                 bem.e('item'),
                 bem.is('divider', item.divider!),
-                bem.is('disabled', item.disabled!)
+                bem.is('disabled', item.disabled!),
+                bem.is('active', currentActiveItem.key == item.key)
               ]"
               :id="`dropdown-item-${item.key}`"
               @click="itemClick(item)"
@@ -46,12 +47,16 @@ const bem = createNamespace('dropdown')
 const props = defineProps(dropdownProps)
 const emit = defineEmits(dropdownEvent)
 
+const currentActiveItem = ref<MenuOption>(props.menuOptions[0])
+
 const visibleChange = (e: boolean) => {
   emit('visible-change', e)
 }
 
 const itemClick = (e: MenuOption) => {
   if (e.disabled) return
+  currentActiveItem.value = e
+  console.log(currentActiveItem.value)
   emit('select', e)
   if (props.hideAfterClick) {
     tooltipRef.value?.close()
