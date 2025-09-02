@@ -9,7 +9,7 @@
 @include b(tooltip) {
   display: inline-block;
   @include e(popper) {
-    padding: 4px 10px;
+    padding: 6px 8px;
     border: 1px solid getCssVar('border-color');
     border-radius: getCssVar('tooltip', 'border-radius');
     box-sizing: border-box;

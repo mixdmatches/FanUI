@@ -1,3 +1,70 @@
 @use './common/var.scss' as *;
 @use './mixins/mixins.scss' as *;
 @use './mixins/function.scss' as *;
+
+@include b(pagination) {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  @include e(prev) {
+    border: none;
+    border-radius: 4px;
+    background-color: inherit;
+    padding: 4px;
+    color: #1677ff;
+    cursor: pointer;
+    &:hover {
+      color: rgba(22, 119, 255, 0.8);
+    }
+  }
+  @include e(next) {
+    border: none;
+    border-radius: 4px;
+    background-color: inherit;
+    padding: 4px;
+    color: #1677ff;
+    cursor: pointer;
+    &:hover {
+      color: rgba(22, 119, 255, 0.8);
+    }
+  }
+
+  @include b(pagination-list) {
+    padding: 0 8px;
+    display: flex;
+    gap: 8px;
+    @include e(item) {
+      list-style: none;
+      line-height: 18px;
+      text-align: center;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background: #efefef;
+      }
+    }
+  }
+
+  .is-disabled {
+    color: #c0c4cc;
+    cursor: not-allowed;
+  }
+
+  .is-active {
+    background: #1677ff;
+    color: #fff;
+    &:hover {
+      background: #1677ff;
+    }
+  }
+
+  @include b(pagination__dropdown) {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #1677ff;
+    padding: 2px 8px;
+    cursor: pointer;
+  }
+}

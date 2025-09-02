@@ -803,10 +803,14 @@ $dropdown: map.merge(
   (
     'border-color': getCssVar('border-color', 'primary'),
     'background': getCssVar('fill-color', 'blank'),
-    'disabled': getCssVar('text-color', 'disabled')
+    'disabled': getCssVar('text-color', 'disabled'),
+    'hover': getCssVar('fill-color', 'light'),
+    'active': $color-primary
   ),
   $dropdown
 );
+
+$pagination: () !default;
 
 // transition
 $transition: () !default;
