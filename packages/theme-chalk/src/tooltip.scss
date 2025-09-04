@@ -8,8 +8,9 @@
 
 @include b(tooltip) {
   display: inline-block;
+
   @include e(popper) {
-    padding: 6px 8px;
+    padding: 5px 11px;
     border: 1px solid getCssVar('border-color');
     border-radius: getCssVar('tooltip', 'border-radius');
     box-sizing: border-box;
@@ -25,6 +26,10 @@
     &.fade-enter-active,
     &.fade-leave-active {
       transition: opacity getCssVar('tooltip', 'transition-duration');
+    }
+
+    .is-no-arrow {
+      display: none;
     }
 
     #arrow,
@@ -81,5 +86,9 @@
       border-left: 1px solid getCssVar('border-color');
       border-bottom: 1px solid getCssVar('border-color');
     }
+  }
+
+  .is-pure {
+    padding: 0;
   }
 }

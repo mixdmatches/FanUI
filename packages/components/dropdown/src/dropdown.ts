@@ -1,19 +1,9 @@
-import { ExtractPropTypes, PropType, VNode } from 'vue'
+import { ExtractPropTypes, Ref } from 'vue'
 import { tooltipProps } from '../../tooltip/src/tooltip'
-
-export interface MenuOption {
-  label: string | VNode
-  key: string | number
-  disabled?: boolean
-  divider?: boolean
-}
+import { TooltipInstance } from '@fan-ui/components/tooltip/src/type'
 
 export const dropdownProps = {
   ...tooltipProps,
-  menuOptions: {
-    type: Array as PropType<MenuOption[]>,
-    default: () => []
-  },
   hideAfterClick: {
     type: Boolean,
     default: true
@@ -21,14 +11,20 @@ export const dropdownProps = {
 } as const
 
 export const dropdownEvent = {
-  'visible-change': (visible: boolean) => void 0,
-  select: (value: MenuOption) => void 0
+  'visible-change': (visible: boolean) => void 0
 }
 
 export interface DropdownInstance {
   open: () => void
   close: () => void
 }
+
+export interface DropdownContext {
+  hideAfterClick: boolean
+  tooltipRef: Ref<TooltipInstance>
+}
+
+export const dropdownKey = Symbol('dropdown')
 
 export type DropdownProps = Partial<ExtractPropTypes<typeof dropdownProps>>
 export type DropdownEvent = typeof dropdownEvent

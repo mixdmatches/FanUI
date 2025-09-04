@@ -5,7 +5,7 @@
     </div>
     <transition :name="transition">
       <div
-        :class="bem.e('popper')"
+        :class="[bem.e('popper'), bem.is('pure', pure)]"
         ref="popperNode"
         v-if="isOpen"
         @mouseenter="handlePopperMouseEnter"
@@ -14,7 +14,11 @@
         <slot name="content">
           {{ content }}
         </slot>
-        <div id="arrow" data-popper-arrow></div>
+        <div
+          :class="bem.is('no-arrow', noArrow)"
+          id="arrow"
+          data-popper-arrow
+        ></div>
       </div>
     </transition>
   </div>

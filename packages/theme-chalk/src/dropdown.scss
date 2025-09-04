@@ -12,15 +12,22 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 0;
+    padding: 2px;
     margin: 0;
     box-sizing: border-box;
     list-style: none;
 
     @include e(item) {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      list-style: none;
+      line-height: 22px;
+      padding: 5px 16px;
+      margin: 0;
+      font-size: 14px;
       border-radius: 2px;
-      padding: 2px 4px;
-
+      outline: none;
       cursor: pointer;
       &:hover {
         background-color: getCssVar('dropdown', 'hover');
@@ -34,6 +41,9 @@
       @include when(disabled) {
         color: getCssVar('dropdown', 'disabled');
         cursor: no-drop;
+        &:hover {
+          background-color: getCssVar('dropdown', 'background');
+        }
       }
     }
 

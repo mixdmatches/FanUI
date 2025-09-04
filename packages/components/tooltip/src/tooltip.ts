@@ -35,6 +35,14 @@ export const tooltipProps = {
   closeDelay: {
     type: Number,
     default: 200
+  },
+  pure: {
+    type: Boolean,
+    default: false
+  },
+  noArrow: {
+    type: Boolean,
+    default: false
   }
 } as const
 
