@@ -1,6 +1,6 @@
 <template>
-  <f-dropdown>
-    hover me
+  <f-dropdown trigger="click" :hide-after-click="false">
+    click me
     <template #dropdown>
       <f-dropdown-menu>
         <f-dropdown-item> item1 </f-dropdown-item>
