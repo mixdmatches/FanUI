@@ -19,18 +19,39 @@ Tooltip 组件提供 2 种触发方式，分别为：`hover、click`。通过 `t
 
 <demo vue="../example/tooltip/trigger.vue" />
 
+## 手动模式
+
+给 `tooltip` 组件添加 `manual` 属性，即可开启手动模式。但是要获取 `tooltip` 实例，实例已导出 `close` 和 `open` 方法
+
+<demo vue="../example/tooltip/manual.vue" />
+
+## 延迟
+
+设置属性 `closeDelay` 和 `openDelay` ，默认值是 `200ms`
+
+<demo vue="../example/tooltip/delay.vue" />
+
+## 不要箭头
+
+可根据是否需要箭头设置 `no-arrow` 属性，默认值为 `false`
+
+<demo vue="../example/tooltip/arrow.vue" />
+
 ## API
 
 ### props
 
-| 属性          | 类型      | 默认值   | 说明        |
-| ------------- | --------- | -------- | ----------- |
-| content       | `string`  | -        | 提示内容    |
-| placement     | `string`  | `bottom` | 弹出位置    |
-| trigger       | `string`  | `hover`  | 触发方式    |
-| manual        | `boolean` | `false`  | 手动模式    |
-| transition    | `string`  | `fade`   | 过渡动画    |
-| popperOptions | `object`  | `{}`     | popper 配置 |
+| 属性           | 类型      | 默认值   | 说明         |
+| :------------- | --------- | -------- | ------------ |
+| content        | `string`  | -        | 提示内容     |
+| placement      | `string`  | `bottom` | 弹出位置     |
+| trigger        | `string`  | `hover`  | 触发方式     |
+| manual         | `boolean` | `false`  | 手动模式     |
+| transition     | `string`  | `fade`   | 过渡动画     |
+| popper-options | `object`  | `{}`     | popper 配置  |
+| close-delay    | `number`  | `200`    | 关闭延迟     |
+| open-delay     | `number`  | `200`    | 打开延迟     |
+| no-arrow       | `boolean` | `false`  | 是否展示箭头 |
 
 ### event
 
