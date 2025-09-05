@@ -2,9 +2,16 @@
   <div :class="bem.b()">
     <f-tooltip
       ref="tooltipRef"
-      :trigger="trigger"
       pure
-      no-arrow
+      :trigger="trigger"
+      :no-arrow="noArrow"
+      :content="content"
+      :placement="placement"
+      :manual="manual"
+      :popperOptions="popperOptions"
+      :transition="transition"
+      :openDelay="openDelay"
+      :closeDelay="closeDelay"
       @visible-change="visibleChange"
     >
       <slot></slot>
