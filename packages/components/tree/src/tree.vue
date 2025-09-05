@@ -1,20 +1,21 @@
 <template>
   <div :class="bem.b()">
-    <z-tree-node
+    <f-tree-node
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
       :expanded="false"
       @toggle="toggleExpand"
-    ></z-tree-node>
+    ></f-tree-node>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { treeProps, TreeNode, TreeOption } from './tree'
-import ZTreeNode from './TreeNode.vue'
+import { TreeNode, TreeOption, treeProps } from './tree'
+import FTreeNode from './TreeNode.vue'
 import { createNamespace } from '@fan-ui/utils/create'
+
 defineOptions({ name: 'f-tree' })
 const props = defineProps(treeProps)
 
@@ -45,7 +46,7 @@ const treeOptions = createOption(
 const tree = ref<TreeNode[]>([])
 // 格式化数据函数
 function createTree(data: TreeOption[]): TreeNode[] {
-  function tranversal(data: TreeOption[], parent: TreeNode | null = null) {
+  function traversal(data: TreeOption[], parent: TreeNode | null = null) {
     return data.map((node: TreeOption) => {
       const children = treeOptions.getChildren(node) || []
       const treeNode: TreeNode = {
@@ -57,13 +58,12 @@ function createTree(data: TreeOption[]): TreeNode[] {
         isLeaf: node.isLeaf ?? children.length === 0
       }
       if (children.length > 0) {
-        treeNode.children = tranversal(children, treeNode)
+        treeNode.children = traversal(children, treeNode)
       }
       return treeNode
     })
   }
-  const result: TreeNode[] = tranversal(data)
-  return result
+  return traversal(data)
 }
 // 格式化用户props传递的数据
 watch(

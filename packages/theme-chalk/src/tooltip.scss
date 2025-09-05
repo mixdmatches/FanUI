@@ -1,3 +1,94 @@
 @use './common/var.scss' as *;
 @use './mixins/mixins.scss' as *;
 @use './mixins/var' as *;
+
+@include b(tooltip) {
+  @include set-component-css-var('tooltip', $tooltip);
+}
+
+@include b(tooltip) {
+  display: inline-block;
+
+  @include e(popper) {
+    padding: 5px 11px;
+    border: 1px solid getCssVar('border-color');
+    border-radius: getCssVar('tooltip', 'border-radius');
+    box-sizing: border-box;
+    background-color: getCssVar('tooltip', 'background');
+    font-size: getCssVar('tooltip', 'font-size');
+    font-weight: getCssVar('tooltip', 'font-weight');
+    z-index: 99;
+
+    &.fade-enter-from,
+    &.fade-leave-to {
+      opacity: 0;
+    }
+    &.fade-enter-active,
+    &.fade-leave-active {
+      transition: opacity getCssVar('tooltip', 'transition-duration');
+    }
+
+    .is-no-arrow {
+      display: none;
+    }
+
+    #arrow,
+    #arrow::before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      box-sizing: border-box;
+      background: inherit;
+    }
+
+    #arrow {
+      visibility: hidden;
+    }
+
+    #arrow::before {
+      visibility: visible;
+      content: '';
+      transform: rotate(45deg);
+    }
+
+    &[data-popper-placement^='top'] > #arrow {
+      bottom: -4px;
+    }
+
+    &[data-popper-placement^='bottom'] > #arrow {
+      top: -4px;
+    }
+
+    &[data-popper-placement^='left'] > #arrow {
+      right: -4px;
+    }
+
+    &[data-popper-placement^='right'] > #arrow {
+      left: -4px;
+    }
+
+    &[data-popper-placement^='top'] > #arrow::before {
+      border-right: 1px solid getCssVar('border-color');
+      border-bottom: 1px solid getCssVar('border-color');
+    }
+
+    &[data-popper-placement^='bottom'] > #arrow::before {
+      border-left: 1px solid getCssVar('border-color');
+      border-top: 1px solid getCssVar('border-color');
+    }
+
+    &[data-popper-placement^='left'] > #arrow::before {
+      border-right: 1px solid getCssVar('border-color');
+      border-top: 1px solid getCssVar('border-color');
+    }
+
+    &[data-popper-placement^='right'] > #arrow::before {
+      border-left: 1px solid getCssVar('border-color');
+      border-bottom: 1px solid getCssVar('border-color');
+    }
+  }
+
+  .is-pure {
+    padding: 0;
+  }
+}

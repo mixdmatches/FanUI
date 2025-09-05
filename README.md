@@ -14,6 +14,8 @@
 
 [github地址](https://github.com/mixdmatches/FanUI)
 
+[npm地址](https://www.npmjs.com/package/@mixed_matches/fanui)
+
 ## 🌟 介绍
 
 FanUI是一款基于Vue3的UI组件库，提供了丰富的组件和工具，帮助开发者快速构建用户界面。
@@ -21,15 +23,15 @@ FanUI是一款基于Vue3的UI组件库，提供了丰富的组件和工具，帮
 ## 🔧 安装
 
 ```bash
-npm install @mixed_matches/fan-ui
+npm install @mixed_matches/fanui
 ```
 
 ```bash
-pnpm install @mixed_matches/fan-ui
+pnpm install @mixed_matches/fanui
 ```
 
 ```bash
-yarn add @mixed_matches/fan-ui
+yarn add @mixed_matches/fanui
 ```
 
 ## 🛠 使用
@@ -62,3 +64,11 @@ import { FButton } from '@mixed_matches/fanui'
   <f-button>按钮</f-button>
 </template>
 ```
+
+## 🔗 联系我
+
+由于本人是一个能力有限的大二学生，只能完成基础的组件库，后续会继续完善。
+有想法的可以联系我，我会很乐意一起合作开发。
+
+- 邮箱：[1919600547@qq.com](mailto:1919600547@qq.com)
+- QQ：1919600547

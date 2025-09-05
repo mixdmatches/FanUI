@@ -72,10 +72,18 @@ export default {
           ]
         },
         {
+          text: 'Navigation 导航',
+          items: [
+            { text: 'Dropdown', link: '/components/dropdown' },
+            { text: 'Pagination', link: '/components/pagination' }
+          ]
+        },
+        {
           text: 'Feedback反馈组件',
           items: [
             { text: 'Message', link: '/components/message' },
-            { text: 'Loading', link: '/components/loading' }
+            { text: 'Loading', link: '/components/loading' },
+            { text: 'Tooltip', link: '/components/tooltip' }
           ]
         },
         {

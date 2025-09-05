@@ -1,0 +1,63 @@
+@use './common/var.scss' as *;
+@use './mixins/mixins.scss' as *;
+@use './mixins/function.scss' as *;
+
+@include b(dropdown) {
+  @include set-component-css-var('dropdown', $dropdown);
+
+  display: inline-block;
+  background-color: getCssVar('dropdown', 'background');
+
+  @include when(no-arrow) {
+    @include e(menu) {
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  @include e(menu) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    z-index: 1;
+    @include e(item) {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      list-style: none;
+      line-height: 22px;
+      padding: 5px 16px;
+      margin: 0;
+      font-size: 14px;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      &:hover {
+        background-color: getCssVar('dropdown', 'hover');
+      }
+
+      @include when(active) {
+        color: white;
+        background-color: getCssVar('dropdown', 'active');
+      }
+
+      @include when(disabled) {
+        color: getCssVar('dropdown', 'disabled');
+        cursor: no-drop;
+        &:hover {
+          background-color: getCssVar('dropdown', 'background');
+        }
+      }
+    }
+
+    @include m(separator) {
+      height: 1px;
+      width: 100%;
+      background-color: getCssVar('dropdown', 'disabled');
+    }
+  }
+}

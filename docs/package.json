@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "postcss": "^8.5.6",
     "vitepress": "^1.6.3",
     "vitepress-demo-plugin": "^1.4.1"
   },

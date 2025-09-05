@@ -1,13 +1,26 @@
 <template>
-  <div :class="bem.b" v-on="outerEvents" ref="popperContainer">
-    <div :class="bem.be('tooltip', 'trigger')" ref="triggerNode" v-on="events">
+  <div :class="bem.b()" v-on="outerEvents" ref="popperContainer">
+    <div :class="bem.e('trigger')" ref="triggerNode" v-on="events">
       <slot></slot>
     </div>
-    <div :class="bem.be('tooltip', 'popper')" ref="popperNode" v-if="isOpen">
-      <slot name="content">
-        {{ content }}
-      </slot>
-    </div>
+    <transition :name="transition">
+      <div
+        :class="[bem.e('popper'), bem.is('pure', pure)]"
+        ref="popperNode"
+        v-if="isOpen"
+        @mouseenter="handlePopperMouseEnter"
+        @mouseleave="handlePopperMouseLeave"
+      >
+        <slot name="content">
+          {{ content }}
+        </slot>
+        <div
+          :class="bem.is('no-arrow', noArrow)"
+          id="arrow"
+          data-popper-arrow
+        ></div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -15,11 +28,11 @@
 import { createNamespace } from '@fan-ui/utils'
 import { tooltipProps } from './tooltip'
 import { TooltipEmits, TooltipInstance } from './type'
-import { onUnmounted, reactive, ref, watch } from 'vue'
+import { computed, onUnmounted, reactive, ref, watch } from 'vue'
 import { createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import { useClickOutside } from './useClickOutside'
-
+import { debounce } from 'lodash-es'
 const bem = createNamespace('tooltip')
 
 const props = defineProps(tooltipProps)
@@ -29,6 +42,7 @@ const isOpen = ref(false)
 const triggerNode = ref<HTMLElement>()
 const popperNode = ref<HTMLElement>()
 const popperContainer = ref<HTMLElement>()
+const isMouseInPopper = ref(false)
 
 let popperInstance: Instance | null = null
 let events: Record<string, unknown> = reactive({})
@@ -38,10 +52,12 @@ watch(
   isOpen,
   val => {
     if (val) {
-      if (triggerNode && popperNode) {
-        popperInstance = createPopper(triggerNode.value, popperNode.value, {
-          placement: props.placement
-        })
+      if (triggerNode.value && popperNode.value) {
+        popperInstance = createPopper(
+          triggerNode.value,
+          popperNode.value,
+          popperOptions.value
+        )
       } else {
         popperInstance?.destroy()
       }
@@ -74,27 +90,75 @@ watch(
   }
 )
 
+const popperOptions = computed(() => {
+  return {
+    placement: props.placement,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 9]
+        }
+      }
+    ],
+    ...props.popperOptions
+  }
+})
+
 const triggerPopper = () => {
-  isOpen.value = !isOpen.value
-  emit('visible-change', isOpen.value)
+  if (isOpen.value) {
+    closeFinal()
+  } else {
+    openFinal()
+  }
 }
 
 const open = () => {
   isOpen.value = true
   emit('visible-change', true)
 }
+
 const close = () => {
   isOpen.value = false
   emit('visible-change', false)
 }
 
+const openDebounce = debounce(open, props.openDelay)
+const closeDebounce = debounce(close, props.closeDelay)
+
+const openFinal = () => {
+  closeDebounce.cancel()
+  openDebounce()
+}
+const closeFinal = () => {
+  openDebounce.cancel()
+  closeDebounce()
+}
+
+const handlePopperMouseEnter = () => {
+  closeDebounce.cancel()
+  isMouseInPopper.value = true
+}
+
+const handlePopperMouseLeave = () => {
+  if (props.trigger !== 'click' && !props.manual) {
+    closeFinal()
+  }
+  isMouseInPopper.value = false
+}
+
 const attachEvents = () => {
   if (props.trigger === 'hover') {
-    events['mouseenter'] = open
-    outerEvents['mouseleave'] = close
+    events['mouseenter'] = openFinal
+    outerEvents['mouseleave'] = () => {
+      if (!isMouseInPopper.value) {
+        closeFinal()
+      }
+    }
   }
   if (props.trigger === 'click') {
     events['click'] = triggerPopper
+    delete outerEvents['mouseleave']
   }
 }
 
@@ -111,13 +175,13 @@ initEvents()
 
 useClickOutside(popperContainer, () => {
   if (props.trigger === 'click' && isOpen.value && !props.manual) {
-    close()
+    closeFinal()
   }
 })
 
 defineExpose<TooltipInstance>({
-  open,
-  close
+  open: openFinal,
+  close: closeFinal
 })
 
 onUnmounted(() => {

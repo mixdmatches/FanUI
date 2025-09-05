@@ -26,6 +26,11 @@ import Switcher from './icon/Switcher.vue'
 import { treeNodeEmit, treeNodeProps } from './tree'
 import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
+
+defineOptions({
+  name: 'f-tree-node'
+})
+
 const props = defineProps(treeNodeProps)
 const emits = defineEmits(treeNodeEmit)
 const bem = createNamespace('tree-node')

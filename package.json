@@ -1,5 +1,5 @@
 {
-  "version": "1.1.4",
+  "version": "1.1.6",
   "name": "fanui",
   "private": "false",
   "description": "",
@@ -38,9 +38,11 @@
     "commitizen": "^4.3.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "lodash-es": "^4.17.21",
     "lodash-unified": "^1.0.3",
     "mockjs": "^1.1.0",
     "multer": "1.4.5-lts.2",
+    "swiper": "^11.2.10",
     "typescript": "^5.8.3"
   },
   "devDependencies": {

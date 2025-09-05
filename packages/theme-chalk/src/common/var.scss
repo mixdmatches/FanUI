@@ -754,7 +754,7 @@ $avatar: map.merge(
     'bg-color': getCssVar('text-color', 'disabled'),
     'text-size': 14px,
     'icon-size': 18px,
-    'border-radius': getCssVar('border-radius-base')
+    'border-radius': getCssVar('border-radius')
   ),
   $avatar
 );
@@ -784,6 +784,33 @@ $collapse: map.merge(
 );
 
 $table: () !default;
+
+$tooltip: () !default;
+$tooltip: map.merge(
+  (
+    'border-color': getCssVar('border-color', 'primary'),
+    'border-radius': getCssVar('border-radius-base'),
+    'background': getCssVar('bg-color'),
+    'font-size': getCssVar('font-size', 'extra-small'),
+    'transition-duration': getCssVar('transition-duration'),
+    'font-weight': 500
+  ),
+  $tooltip
+);
+
+$dropdown: () !default;
+$dropdown: map.merge(
+  (
+    'border-color': getCssVar('border-color', 'primary'),
+    'background': getCssVar('bg-color'),
+    'disabled': getCssVar('text-color', 'disabled'),
+    'hover': getCssVar('fill-color', 'light'),
+    'active': $color-primary
+  ),
+  $dropdown
+);
+
+$pagination: () !default;
 
 // transition
 $transition: () !default;
