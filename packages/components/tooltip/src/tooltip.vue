@@ -141,7 +141,9 @@ const handlePopperMouseEnter = () => {
 }
 
 const handlePopperMouseLeave = () => {
-  closeFinal()
+  if (props.trigger !== 'click' && !props.manual) {
+    closeFinal()
+  }
   isMouseInPopper.value = false
 }
 
@@ -156,6 +158,7 @@ const attachEvents = () => {
   }
   if (props.trigger === 'click') {
     events['click'] = triggerPopper
+    delete outerEvents['mouseleave']
   }
 }
 
