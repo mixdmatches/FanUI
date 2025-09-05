@@ -790,7 +790,7 @@ $tooltip: map.merge(
   (
     'border-color': getCssVar('border-color', 'primary'),
     'border-radius': getCssVar('border-radius-base'),
-    'background': getCssVar('fill-color', 'blank'),
+    'background': getCssVar('bg-color'),
     'font-size': getCssVar('font-size', 'extra-small'),
     'transition-duration': getCssVar('transition-duration'),
     'font-weight': 500
@@ -802,7 +802,7 @@ $dropdown: () !default;
 $dropdown: map.merge(
   (
     'border-color': getCssVar('border-color', 'primary'),
-    'background': getCssVar('fill-color', 'blank'),
+    'background': getCssVar('bg-color'),
     'disabled': getCssVar('text-color', 'disabled'),
     'hover': getCssVar('fill-color', 'light'),
     'active': $color-primary
