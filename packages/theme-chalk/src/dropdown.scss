@@ -8,6 +8,12 @@
   display: inline-block;
   background-color: getCssVar('dropdown', 'background');
 
+  @include when(no-arrow) {
+    @include e(menu) {
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    }
+  }
+
   @include e(menu) {
     position: relative;
     display: flex;

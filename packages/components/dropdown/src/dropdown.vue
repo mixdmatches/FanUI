@@ -1,5 +1,5 @@
 <template>
-  <div :class="bem.b()">
+  <div :class="[bem.b(), bem.is('no-arrow', noArrow && showShadow)]">
     <f-tooltip
       ref="tooltipRef"
       pure

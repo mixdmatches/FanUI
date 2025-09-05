@@ -7,6 +7,10 @@ export const dropdownProps = {
   hideAfterClick: {
     type: Boolean,
     default: true
+  },
+  showShadow: {
+    type: Boolean,
+    default: false
   }
 } as const
 
