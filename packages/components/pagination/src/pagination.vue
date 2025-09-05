@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue'
 import { paginationProps } from './pagination'
-import { MenuOption } from '@fan-ui/components/dropdown/src/dropdown'
 import { Left, Right } from '@icon-park/vue-next'
 import { createNamespace } from '@fan-ui/utils'
 
@@ -45,7 +44,7 @@ watchEffect(() => {
 const pageSizeOptions = computed(() =>
   props.pageSizeOptions.map(item => ({
     label: item + ' 条/页',
-    key: item
+    pageSize: item
   }))
 )
 
@@ -119,9 +118,9 @@ const handleNextClick = () => {
   emit('change', currentPage.value)
 }
 
-const handleSelectPageSize = (menuOption: MenuOption) => {
-  emit('update:pageSize', menuOption.key)
-  currentPageSize.value = Number(menuOption.key)
+const handleSelectPageSize = (pageSize: number | string) => {
+  emit('update:pageSize', pageSize)
+  currentPageSize.value = Number(pageSize)
 }
 </script>
 
@@ -142,7 +141,7 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       >
         1
       </li>
-      <li v-if="isShowPrevMore" class="more">...</li>
+      <li v-if="isShowPrevMore" :class="bem.bm('list', 'more')">...</li>
       <li
         v-for="item in middlePages"
         :key="item"
@@ -154,7 +153,7 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       >
         {{ item }}
       </li>
-      <li v-if="isShowNextMore" class="more">...</li>
+      <li v-if="isShowNextMore" :class="bem.bm('list', 'more')">...</li>
       <li
         :class="[
           bem.be('list', 'item'),
@@ -172,22 +171,24 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
     >
       <right theme="outline" size="24" />
     </button>
-    <!--pageSize下拉选择-->
-    <f-dropdown
-      :menuOptions="pageSizeOptions"
-      trigger="click"
-      v-if="total > 50"
-      @select="handleSelectPageSize"
-    >
+    <f-dropdown trigger="click" no-arrow v-if="total > 50">
       <span :class="bem.e('dropdown')">{{ currentPageSize }} 条/页</span>
+      <template #dropdown>
+        <f-dropdown-menu>
+          <f-dropdown-item
+            v-for="item in pageSizeOptions"
+            :key="item.pageSize"
+            @click="handleSelectPageSize(item.pageSize)"
+          >
+            {{ item.label }}
+          </f-dropdown-item>
+        </f-dropdown-menu>
+      </template>
     </f-dropdown>
   </div>
 </template>
 
 <style scoped lang="scss">
-li {
-  list-style: none;
-}
 .page__dropdown {
   display: inline-block;
   border-radius: 4px;
@@ -219,10 +220,11 @@ li {
     padding: 0 8px;
     display: flex;
     gap: 8px;
-    .more {
+    .page-list__more {
       cursor: pointer;
     }
     .page-list__item {
+      list-style: none;
       line-height: 18px;
       text-align: center;
       padding: 4px 8px;

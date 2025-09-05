@@ -31,11 +31,11 @@
   }
 
   @include b(pagination-list) {
+    list-style: none;
     padding: 0 8px;
     display: flex;
     gap: 8px;
     @include e(item) {
-      list-style: none;
       line-height: 18px;
       text-align: center;
       padding: 4px 8px;
@@ -44,19 +44,20 @@
       &:hover {
         background: #efefef;
       }
+      @include when(active) {
+        background: #1677ff;
+        color: #fff;
+        &:hover {
+          background: #1677ff;
+        }
+      }
+      @include when(disabled) {
+        color: #c0c4cc;
+        cursor: not-allowed;
+      }
     }
-  }
-
-  .is-disabled {
-    color: #c0c4cc;
-    cursor: not-allowed;
-  }
-
-  .is-active {
-    background: #1677ff;
-    color: #fff;
-    &:hover {
-      background: #1677ff;
+    @include m(more) {
+      cursor: pointer;
     }
   }
 

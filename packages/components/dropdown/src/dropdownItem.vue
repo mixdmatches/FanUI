@@ -21,7 +21,7 @@ defineOptions({
   name: 'f-dropdown-item'
 })
 
-defineProps({
+const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
@@ -32,13 +32,17 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['click'])
+
 const bem = createNamespace('dropdown')
 
 const { hideAfterClick, tooltipRef } = inject(dropdownKey) as DropdownContext
 
 const itemClick = () => {
+  if (props.disabled) return
   if (hideAfterClick) {
     tooltipRef.value?.close()
   }
+  emit('click')
 }
 </script>
