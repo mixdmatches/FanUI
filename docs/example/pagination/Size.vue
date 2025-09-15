@@ -9,8 +9,7 @@ const pageSizeCurrent = ref(10)
     v-model:current="currentPage"
     v-model:page-size="pageSizeCurrent"
     :total="500"
+    show-total
     :page-size-options="[5, 10, 15, 20]"
   ></f-pagination>
 </template>
-
-<style scoped></style>

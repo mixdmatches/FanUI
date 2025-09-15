@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 const currentPage = ref(2)
 </script>
@@ -6,7 +6,7 @@ const currentPage = ref(2)
 <template>
   <f-pagination
     v-model:current="currentPage"
-    show-total
-    :total="500"
+    :total="50"
+    show-jumper
   ></f-pagination>
 </template>
