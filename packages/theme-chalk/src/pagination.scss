@@ -68,4 +68,12 @@
     padding: 2px 8px;
     cursor: pointer;
   }
+
+  @include e(goto) {
+    display: inline-block;
+    height: 32px;
+    margin-inline-start: 8px;
+    line-height: 32px;
+    vertical-align: top;
+  }
 }

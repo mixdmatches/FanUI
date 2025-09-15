@@ -25,6 +25,10 @@ export const paginationProps = {
   showTotal: {
     type: Boolean,
     default: false
+  },
+  showJumper: {
+    type: Boolean,
+    default: false
   }
 } as const
 
