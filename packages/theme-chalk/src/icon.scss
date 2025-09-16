@@ -33,7 +33,7 @@
   fill: currentColor;
   color: var(--color);
   font-size: inherit;
-
+  vertical-align: middle;
   @include when(loading) {
     animation: rotating 2s linear infinite;
   }

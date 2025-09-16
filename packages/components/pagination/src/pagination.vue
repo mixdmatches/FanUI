@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue'
 import { paginationProps } from './pagination'
-import { Left, Right } from '@icon-park/vue-next'
+import { Left, Right, More, DoubleRight, DoubleLeft } from '@icon-park/vue-next'
 import { createNamespace } from '@fan-ui/utils'
-
 defineOptions({
   name: 'f-pagination'
 })
@@ -20,6 +19,7 @@ watch(
   newVal => {
     currentPage.value = newVal
     emit('update:current', newVal)
+    emit('change', newVal, currentPageSize.value)
   }
 )
 
@@ -31,6 +31,7 @@ watch(
   () => currentPageSize.value,
   newVal => {
     emit('update:pageSize', newVal)
+    emit('change', currentPage.value, newVal)
   }
 )
 
@@ -107,19 +108,16 @@ const middlePages = computed(() => generateMiddlePageCount())
 
 const handleChange = (item: number) => {
   currentPage.value = item
-  emit('change', item)
 }
 
 const handlePrevClick = () => {
   if (currentPage.value <= 1) return
   currentPage.value--
-  emit('change', currentPage.value)
 }
 
 const handleNextClick = () => {
   if (currentPage.value >= pageCount.value) return
   currentPage.value++
-  emit('change', currentPage.value)
 }
 
 const handleSelectPageSize = (pageSize: number | string) => {
@@ -127,11 +125,33 @@ const handleSelectPageSize = (pageSize: number | string) => {
   currentPageSize.value = Number(pageSize)
 }
 
-const jumperPage = ref(1)
+const jumperPage = ref()
 
 const handleBlur = () => {
   if (jumperPage.value > pageCount.value) return
   currentPage.value = Number(jumperPage.value)
+  jumperPage.value = ''
+}
+
+const hoverStates = ref<Record<string, boolean>>({})
+const handleMouseEnter = (key: string) => {
+  hoverStates.value[key] = true
+}
+const handleMouseLeave = (key: string) => {
+  hoverStates.value[key] = false
+}
+const getIconState = (key: string) => {
+  return hoverStates.value[key] || false
+}
+
+const handleJumperFive = (direction: 'prev' | 'next') => {
+  if (direction === 'prev') {
+    if (currentPage.value <= 5) return
+    currentPage.value -= 5
+  } else {
+    if (currentPage.value >= pageCount.value - 4) return
+    currentPage.value += 5
+  }
 }
 </script>
 
@@ -143,7 +163,11 @@ const handleBlur = () => {
       :class="[bem.e('prev'), bem.is('disabled', currentPage <= 1)]"
       @click="handlePrevClick"
     >
-      <left theme="outline" size="24" />
+      <slot name="prev">
+        <f-icon size="24">
+          <left theme="outline" />
+        </f-icon>
+      </slot>
     </button>
     <ul :class="bem.b('list')">
       <li
@@ -152,7 +176,28 @@ const handleBlur = () => {
       >
         1
       </li>
-      <li v-if="isShowPrevMore" :class="bem.bm('list', 'more')">...</li>
+      <li
+        v-if="isShowPrevMore"
+        :class="bem.bm('list', 'more')"
+        @mouseenter="handleMouseEnter('prev')"
+        @mouseleave="handleMouseLeave('prev')"
+      >
+        <f-icon size="24">
+          <more
+            v-if="!getIconState('prev')"
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
+          <double-left
+            v-else
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+            @click="handleJumperFive('prev')"
+          />
+        </f-icon>
+      </li>
       <li
         v-for="item in middlePages"
         :key="item"
@@ -164,7 +209,28 @@ const handleBlur = () => {
       >
         {{ item }}
       </li>
-      <li v-if="isShowNextMore" :class="bem.bm('list', 'more')">...</li>
+      <li
+        v-if="isShowNextMore"
+        :class="bem.bm('list', 'more')"
+        @mouseenter="handleMouseEnter('next')"
+        @mouseleave="handleMouseLeave('next')"
+      >
+        <f-icon size="24">
+          <more
+            v-if="!getIconState('next')"
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
+          <double-right
+            v-else
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+            @click="handleJumperFive('next')"
+          />
+        </f-icon>
+      </li>
       <li
         :class="[
           bem.be('list', 'item'),
@@ -180,7 +246,11 @@ const handleBlur = () => {
       :class="[bem.e('next'), bem.is('disabled', currentPage >= pageCount)]"
       @click="handleNextClick"
     >
-      <right theme="outline" size="24" />
+      <slot name="next">
+        <f-icon size="24">
+          <right theme="outline" />
+        </f-icon>
+      </slot>
     </button>
     <f-dropdown no-arrow v-if="isShowDropdown">
       <span :class="bem.e('dropdown')">{{ currentPageSize }} 条/页</span>
@@ -204,7 +274,7 @@ const handleBlur = () => {
         v-model="jumperPage"
         style="width: 60px"
       />
-      / {{ pageCount }} 页
+      页
     </div>
   </div>
 </template>
