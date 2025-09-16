@@ -240,22 +240,14 @@ $checkbox-bordered-input-width: map.merge(
       opacity: 0;
       fill: #ffffff;
       transition: opacity 0.3s ease; // 添加过渡效果
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      display: block;
     }
-    // &::after {
-    //   box-sizing: content-box;
-    //   content: '';
-    //   border: 1px solid transparent;
-    //   border-left: 0;
-    //   border-top: 0;
-    //   height: 7px;
-    //   left: 4px;
-    //   position: absolute;
-    //   top: 1px;
-    //   transform: rotate(45deg) scaleY(0);
-    //   width: 3px;
-    //   transition: transform 0.15s ease-in 0.05s;
-    //   transform-origin: center;
-    // }
   }
 
   @include e(original) {
