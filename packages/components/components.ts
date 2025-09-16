@@ -15,7 +15,7 @@ export { FCollapse, FCollapseItem } from './collapse'
 export { FTooltip } from './tooltip'
 export { FDropdown, FDropdownItem, FDropdownMenu } from './dropdown'
 export { FPagination } from './pagination'
-
+export { FTree } from './tree'
 // plugins
 export { FMessage } from './message'
 export { FLoading } from './loading'

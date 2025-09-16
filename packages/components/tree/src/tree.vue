@@ -4,27 +4,32 @@
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
-      :expanded="false"
+      :selected="isSelected(node)"
+      :expanded="isExpanded(node)"
       @toggle="toggleExpand"
+      @checkedChange="handleCheckedChange"
     ></f-tree-node>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { TreeNode, TreeOption, treeProps } from './tree'
+import { computed, provide, ref, watch } from 'vue'
+import { treeContextKey, treeEvent, treeProps } from './tree'
 import FTreeNode from './TreeNode.vue'
 import { createNamespace } from '@fan-ui/utils/create'
+import { TreeNode, TreeOption } from './types'
 
 defineOptions({ name: 'f-tree' })
+
 const props = defineProps(treeProps)
+const emit = defineEmits(treeEvent)
 
 const bem = createNamespace('tree')
 
 const createOption = (label: string, key: string, children: string) => {
   return {
     getLabel(node: TreeOption) {
-      return node.label as string
+      return node[label] as string
     },
     getKey(node: TreeOption) {
       return node[key] as string
@@ -42,7 +47,7 @@ const treeOptions = createOption(
 )
 
 // 有了props要对用户数据进行格式化，格式化一个固定结果
-// 格式化后的结点 label, key,chilldren
+// 格式化后的结点 label, key, children
 const tree = ref<TreeNode[]>([])
 // 格式化数据函数
 function createTree(data: TreeOption[]): TreeNode[] {
@@ -75,11 +80,55 @@ watch(
 )
 
 // 需要展开的key
-const expandedKeysSet = ref(new Set(props.defaultExpandedKeys))
+const expandedKeys = ref(new Set(props.expandedKeys))
 
-// 拍平树
+watch(
+  () => expandedKeys.value,
+  newVal => {
+    emit('update:expandedKeys', [...newVal])
+  }
+)
+
+// 需要选中的key
+const selectedKeys = ref(new Set(props.selectedKeys))
+
+watch(
+  () => selectedKeys.value,
+  newVal => {
+    emit('update:selectedKeys', [...newVal])
+  }
+)
+
+// 受控选中checked
+const checkedKeys = ref(new Set(props.checkedKeys))
+
+watch(
+  () => checkedKeys.value,
+  newVal => {
+    emit('update:checkedKeys', [...newVal])
+  }
+)
+
+const handleCheckedChange = (checked, node: TreeNode) => {
+  // 创建一个新的Set对象，而不是直接修改原对象,不然watch不会触发
+  const newCheckedKeys = new Set(checkedKeys.value)
+  if (checked) {
+    newCheckedKeys.add(node.key)
+  } else {
+    newCheckedKeys.delete(node.key)
+  }
+
+  // 通过赋值新的Set对象触发响应式更新
+  checkedKeys.value = newCheckedKeys
+}
+
+function isSelected(node: TreeNode): boolean {
+  return selectedKeys.value.has(node.key)
+}
+
+// 拍平树--太难了
 const flattenTree = computed(() => {
-  let expandedKeys = expandedKeysSet.value // 需要展开的key
+  let _expandedKeys = expandedKeys.value // 需要展开的key
   let flattenNodes: TreeNode[] = [] // 拍平后的结果
   const nodes = tree.value || [] //格式化后的节点
   const stack: TreeNode[] = [] //遍历树的栈
@@ -91,7 +140,7 @@ const flattenTree = computed(() => {
     const node = stack.pop()! // 取出栈顶元素
     flattenNodes.push(node) // 拍平
     // 展开
-    if (expandedKeys.has(node.key)) {
+    if (_expandedKeys.has(node.key)) {
       const children = node.children || []
       for (let j = children.length - 1; j >= 0; j--) {
         stack.push(children[j])
@@ -102,27 +151,33 @@ const flattenTree = computed(() => {
 })
 
 // 判断是否展开
-// function isExpanded(node: TreeNode): boolean {
-//   return expandedKeysSet.value.has(node.key)
-// }
+function isExpanded(node: TreeNode): boolean {
+  return expandedKeys.value.has(node.key)
+}
 
 // 折叠功能
-function collpase(node: TreeNode) {
-  expandedKeysSet.value.delete(node.key)
+function collapse(node: TreeNode) {
+  expandedKeys.value.delete(node.key)
 }
 
 //展开功能
 function expand(node: TreeNode) {
-  expandedKeysSet.value.add(node.key)
+  expandedKeys.value.add(node.key)
 }
 
 // 切换展开
 function toggleExpand(node: TreeNode) {
-  const expandedKeys = expandedKeysSet.value
-  if (expandedKeys.has(node.key)) {
-    collpase(node)
+  if (expandedKeys.value.has(node.key)) {
+    collapse(node)
   } else {
     expand(node)
   }
 }
+
+provide(treeContextKey, {
+  selectedKeys,
+  expandedKeys,
+  checkedKeys,
+  checkable: props.checkable
+})
 </script>

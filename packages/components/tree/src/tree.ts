@@ -1,28 +1,22 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import { ExtractPropTypes, InjectionKey, PropType, Ref, ref } from 'vue'
+import { TreeOption } from './types'
 
 type Key = string | number
-
-export interface TreeNode extends Required<TreeOption> {
-  level: number
-  rawNode: TreeOption
-  children: TreeNode[]
-  isLeaf: boolean
-}
-
-export interface TreeOption {
-  label?: Key
-  key?: Key
-  children?: TreeOption[]
-  isLeaf?: boolean
-  [key: string]: unknown
-}
 
 export const treeProps = {
   data: {
     type: Array as PropType<TreeOption[]>,
     default: () => []
   },
-  defaultExpandedKeys: {
+  expandedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => []
+  },
+  selectedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => []
+  },
+  checkedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
   },
@@ -37,23 +31,27 @@ export const treeProps = {
   childrenField: {
     type: String,
     default: 'children'
-  }
-} as const
-
-export const treeNodeProps = {
-  node: {
-    type: Object as PropType<TreeNode>,
-    default: () => {}
   },
-  expanded: {
+  checkable: {
     type: Boolean,
     default: false
   }
 } as const
 
-export const treeNodeEmit = {
-  toggle: (node: TreeNode) => node
+export const treeEvent = {
+  'update:expandedKeys': (_keys: Key[]) => _keys,
+  'update:selectedKeys': (_keys: Key[]) => _keys,
+  'update:checkedKeys': (_keys: Key[]) => _keys
+}
+// 定义一个新的类型来匹配实际使用的 ref 类型
+export interface TreeContext {
+  expandedKeys: Ref<Set<Key>>
+  selectedKeys: Ref<Set<Key>>
+  checkedKeys: Ref<Set<Key>>
+  checkable: boolean
 }
 
-export type TreeNodeProps = Partial<ExtractPropTypes<typeof treeNodeProps>>
+export const treeContextKey: InjectionKey<TreeContext> = Symbol('treeContext')
+
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>
+export type TreeEvent = typeof treeEvent

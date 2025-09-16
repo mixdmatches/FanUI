@@ -7,25 +7,38 @@
       <span
         :class="[
           bem.e('expand-icon'),
-          { expanded: expanded && !node.isLeaf },
+          bem.is('expanded', expanded && !node.isLeaf),
           bem.is('leaf', node.isLeaf)
         ]"
-        @click="handleToggle()"
+        @click="handleToggle"
       >
-        <f-icon size="25">
-          <Switcher></Switcher>
+        <f-icon size="18">
+          <right
+            v-if="!(node.children.length === 0)"
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
         </f-icon>
       </span>
-      <span>{{ node?.label }}</span>
+      <f-checkbox
+        v-if="treeContext?.checkable"
+        v-model="checked"
+        :disabled="node.disabled ?? false"
+        @change="handleSelectChange"
+      />
+      <span :class="[bem.e('label')]">{{ node?.label }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Switcher from './icon/Switcher.vue'
-import { treeNodeEmit, treeNodeProps } from './tree'
+import { treeNodeEmit, treeNodeProps } from './treeNode'
 import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
+import { Right } from '@icon-park/vue-next'
+import { inject, ref, watch } from 'vue'
+import { treeContextKey } from './tree'
 
 defineOptions({
   name: 'f-tree-node'
@@ -35,6 +48,18 @@ const props = defineProps(treeNodeProps)
 const emits = defineEmits(treeNodeEmit)
 const bem = createNamespace('tree-node')
 
+const treeContext = inject(treeContextKey, undefined)
+
+const checked = ref(treeContext?.checkedKeys.value.has(props.node.key) ?? false)
+const handleSelectChange = checked => {
+  emits('checkedChange', checked, props.node)
+}
+watch(
+  () => treeContext?.checkedKeys.value,
+  newVal => {
+    checked.value = newVal?.has(props.node.key) as boolean
+  }
+)
 const handleToggle = () => {
   emits('toggle', props.node)
 }

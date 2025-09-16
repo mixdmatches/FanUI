@@ -1,28 +1,46 @@
 @use './mixins/mixins.scss' as *;
+@use './common/var.scss' as *;
 
 @include b(tree) {
+  @include set-component-css-var('tree', $tree);
+
   display: inline-block;
   width: 100%;
 }
 
-@include b('tree-node') {
-  padding: 5px 0;
-  font-size: 16px;
-  &:hover {
-    background: rgb(195, 195, 234);
+@include b(tree-node) {
+  padding-bottom: 4px;
+  font-size: 14px;
+
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
-  @include e('expand-icon') {
+
+  @include e(expand-icon) {
     display: inline-block;
     vertical-align: middle;
     transform: rotate(0deg);
-    transition: transform 0.3s ease-in;
+    transition: transform 0.2s;
     cursor: pointer;
-    &.expanded {
+    @include when(expanded) {
       transform: rotate(90deg);
     }
-    &.is-leaf {
+    @include when(leaf) {
       fill: transparent;
       cursor: default;
+    }
+  }
+
+  @include e(label) {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 2px;
+    border-radius: getCssVar('tree', 'border-radius');
+    &:hover {
+      cursor: pointer;
+      background: getCssVar('tree', 'background-color');
     }
   }
 }

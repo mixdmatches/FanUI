@@ -812,6 +812,18 @@ $dropdown: map.merge(
 
 $pagination: () !default;
 
+$tree: () !default;
+$tree: map.merge(
+  (
+    'font-size': getCssVar('font-size-base'),
+    'text-color': getCssVar('text-color-regular'),
+    'font-weight': getCssVar('font-weight-primary'),
+    'background-color': getCssVar('fill-color', 'light'),
+    'border-radius': getCssVar('border-radius-base')
+  ),
+  $tree
+);
+
 // transition
 $transition: () !default;
 $transition: map.merge(
