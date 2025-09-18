@@ -24,6 +24,7 @@
       <f-checkbox
         v-if="treeContext?.checkable"
         v-model="checked"
+        :indeterminate="indeterminate"
         :disabled="node.disabled ?? false"
         @change="handleSelectChange"
       />
@@ -37,7 +38,7 @@ import { treeNodeEmit, treeNodeProps } from './treeNode'
 import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
 import { Right } from '@icon-park/vue-next'
-import { inject, ref, watch } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { treeContextKey } from './tree'
 
 defineOptions({
@@ -51,6 +52,19 @@ const bem = createNamespace('tree-node')
 const treeContext = inject(treeContextKey, undefined)
 
 const checked = ref(treeContext?.checkedKeys.value.has(props.node.key) ?? false)
+const indeterminate = computed(() => {
+  // 1.叶子节点没有indeterminate状态
+  if (props.node.children.length === 0) {
+    return false
+  }
+  // 计算当前节点的选中子节点数量
+  const checkedCount = props.node.children.filter(child =>
+    treeContext?.checkedKeys.value.has(child.key)
+  ).length
+
+  // 有选中但未全选
+  return checkedCount > 0 && checkedCount < props.node.children.length
+})
 const handleSelectChange = checked => {
   emits('checkedChange', checked, props.node)
 }
@@ -60,6 +74,7 @@ watch(
     checked.value = newVal?.has(props.node.key) as boolean
   }
 )
+
 const handleToggle = () => {
   emits('toggle', props.node)
 }

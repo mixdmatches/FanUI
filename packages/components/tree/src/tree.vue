@@ -4,7 +4,6 @@
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
-      :selected="isSelected(node)"
       :expanded="isExpanded(node)"
       @toggle="toggleExpand"
       @checkedChange="handleCheckedChange"
@@ -60,7 +59,8 @@ function createTree(data: TreeOption[]): TreeNode[] {
         children: [],
         rawNode: node,
         level: parent ? parent.level + 1 : 0,
-        isLeaf: node.isLeaf ?? children.length === 0
+        isLeaf: node.isLeaf ?? children.length === 0,
+        parent: parent ?? undefined
       }
       if (children.length > 0) {
         treeNode.children = traversal(children, treeNode)
@@ -78,53 +78,6 @@ watch(
   },
   { immediate: true }
 )
-
-// 需要展开的key
-const expandedKeys = ref(new Set(props.expandedKeys))
-
-watch(
-  () => expandedKeys.value,
-  newVal => {
-    emit('update:expandedKeys', [...newVal])
-  }
-)
-
-// 需要选中的key
-const selectedKeys = ref(new Set(props.selectedKeys))
-
-watch(
-  () => selectedKeys.value,
-  newVal => {
-    emit('update:selectedKeys', [...newVal])
-  }
-)
-
-// 受控选中checked
-const checkedKeys = ref(new Set(props.checkedKeys))
-
-watch(
-  () => checkedKeys.value,
-  newVal => {
-    emit('update:checkedKeys', [...newVal])
-  }
-)
-
-const handleCheckedChange = (checked, node: TreeNode) => {
-  // 创建一个新的Set对象，而不是直接修改原对象,不然watch不会触发
-  const newCheckedKeys = new Set(checkedKeys.value)
-  if (checked) {
-    newCheckedKeys.add(node.key)
-  } else {
-    newCheckedKeys.delete(node.key)
-  }
-
-  // 通过赋值新的Set对象触发响应式更新
-  checkedKeys.value = newCheckedKeys
-}
-
-function isSelected(node: TreeNode): boolean {
-  return selectedKeys.value.has(node.key)
-}
 
 // 拍平树--太难了
 const flattenTree = computed(() => {
@@ -149,6 +102,101 @@ const flattenTree = computed(() => {
   }
   return flattenNodes
 })
+
+// 需要展开的key
+const expandedKeys = ref(new Set(props.expandedKeys))
+
+watch(
+  () => expandedKeys.value,
+  newVal => {
+    emit('update:expandedKeys', [...newVal])
+  }
+)
+
+// 受控选中checked
+const checkedKeys = ref(new Set(props.checkedKeys))
+
+watch(
+  () => checkedKeys.value,
+  newVal => {
+    emit('update:checkedKeys', [...newVal])
+    if (tree.value) {
+      tree.value.forEach(node => {
+        updateAllParentNodesStatus(node)
+      })
+    }
+  }
+)
+// 递归更新所有父节点状态
+function updateAllParentNodesStatus(node: TreeNode) {
+  if (node.parent) {
+    checkParentNodeStatus(node)
+    updateAllParentNodesStatus(node.parent)
+  }
+}
+
+// 检查父节点状态
+// 1. 检查当前父节点的所有子节点是否都被选中
+// 2. 如果所有子节点都选中，父节点选中 checkedKeys.add()
+// 3. 如果部分子节点选中，父节点indeterminate
+// 4. 如果没有子节点选中，父节点取消选中 checkedKeys.delete()
+function checkParentNodeStatus(node: TreeNode) {
+  let currentNode = node
+  // 递归向上检查所有父节点
+  while (currentNode.parent) {
+    const parent = currentNode.parent
+    // 检查当前父节点的所有子节点是否都被选中
+    const checkedCount = parent.children.filter(child =>
+      checkedKeys.value.has(child.key)
+    ).length
+    // 1. 所有子节点都选中，父节点选中
+    if (checkedCount === parent.children.length) {
+      checkedKeys.value.add(parent.key)
+    }
+    // 2. 部分子节点选中，父节点indeterminate
+    else if (checkedCount > 0) {
+      // 这里不需要操作checkedKeys，indeterminate状态由计算属性决定
+    }
+    // 3. 没有子节点选中，父节点取消选中
+    else {
+      checkedKeys.value.delete(parent.key)
+    }
+    currentNode = parent
+  }
+}
+
+// node的选中状态改变时触发
+const handleCheckedChange = (checked: boolean, node: TreeNode) => {
+  // 创建一个新的Set对象，而不是直接修改原对象,不然watch不会触发
+  const newCheckedKeys = new Set([...checkedKeys.value])
+  function addOrDelete(type: 'add' | 'delete', _node: TreeNode) {
+    if (type === 'add') {
+      newCheckedKeys.add(_node.key)
+    } else {
+      newCheckedKeys.delete(_node.key)
+    }
+  }
+  const type = checked ? 'add' : 'delete'
+  addOrDelete(type, node)
+  // 如果有子节点
+  const nodes = node.children
+  const stack: TreeNode[] = []
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    stack.push(nodes[i])
+  }
+  while (stack.length > 0) {
+    const currentNode = stack.pop()!
+    addOrDelete(type, currentNode)
+    if (currentNode.children.length > 0) {
+      for (let i = currentNode.children.length - 1; i >= 0; i--) {
+        stack.push(currentNode.children[i])
+      }
+    }
+  }
+  // 通过赋值新的Set对象触发响应式更新
+  checkedKeys.value = newCheckedKeys
+  checkParentNodeStatus(node)
+}
 
 // 判断是否展开
 function isExpanded(node: TreeNode): boolean {
@@ -175,7 +223,6 @@ function toggleExpand(node: TreeNode) {
 }
 
 provide(treeContextKey, {
-  selectedKeys,
   expandedKeys,
   checkedKeys,
   checkable: props.checkable

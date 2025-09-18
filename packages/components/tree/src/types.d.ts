@@ -13,4 +13,5 @@ export interface TreeNode extends Required<TreeOption> {
   isLeaf: boolean
   disabled?: boolean
   checked?: boolean
+  parent?: TreeNode
 }

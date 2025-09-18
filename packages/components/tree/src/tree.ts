@@ -1,4 +1,4 @@
-import { ExtractPropTypes, InjectionKey, PropType, Ref, ref } from 'vue'
+import { ExtractPropTypes, InjectionKey, PropType, Reactive, Ref } from 'vue'
 import { TreeOption } from './types'
 
 type Key = string | number
@@ -9,10 +9,6 @@ export const treeProps = {
     default: () => []
   },
   expandedKeys: {
-    type: Array as PropType<Key[]>,
-    default: () => []
-  },
-  selectedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
   },
@@ -40,13 +36,11 @@ export const treeProps = {
 
 export const treeEvent = {
   'update:expandedKeys': (_keys: Key[]) => _keys,
-  'update:selectedKeys': (_keys: Key[]) => _keys,
   'update:checkedKeys': (_keys: Key[]) => _keys
 }
 // 定义一个新的类型来匹配实际使用的 ref 类型
 export interface TreeContext {
   expandedKeys: Ref<Set<Key>>
-  selectedKeys: Ref<Set<Key>>
   checkedKeys: Ref<Set<Key>>
   checkable: boolean
 }
