@@ -12,3 +12,4 @@ docs/.vitepress/cache
 server
 .vscode
 .idea
+develop.md
