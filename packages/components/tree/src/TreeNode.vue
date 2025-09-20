@@ -25,7 +25,6 @@
         v-if="treeContext?.checkable"
         v-model="checked"
         :indeterminate="indeterminate"
-        :disabled="node.disabled ?? false"
         @change="handleSelectChange"
       />
       <span :class="[bem.e('label')]">{{ node?.label }}</span>

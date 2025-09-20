@@ -1,7 +1,5 @@
-import { ExtractPropTypes, InjectionKey, PropType, Reactive, Ref } from 'vue'
-import { TreeOption } from './types'
-
-type Key = string | number
+import { ExtractPropTypes, InjectionKey, PropType, Ref } from 'vue'
+import { TreeOption, Key } from './types'
 
 export const treeProps = {
   data: {

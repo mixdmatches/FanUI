@@ -12,11 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, ref, watch } from 'vue'
+import { computed, onMounted, provide, ref, watch } from 'vue'
 import { treeContextKey, treeEvent, treeProps } from './tree'
 import FTreeNode from './TreeNode.vue'
 import { createNamespace } from '@fan-ui/utils/create'
-import { TreeNode, TreeOption } from './types'
+import { Key, TreeNode, TreeOption } from './types'
 
 defineOptions({ name: 'f-tree' })
 
@@ -60,7 +60,8 @@ function createTree(data: TreeOption[]): TreeNode[] {
         rawNode: node,
         level: parent ? parent.level + 1 : 0,
         isLeaf: node.isLeaf ?? children.length === 0,
-        parent: parent ?? undefined
+        parent: parent ?? undefined,
+        disabled: node.disabled ?? false
       }
       if (children.length > 0) {
         treeNode.children = traversal(children, treeNode)
@@ -79,7 +80,7 @@ watch(
   { immediate: true }
 )
 
-// 拍平树--太难了
+// 拍平树
 const flattenTree = computed(() => {
   let _expandedKeys = expandedKeys.value // 需要展开的key
   let flattenNodes: TreeNode[] = [] // 拍平后的结果
@@ -120,20 +121,8 @@ watch(
   () => checkedKeys.value,
   newVal => {
     emit('update:checkedKeys', [...newVal])
-    if (tree.value) {
-      tree.value.forEach(node => {
-        updateAllParentNodesStatus(node)
-      })
-    }
   }
 )
-// 递归更新所有父节点状态
-function updateAllParentNodesStatus(node: TreeNode) {
-  if (node.parent) {
-    checkParentNodeStatus(node)
-    updateAllParentNodesStatus(node.parent)
-  }
-}
 
 // 检查父节点状态
 // 1. 检查当前父节点的所有子节点是否都被选中
@@ -155,7 +144,7 @@ function checkParentNodeStatus(node: TreeNode) {
     }
     // 2. 部分子节点选中，父节点indeterminate
     else if (checkedCount > 0) {
-      // 这里不需要操作checkedKeys，indeterminate状态由计算属性决定
+      checkedKeys.value.add(parent.key)
     }
     // 3. 没有子节点选中，父节点取消选中
     else {
@@ -169,34 +158,83 @@ function checkParentNodeStatus(node: TreeNode) {
 const handleCheckedChange = (checked: boolean, node: TreeNode) => {
   // 创建一个新的Set对象，而不是直接修改原对象,不然watch不会触发
   const newCheckedKeys = new Set([...checkedKeys.value])
-  function addOrDelete(type: 'add' | 'delete', _node: TreeNode) {
+  function addOrDelete(type: 'add' | 'delete', key: Key) {
     if (type === 'add') {
-      newCheckedKeys.add(_node.key)
+      newCheckedKeys.add(key)
     } else {
-      newCheckedKeys.delete(_node.key)
+      newCheckedKeys.delete(key)
     }
   }
   const type = checked ? 'add' : 'delete'
-  addOrDelete(type, node)
-  // 如果有子节点
-  const nodes = node.children
-  const stack: TreeNode[] = []
-  for (let i = nodes.length - 1; i >= 0; i--) {
-    stack.push(nodes[i])
+
+  const childKeys = collectAllChild(node).keys()
+  for (const key of childKeys) {
+    addOrDelete(type, key)
   }
-  while (stack.length > 0) {
-    const currentNode = stack.pop()!
-    addOrDelete(type, currentNode)
-    if (currentNode.children.length > 0) {
-      for (let i = currentNode.children.length - 1; i >= 0; i--) {
-        stack.push(currentNode.children[i])
-      }
-    }
-  }
+
   // 通过赋值新的Set对象触发响应式更新
   checkedKeys.value = newCheckedKeys
   checkParentNodeStatus(node)
 }
+
+// 递归收集节点及其所有子节点--map映射结果
+function collectAllChild(node: TreeNode): Map<Key, TreeNode> {
+  const map = new Map<Key, TreeNode>()
+  map.set(node.key, node)
+
+  function traverse(currentNode: TreeNode) {
+    const children = currentNode.children || []
+    for (const child of children) {
+      map.set(child.key, child)
+      traverse(child)
+    }
+  }
+
+  traverse(node)
+  return map
+}
+
+/**
+ * 根据key获取节点
+ * @param key 节点的key
+ * @returns 节点
+ */
+function getNodeByKey(key: Key): TreeNode | null {
+  if (!tree.value) return null
+  const nodes = tree.value
+  let node: TreeNode | null = null
+  function traverse(nodes: TreeNode[]) {
+    for (const n of nodes) {
+      if (n.key === key) {
+        node = n
+        return
+      }
+      if (n.children && n.children.length > 0) {
+        traverse(n.children)
+      }
+    }
+  }
+  traverse(nodes)
+  return node
+}
+
+// 初始化checkedKeys，包含props.checkedKeys对应节点及其所有子节点
+onMounted(() => {
+  if (!tree.value || props.checkedKeys.length === 0) return
+
+  const newCheckedKeys = new Set<Key>()
+  for (const key of props.checkedKeys) {
+    const node = getNodeByKey(key)
+    if (node) {
+      // 找到匹配的节点，收集该节点及其所有子节点的key
+      const allKeys = collectAllChild(node).keys()
+      allKeys.forEach(key => newCheckedKeys.add(key))
+    }
+  }
+
+  // 更新checkedKeys
+  checkedKeys.value = newCheckedKeys
+})
 
 // 判断是否展开
 function isExpanded(node: TreeNode): boolean {
