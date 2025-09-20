@@ -1,22 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const expandedKeys = ref<string[]>(['0-1', '0-2', '1-1'])
+const checkedKeys = ref<string[]>(['1-2-1'])
 const data = ref([
   {
     title: '一级',
     key: '0-1',
-    checked: true,
     children: [
       {
         title: '二级',
         key: '1-1',
-        checked: true,
         disabled: true,
         children: [
           {
             title: '三级',
-            key: '1-1-1'
+            key: '1-1-1',
+            children: [
+              {
+                title: '四级',
+                key: '1-1-1-1'
+              }
+            ]
+          },
+          {
+            title: '三级',
+            key: '1-1-2'
           }
         ]
       },
@@ -39,11 +48,19 @@ const data = ref([
     children: []
   }
 ])
+
+watch(
+  () => checkedKeys.value,
+  () => {
+    console.log('checkedKeys', checkedKeys.value)
+  }
+)
 </script>
 
 <template>
   <f-tree
     v-model:expandedKeys="expandedKeys"
+    v-model:checked-keys="checkedKeys"
     :data="data"
     label-field="title"
     checkable

@@ -38,7 +38,6 @@ export const treeEvent = {
 }
 // 定义一个新的类型来匹配实际使用的 ref 类型
 export interface TreeContext {
-  expandedKeys: Ref<Set<Key>>
   checkedKeys: Ref<Set<Key>>
   checkable: boolean
 }
