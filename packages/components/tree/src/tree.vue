@@ -7,7 +7,14 @@
       :expanded="isExpanded(node)"
       @toggle="toggleExpand"
       @checkedChange="handleCheckedChange"
-    ></f-tree-node>
+    >
+      <template #switch-icon="slotProps">
+        <slot name="switch-icon" v-bind="slotProps"></slot>
+      </template>
+      <template #icon="slotProps" v-if="$slots.icon">
+        <slot name="icon" v-bind="slotProps"></slot>
+      </template>
+    </f-tree-node>
   </div>
 </template>
 

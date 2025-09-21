@@ -5,29 +5,33 @@
       :style="{ paddingLeft: `${node.level * 16}px` }"
     >
       <span
+        v-if="!node.isLeaf"
         :class="[
           bem.e('expand-icon'),
-          bem.is('expanded', expanded && !node.isLeaf),
-          bem.is('leaf', node.isLeaf)
+          bem.is('expanded', expanded && !node.isLeaf)
         ]"
         @click="handleToggle"
       >
         <f-icon size="18">
-          <right
-            v-if="!(node.children.length === 0)"
-            theme="outline"
-            fill="#abb2bd"
-            :strokeWidth="3"
-          />
+          <slot name="switch-icon" :node="node">
+            <right theme="outline" fill="#abb2bd" :strokeWidth="3" />
+          </slot>
         </f-icon>
       </span>
+      <span v-else :class="bem.e('expand-icon-placeholder')"></span>
       <f-checkbox
         v-if="treeContext?.checkable"
         v-model="checked"
         :indeterminate="node.indeterminate"
         @change="handleSelectChange"
       />
-      <span :class="[bem.e('label')]">{{ node?.label }}</span>
+
+      <span :class="[bem.e('label')]">
+        <f-icon size="18" v-if="$slots.icon">
+          <slot name="icon" :node="node"> </slot>
+        </f-icon>
+        {{ node?.label }}</span
+      >
     </div>
   </div>
 </template>

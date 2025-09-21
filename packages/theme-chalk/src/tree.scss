@@ -27,10 +27,12 @@
     @include when(expanded) {
       transform: rotate(90deg);
     }
-    @include when(leaf) {
-      fill: transparent;
-      cursor: default;
-    }
+  }
+
+  @include e(expand-icon-placeholder) {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
   }
 
   @include e(label) {
