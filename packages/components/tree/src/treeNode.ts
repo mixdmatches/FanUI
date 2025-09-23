@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from 'vue'
-import { TreeNode } from './types'
+import { Key, TreeNode } from './types'
 
 export const treeNodeProps = {
   node: {
@@ -17,6 +17,10 @@ export const treeNodeProps = {
   disabled: {
     type: Boolean,
     default: false
+  },
+  loadingKeys: {
+    type: Object as PropType<Set<Key>>,
+    default: () => new Set()
   }
 } as const
 

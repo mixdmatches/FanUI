@@ -27,6 +27,17 @@
     @include when(expanded) {
       transform: rotate(90deg);
     }
+    @include when(loading) {
+      transition: rotate 1.5s linear infinite;
+    }
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
   }
 
   @include e(expand-icon-placeholder) {

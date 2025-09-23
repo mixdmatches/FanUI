@@ -5,6 +5,7 @@
       :key="node.key"
       :node="node"
       :expanded="isExpanded(node)"
+      :loadingKeys="loadingKeysRef"
       @toggle="toggleExpand"
       @checkedChange="handleCheckedChange"
     >
@@ -34,7 +35,13 @@ const emit = defineEmits(treeEvent)
 
 const bem = createNamespace('tree')
 
-const { expandedKeys, toggleExpand, isExpanded } = useExpanded(props, { emit })
+const { expandedKeys, toggleExpand, isExpanded, loadingKeysRef } = useExpanded(
+  props,
+  {
+    emit,
+    createTree
+  }
+)
 
 const createOption = (label: string, key: string, children: string) => {
   return {
@@ -60,7 +67,10 @@ const treeOptions = createOption(
 // 格式化后的结点 label, key, children
 const tree = ref<TreeNode[]>([])
 // 格式化数据函数
-function createTree(data: TreeOption[]): TreeNode[] {
+function createTree(
+  data: TreeOption[],
+  parent: TreeNode | null = null
+): TreeNode[] {
   function traversal(data: TreeOption[], parent: TreeNode | null = null) {
     return data.map((node: TreeOption) => {
       const children = treeOptions.getChildren(node) || []
@@ -81,7 +91,7 @@ function createTree(data: TreeOption[]): TreeNode[] {
       return treeNode
     })
   }
-  return traversal(data)
+  return traversal(data, parent)
 }
 // 格式化用户props传递的数据
 watch(

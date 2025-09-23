@@ -29,7 +29,8 @@ export const treeProps = {
   checkable: {
     type: Boolean,
     default: false
-  }
+  },
+  onLoad: Function as PropType<(node: TreeOption) => Promise<TreeOption[]>>
 } as const
 
 export const treeEvent = {

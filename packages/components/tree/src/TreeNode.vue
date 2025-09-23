@@ -12,10 +12,18 @@
         ]"
         @click="handleToggle"
       >
-        <f-icon size="18">
-          <slot name="switch-icon" :node="node">
-            <right theme="outline" fill="#abb2bd" :strokeWidth="3" />
-          </slot>
+        <f-icon size="18" :class="bem.is('loading', isLoading)">
+          <template v-if="!isLoading">
+            <slot name="switch-icon" :node="node">
+              <right theme="outline" fill="#abb2bd" :strokeWidth="3" />
+            </slot>
+          </template>
+          <loading-four
+            v-else
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
         </f-icon>
       </span>
       <span v-else :class="bem.e('expand-icon-placeholder')"></span>
@@ -30,8 +38,8 @@
         <f-icon size="18" v-if="$slots.icon">
           <slot name="icon" :node="node"> </slot>
         </f-icon>
-        {{ node?.label }}</span
-      >
+        {{ node?.label }}
+      </span>
     </div>
   </div>
 </template>
@@ -40,7 +48,7 @@
 import { treeNodeEmit, treeNodeProps } from './treeNode'
 import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
-import { Right } from '@icon-park/vue-next'
+import { Right, LoadingFour } from '@icon-park/vue-next'
 import { computed, inject } from 'vue'
 import { treeContextKey } from './tree'
 import { CheckboxValueType } from '@fan-ui/components/checkbox'
@@ -66,4 +74,6 @@ const handleSelectChange = (checked: CheckboxValueType) => {
 const handleToggle = () => {
   emits('toggle', props.node)
 }
+
+const isLoading = computed(() => props.loadingKeys.has(props.node.key))
 </script>
