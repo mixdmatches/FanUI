@@ -15,13 +15,22 @@ export default defineComponent({
     onMounted(dispatchEvent)
     onUpdated(dispatchEvent)
     return () => {
-      return (
-        Comp && (
+      if (
+        typeof Comp === 'function' ||
+        (Comp && typeof Comp === 'object' && 'render' in Comp)
+      ) {
+        return (
           <div key={uniqueKey} ref={root}>
             <Comp source={dataSource}></Comp>
           </div>
         )
-      )
+      } else {
+        return (
+          <div key={uniqueKey} ref={root}>
+            {Comp}
+          </div>
+        )
+      }
     }
   }
 })

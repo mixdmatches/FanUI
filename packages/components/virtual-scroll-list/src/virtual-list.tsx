@@ -51,7 +51,7 @@ export default defineComponent({
               key={uniqueKey}
               uniqueKey={uniqueKey}
               dataSource={dataSource}
-              component={dataComponent}
+              component={dataComponent || ctx.slots.default!({ dataSource })}
               onItemResize={onItemResize}
             ></VirtualItem>
           )

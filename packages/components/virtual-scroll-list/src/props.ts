@@ -34,8 +34,7 @@ export const virtualProps = {
    * description: 用户选择的组件
    */
   dataComponent: {
-    type: [Object, Function] as PropType<DefineComponent>,
-    required: true
+    type: [Object, Function] as PropType<DefineComponent>
   },
   /**
    * description: 滚动时触发的回调函数
