@@ -1,5 +1,31 @@
 <template>
-  <div :class="bem.b()">
+  <f-virtual-list
+    v-if="height"
+    :style="{ height: `${height}px`, overflow: 'auto' }"
+    :items="flattenTree"
+    :size="30"
+    :remain="8"
+  >
+    <template #default="{ node }">
+      <f-tree-node
+        :key="node.key"
+        :node="node"
+        :expanded="isExpanded(node)"
+        :loadingKeys="loadingKeysRef"
+        @toggle="toggleExpand"
+        @checkedChange="handleCheckedChange"
+      >
+        <template #switch-icon="slotProps">
+          <slot name="switch-icon" v-bind="slotProps"></slot>
+        </template>
+        <template #icon="slotProps" v-if="$slots.icon">
+          <slot name="icon" v-bind="slotProps"></slot>
+        </template>
+      </f-tree-node>
+    </template>
+  </f-virtual-list>
+
+  <div :class="bem.b()" v-else>
     <f-tree-node
       v-for="node in flattenTree"
       :key="node.key"

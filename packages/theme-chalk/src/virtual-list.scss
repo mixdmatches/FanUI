@@ -1,0 +1,18 @@
+@use './mixins/mixins.scss' as *;
+@use './common/var.scss' as *;
+
+@include b(virtual) {
+  position: relative;
+  width: 100%;
+  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  @include e('scroll-list') {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}

@@ -30,7 +30,8 @@ export const treeProps = {
     type: Boolean,
     default: false
   },
-  onLoad: Function as PropType<(node: TreeOption) => Promise<TreeOption[]>>
+  onLoad: Function as PropType<(node: TreeOption) => Promise<TreeOption[]>>,
+  height: Number
 } as const
 
 export const treeEvent = {
