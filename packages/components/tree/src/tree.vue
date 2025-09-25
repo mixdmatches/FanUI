@@ -25,13 +25,19 @@
     </template>
   </f-virtual-list>
 
-  <div :class="bem.b()" v-else>
+  <div :class="bem.b()" ref="dragContainer" v-else>
+    <div
+      v-show="dragState.showDropIndicator"
+      ref="dropIndicator$"
+      :class="bem.e('drop-indicator')"
+    />
     <f-tree-node
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
       :expanded="isExpanded(node)"
       :loadingKeys="loadingKeysRef"
+      :draggable="draggable"
       @toggle="toggleExpand"
       @checkedChange="handleCheckedChange"
     >
@@ -53,6 +59,7 @@ import { createNamespace } from '@fan-ui/utils/create'
 import { TreeNode, TreeOption } from './types'
 import { useExpanded } from './hooks/useExpanded'
 import { useChecked } from './hooks/useChecked'
+import { useDragger } from './hooks/useDragger'
 
 defineOptions({ name: 'f-tree' })
 
@@ -156,6 +163,10 @@ const { checkedKeys, handleCheckedChange } = useChecked(props, {
   emit,
   tree
 })
+
+const dropIndicator$ = ref<HTMLElement>()
+const dragContainer = ref<HTMLElement>()
+const { dragState } = useDragger(props, dragContainer, dropIndicator$, tree)
 
 provide(treeContextKey, {
   checkedKeys,

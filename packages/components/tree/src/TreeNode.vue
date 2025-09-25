@@ -1,5 +1,13 @@
 <template>
-  <div :class="bem.b()">
+  <div
+    ref="node$"
+    :class="[bem.b()]"
+    @dragstart.stop="handleDragStart"
+    @dragover.stop="handleDragOver"
+    @dragend.stop="handleDragEnd"
+    @drop.stop="handleDrop"
+    :draggable="draggable"
+  >
     <div
       :class="bem.e('content')"
       :style="{ paddingLeft: `${node.level * 16}px` }"
@@ -34,7 +42,7 @@
         @change="handleSelectChange"
       />
 
-      <span :class="[bem.e('label')]">
+      <span :class="[bem.e('label'), bem.e('label-top-line')]">
         <f-icon size="18" v-if="$slots.icon">
           <slot name="icon" :node="node"> </slot>
         </f-icon>
@@ -49,8 +57,8 @@ import { treeNodeEmit, treeNodeProps } from './treeNode'
 import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
 import { Right, LoadingFour } from '@icon-park/vue-next'
-import { computed, inject } from 'vue'
-import { treeContextKey } from './tree'
+import { computed, inject, ref } from 'vue'
+import { DragNodeContext, dragNodeKey, treeContextKey } from './tree'
 import { CheckboxValueType } from '@fan-ui/components/checkbox'
 
 defineOptions({
@@ -76,4 +84,43 @@ const handleToggle = () => {
 }
 
 const isLoading = computed(() => props.loadingKeys.has(props.node.key))
+
+const node$ = ref<HTMLElement | null>()
+
+const dragNodeEvent: DragNodeContext = inject(dragNodeKey)!
+
+// 开始拖拽
+const handleDragStart = (event: DragEvent) => {
+  if (!props.draggable) return
+  if (node$.value) {
+    dragNodeEvent.treeNodeDragStart({
+      event,
+      node: { $el: node$.value, treeNode: props.node }
+    })
+  }
+}
+
+const handleDragOver = (event: DragEvent) => {
+  event.preventDefault()
+  if (node$.value) {
+    dragNodeEvent.treeNodeDragOver({
+      event,
+      node: { $el: node$.value, treeNode: props.node }
+    })
+  }
+}
+
+const handleDragEnd = (event: DragEvent) => {
+  if (!props.draggable) return
+  if (node$.value) {
+    dragNodeEvent.treeNodeDragEnd({
+      event,
+      node: { $el: node$.value, treeNode: props.node }
+    })
+  }
+}
+
+const handleDrop = (event: DragEvent) => {
+  event.preventDefault()
+}
 </script>

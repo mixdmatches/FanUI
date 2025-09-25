@@ -1,5 +1,11 @@
 import { ExtractPropTypes, InjectionKey, PropType, Ref } from 'vue'
-import { TreeOption, Key } from './types'
+import {
+  TreeOption,
+  Key,
+  DropTreeOption,
+  NodeDropType,
+  DragTreeNode
+} from './types'
 
 export const treeProps = {
   data: {
@@ -31,7 +37,11 @@ export const treeProps = {
     default: false
   },
   onLoad: Function as PropType<(node: TreeOption) => Promise<TreeOption[]>>,
-  height: Number
+  height: Number,
+  draggable: {
+    type: Boolean,
+    default: false
+  }
 } as const
 
 export const treeEvent = {
@@ -43,8 +53,22 @@ export interface TreeContext {
   checkedKeys: Ref<Set<Key>>
   checkable: boolean
 }
+export interface DragState {
+  allowDrop: boolean
+  dropType: NodeDropType | null
+  draggingNode: DragTreeNode | null
+  showDropIndicator: boolean
+  dropNode: DragTreeNode | null
+}
+export interface DragNodeContext {
+  dragState: DragState
+  treeNodeDragStart: (options: DropTreeOption) => void
+  treeNodeDragOver: (options: DropTreeOption) => void
+  treeNodeDragEnd: (options: DropTreeOption) => void
+}
 
 export const treeContextKey: InjectionKey<TreeContext> = Symbol('treeContext')
+export const dragNodeKey: InjectionKey<DragNodeContext> = Symbol('dragNodeKey')
 
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>
 export type TreeEvent = typeof treeEvent

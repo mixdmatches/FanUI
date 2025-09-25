@@ -18,3 +18,14 @@ export interface TreeNode extends Required<TreeOption> {
   indeterminate?: boolean
   parent?: TreeNode
 }
+
+export type NodeDropType = 'before' | 'after' | 'inner' | 'none'
+export interface DragTreeNode {
+  $el: HTMLElement | null
+  treeNode: TreeNode
+}
+
+export interface DropTreeOption {
+  event: DragEvent
+  node: DragTreeNode
+}

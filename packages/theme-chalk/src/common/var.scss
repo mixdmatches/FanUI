@@ -819,7 +819,10 @@ $tree: map.merge(
     'text-color': getCssVar('text-color-regular'),
     'font-weight': getCssVar('font-weight-primary'),
     'background-color': getCssVar('fill-color', 'light'),
-    'border-radius': getCssVar('border-radius-base')
+    'border-radius': getCssVar('border-radius-base'),
+    'border-color': getCssVar('color-primary'),
+    'indicator-color': getCssVar('color-primary'),
+    'primary-background-color': getCssVar('color-primary')
   ),
   $tree
 );

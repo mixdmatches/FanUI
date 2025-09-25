@@ -10,10 +10,6 @@ export const treeNodeProps = {
     type: Boolean,
     default: false
   },
-  selected: {
-    type: Boolean,
-    default: false
-  },
   disabled: {
     type: Boolean,
     default: false
@@ -21,6 +17,10 @@ export const treeNodeProps = {
   loadingKeys: {
     type: Object as PropType<Set<Key>>,
     default: () => new Set()
+  },
+  draggable: {
+    type: Boolean,
+    default: false
   }
 } as const
 
