@@ -30,7 +30,7 @@
       v-show="dragState.showDropIndicator"
       ref="dropIndicator$"
       :class="bem.e('drop-indicator')"
-    />
+    ></div>
     <f-tree-node
       v-for="node in flattenTree"
       :key="node.key"
@@ -55,8 +55,9 @@
 import { computed, provide, ref, watch } from 'vue'
 import { treeContextKey, treeEvent, treeProps } from './tree'
 import FTreeNode from './TreeNode.vue'
+import FVirtualList from '../../virtual-list'
 import { createNamespace } from '@fan-ui/utils/create'
-import { TreeNode, TreeOption } from './types'
+import type { TreeNode, TreeOption } from './types'
 import { useExpanded } from './hooks/useExpanded'
 import { useChecked } from './hooks/useChecked'
 import { useDragger } from './hooks/useDragger'

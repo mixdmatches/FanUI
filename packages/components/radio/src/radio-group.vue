@@ -7,7 +7,6 @@
 <script setup lang="ts">
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@fan-ui/constans'
 import { nextTick, provide, reactive, toRefs } from 'vue'
-import '../style/index.ts'
 import { radioGroupKey } from './constants'
 import {
   radioGroupEmits,

@@ -1,5 +1,5 @@
-import { ExtractPropTypes, PropType } from 'vue'
-import { UploadFile } from './types'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { UploadFile } from './types'
 
 export const uploadListProps = {
   files: {

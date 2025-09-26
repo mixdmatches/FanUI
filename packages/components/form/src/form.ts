@@ -1,4 +1,4 @@
-import { ExtractPropTypes, InjectionKey, PropType } from 'vue'
+import type { ExtractPropTypes, InjectionKey, PropType } from 'vue'
 import { Arrayable, FormItemContext, FormItemRule } from './form-item'
 
 export type FormRules = Record<string, Arrayable<FormItemRule>>

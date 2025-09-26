@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils/create'
-import { ProgressColor, progressProps } from './progress'
+import { type ProgressColor, progressProps } from './progress'
 import { computed, CSSProperties } from 'vue'
 import { CheckOne, CloseOne, Attention } from '@icon-park/vue-next'
 import { isFunction, isString } from '@fan-ui/utils/types'

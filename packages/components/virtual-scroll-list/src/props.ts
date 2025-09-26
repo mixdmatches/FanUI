@@ -1,4 +1,4 @@
-import { DefineComponent, ExtractPropTypes, PropType } from 'vue'
+import type { DefineComponent, ExtractPropTypes, PropType } from 'vue'
 
 export const virtualProps = {
   /**

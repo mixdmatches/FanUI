@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const paginationProps = {
   // 当前页码

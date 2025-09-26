@@ -1,4 +1,4 @@
-import { provide, reactive, Ref } from 'vue'
+import { provide, reactive, type Ref } from 'vue'
 import type {
   DragTreeNode,
   DropTreeOption,
@@ -6,7 +6,7 @@ import type {
   TreeNode
 } from '../types'
 import { createNamespace } from '@fan-ui/utils'
-import { dragNodeKey, DragState } from '../tree'
+import { dragNodeKey, type DragState } from '../tree'
 
 export const useDragger = (
   props,

@@ -1,6 +1,6 @@
-import { ExtractPropTypes, Ref } from 'vue'
+import type { ExtractPropTypes, Ref } from 'vue'
 import { tooltipProps } from '../../tooltip/src/tooltip'
-import { TooltipInstance } from '@fan-ui/components/tooltip/src/type'
+import type { TooltipInstance } from '@fan-ui/components/tooltip/src/type'
 
 export const dropdownProps = {
   ...tooltipProps,

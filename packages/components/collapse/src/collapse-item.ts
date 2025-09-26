@@ -1,5 +1,5 @@
-import { ExtractPropTypes, PropType } from 'vue'
-import { CollapseActiveName } from './types'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { CollapseActiveName } from './types'
 import { Right } from '@icon-park/vue-next'
 export const collapseItemProps = {
   name: {

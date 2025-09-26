@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils'
 import { inject } from 'vue'
-import { DropdownContext, dropdownKey } from './dropdown'
+import { type DropdownContext, dropdownKey } from './dropdown'
 
 defineOptions({
   name: 'f-dropdown-item'

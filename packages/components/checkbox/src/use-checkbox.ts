@@ -1,9 +1,9 @@
-import { CheckboxEmits, CheckboxProps } from './checkbox'
+import type { CheckboxEmits, CheckboxProps } from './checkbox'
 import {
-  ComponentInternalInstance,
+  type ComponentInternalInstance,
   computed,
   inject,
-  SetupContext,
+  type SetupContext,
   watch
 } from 'vue'
 import { checkboxGroupContextKey } from './checkbox-group'

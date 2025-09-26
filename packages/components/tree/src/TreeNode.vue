@@ -58,7 +58,7 @@ import { createNamespace } from '@fan-ui/utils/create'
 import FIcon from '@fan-ui/components/icon'
 import { Right, LoadingFour } from '@icon-park/vue-next'
 import { computed, inject, ref } from 'vue'
-import { DragNodeContext, dragNodeKey, treeContextKey } from './tree'
+import { type DragNodeContext, dragNodeKey, treeContextKey } from './tree'
 import { CheckboxValueType } from '@fan-ui/components/checkbox'
 
 defineOptions({

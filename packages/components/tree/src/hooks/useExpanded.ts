@@ -1,6 +1,5 @@
 import { ref, watch } from 'vue'
-import { TreeNode } from '../types'
-import { Key } from '../types'
+import type { TreeNode, Key } from '../types'
 
 export const useExpanded = (props, { emit, createTree }) => {
   // 需要展开的key

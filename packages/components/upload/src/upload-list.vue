@@ -49,7 +49,7 @@ import { uploadListEmits, uploadListProps } from './upload-list'
 import { createNamespace } from '@fan-ui/utils/create'
 import { FIcon } from '@fan-ui/components/icon'
 import { DocDetail, CheckOne, Close } from '@icon-park/vue-next'
-import { UploadFile } from './types'
+import type { UploadFile } from './types'
 
 defineProps(uploadListProps)
 

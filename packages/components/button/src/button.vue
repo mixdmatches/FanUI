@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import '../style/index'
 import { createNamespace } from '@fan-ui/utils/create'
 import { buttonProps, buttonEmits } from './button'
 import iconLoading from './icon/loading.vue'

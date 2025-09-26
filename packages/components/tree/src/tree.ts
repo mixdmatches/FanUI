@@ -1,5 +1,5 @@
-import { ExtractPropTypes, InjectionKey, PropType, Ref } from 'vue'
-import {
+import type { ExtractPropTypes, InjectionKey, PropType, Ref } from 'vue'
+import type {
   TreeOption,
   Key,
   DropTreeOption,

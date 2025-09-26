@@ -1,5 +1,5 @@
-import { ExtractPropTypes, PropType } from 'vue'
-import { Key, TreeNode } from './types'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { Key, TreeNode } from './types'
 
 export const treeNodeProps = {
   node: {

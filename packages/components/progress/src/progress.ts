@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType, SVGAttributes } from 'vue'
+import type { ExtractPropTypes, PropType, SVGAttributes } from 'vue'
 
 export type ProgressFn = (percentage: number) => string
 export type ProgressColor = {

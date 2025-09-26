@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import { baseProps, uploadProps } from './upload'
 import type { UploadFile, UploadProgressEvent, UploadRawFile } from './types'
 

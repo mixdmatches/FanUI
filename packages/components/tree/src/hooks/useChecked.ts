@@ -1,5 +1,5 @@
 import { ref, watch } from 'vue'
-import { Key, TreeNode } from '../types'
+import type { Key, TreeNode } from '../types'
 
 export const useChecked = (props, { emit, tree }) => {
   // 受控选中checked

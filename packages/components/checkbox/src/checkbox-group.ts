@@ -1,10 +1,10 @@
-import {
+import type {
   PropType,
   ExtractPropTypes,
   InjectionKey,
   WritableComputedRef
 } from 'vue'
-import { CheckboxValueType } from './checkbox'
+import type { CheckboxValueType } from './checkbox'
 
 // 排除掉 boolean 类型，因为 CheckboxGroup 的值只能是字符串、数字或对象类型
 export type CheckboxGroupValueType = Exclude<CheckboxValueType, boolean>[]

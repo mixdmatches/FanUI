@@ -1,5 +1,5 @@
-import { MaybeRef } from 'vue'
-import { LoadingInstance } from './loading'
+import type { MaybeRef } from 'vue'
+import type { LoadingInstance } from './loading'
 
 export type LoadingOptionsResolved = {
   text: MaybeRef<string>

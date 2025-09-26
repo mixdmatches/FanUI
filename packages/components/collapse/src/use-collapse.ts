@@ -1,5 +1,5 @@
-import { provide, ref, SetupContext, watch } from 'vue'
-import { CollapseEmits, CollapseProps } from './collapse'
+import { provide, ref, type SetupContext, watch } from 'vue'
+import type { CollapseEmits, CollapseProps } from './collapse'
 import { castArray } from 'lodash-unified'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@fan-ui/constans'
 import { CollapseActiveName } from './types'
