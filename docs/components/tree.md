@@ -22,9 +22,9 @@
 虚拟滚动，仅渲染当前可见区域的数据，添加 `height` 属性即可开启虚拟滚动。
 <demo vue="../example/tree/virtual.vue" />
 
-## 拖拽节点
+<!-- ## 拖拽节点
 
-<demo vue="../example/tree/drag.vue" />
+<demo vue="../example/tree/drag.vue" /> -->
 
 ## API
 
@@ -38,7 +38,6 @@
 | v-model:expanded-keys | 要展开的结点key                  | `string[]`                                    | `[]`       |
 | v-model:checked-keys  | 要勾选的结点key                  | `string[]`                                    | `[]`       |
 | on-load               | 异步加载数据时调用               | `(node: TreeOption) => Promise<TreeOption[]>` | `() => []` |
-| draggable             | 允许拖拽节点                     | `boolean`                                     | `false`    |
 
 ### slots
 
