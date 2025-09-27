@@ -3,6 +3,10 @@ import { computed, ref, watch, watchEffect } from 'vue'
 import { paginationProps } from './pagination'
 import { Left, Right, More, DoubleRight, DoubleLeft } from '@icon-park/vue-next'
 import { createNamespace } from '@fan-ui/utils'
+import FIcon from '../../icon'
+import FInput from '../../input'
+import { FDropdown, FDropdownItem, FDropdownMenu } from '../../dropdown'
+
 defineOptions({
   name: 'f-pagination'
 })
