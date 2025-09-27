@@ -33,9 +33,7 @@ export const virtualProps = {
   /**
    * description: 用户选择的组件
    */
-  dataComponent: {
-    type: [Object, Function] as PropType<DefineComponent>
-  },
+  dataComponent: Object,
   /**
    * description: 滚动时触发的回调函数
    * params: { offset: 滚动距离, start: 可见区域起始索引, end: 可见区域结束索引 }
