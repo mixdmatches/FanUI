@@ -45,7 +45,8 @@ export default {
           text: 'Basic基础组件',
           items: [
             { text: 'Icon', link: '/components/icon' },
-            { text: 'Button', link: '/components/button' }
+            { text: 'Button', link: '/components/button' },
+            { text: 'WaterMark', link: '/components/watermark' }
           ]
         },
         {
