@@ -1,28 +1,22 @@
-import { ExtractPropTypes, PropType } from 'vue'
-
-type Key = string | number
-
-export interface TreeNode extends Required<TreeOption> {
-  level: number
-  rawNode: TreeOption
-  children: TreeNode[]
-  isLeaf: boolean
-}
-
-export interface TreeOption {
-  label?: Key
-  key?: Key
-  children?: TreeOption[]
-  isLeaf?: boolean
-  [key: string]: unknown
-}
+import type { ExtractPropTypes, InjectionKey, PropType, Ref } from 'vue'
+import type {
+  TreeOption,
+  Key,
+  DropTreeOption,
+  NodeDropType,
+  DragTreeNode
+} from './types'
 
 export const treeProps = {
   data: {
     type: Array as PropType<TreeOption[]>,
     default: () => []
   },
-  defaultExpandedKeys: {
+  expandedKeys: {
+    type: Array as PropType<Key[]>,
+    default: () => []
+  },
+  checkedKeys: {
     type: Array as PropType<Key[]>,
     default: () => []
   },
@@ -37,23 +31,44 @@ export const treeProps = {
   childrenField: {
     type: String,
     default: 'children'
-  }
-} as const
-
-export const treeNodeProps = {
-  node: {
-    type: Object as PropType<TreeNode>,
-    default: () => {}
   },
-  expanded: {
+  checkable: {
+    type: Boolean,
+    default: false
+  },
+  onLoad: Function as PropType<(node: TreeOption) => Promise<TreeOption[]>>,
+  height: Number,
+  draggable: {
     type: Boolean,
     default: false
   }
 } as const
 
-export const treeNodeEmit = {
-  toggle: (node: TreeNode) => node
+export const treeEvent = {
+  'update:expandedKeys': (_keys: Key[]) => _keys,
+  'update:checkedKeys': (_keys: Key[]) => _keys
+}
+// 定义一个新的类型来匹配实际使用的 ref 类型
+export interface TreeContext {
+  checkedKeys: Ref<Set<Key>>
+  checkable: boolean
+}
+export interface DragState {
+  allowDrop: boolean
+  dropType: NodeDropType | null
+  draggingNode: DragTreeNode | null
+  showDropIndicator: boolean
+  dropNode: DragTreeNode | null
+}
+export interface DragNodeContext {
+  dragState: DragState
+  treeNodeDragStart: (options: DropTreeOption) => void
+  treeNodeDragOver: (options: DropTreeOption) => void
+  treeNodeDragEnd: (options: DropTreeOption) => void
 }
 
-export type TreeNodeProps = Partial<ExtractPropTypes<typeof treeNodeProps>>
+export const treeContextKey: InjectionKey<TreeContext> = Symbol('treeContext')
+export const dragNodeKey: InjectionKey<DragNodeContext> = Symbol('dragNodeKey')
+
 export type TreeProps = Partial<ExtractPropTypes<typeof treeProps>>
+export type TreeEvent = typeof treeEvent

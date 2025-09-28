@@ -2,7 +2,7 @@
 // 由于需要知道要将loading元素挂载到哪里，所以需要传入一个options参数，来明确挂载位置。
 import { addClass, createNamespace, removeClass } from '@fan-ui/utils'
 import { createLoadingComponent, LoadingInstance } from './loading'
-import { LoadingOptions, LoadingOptionsResolved } from './types'
+import type { LoadingOptions, LoadingOptionsResolved } from './types'
 import { isString } from '@vue/shared'
 
 let fullscreenInstance: LoadingInstance | undefined = undefined

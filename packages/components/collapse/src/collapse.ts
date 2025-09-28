@@ -1,5 +1,5 @@
-import { ExtractPropTypes, PropType } from 'vue'
-import { CollapseModuleValue } from './types'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { CollapseModuleValue } from './types'
 import { isArray, isString } from '@fan-ui/utils'
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@fan-ui/constans'
 import { isNumber } from 'lodash-unified'

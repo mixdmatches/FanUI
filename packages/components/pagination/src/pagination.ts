@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const paginationProps = {
   // 当前页码
@@ -23,6 +23,10 @@ export const paginationProps = {
   },
   // 是否显示总条数
   showTotal: {
+    type: Boolean,
+    default: false
+  },
+  showJumper: {
     type: Boolean,
     default: false
   }

@@ -1,6 +1,6 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { virtualProps } from './props'
-import { RangeOption, UpdateType } from './types'
+import type { RangeOption, UpdateType } from './types'
 import { initVirtual } from './virtual'
 import VirtualItem from './virtual-item'
 export default defineComponent({
@@ -51,7 +51,7 @@ export default defineComponent({
               key={uniqueKey}
               uniqueKey={uniqueKey}
               dataSource={dataSource}
-              component={dataComponent}
+              component={dataComponent || ctx.slots.default!({ dataSource })}
               onItemResize={onItemResize}
             ></VirtualItem>
           )

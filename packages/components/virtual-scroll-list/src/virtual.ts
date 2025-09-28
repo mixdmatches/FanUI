@@ -1,4 +1,4 @@
-import { RangeOption, UpdateType, VirtualOptions } from './types'
+import type { RangeOption, UpdateType, VirtualOptions } from './types'
 
 const enum CALC_TYPE {
   INIT = 'INIT',

@@ -1,4 +1,4 @@
-import { Component, ExtractPropTypes, PropType } from 'vue'
+import type { Component, ExtractPropTypes, PropType } from 'vue'
 import { isString } from '@vue/shared'
 
 export const componentSizes = ['', 'default', 'small', 'large'] as const

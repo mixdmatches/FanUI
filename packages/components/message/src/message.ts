@@ -1,4 +1,4 @@
-import { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 
 const MESSAGE_TYPE = ['success', 'info', 'warning', 'error']
 

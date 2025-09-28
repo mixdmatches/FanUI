@@ -10,3 +10,4 @@ declare module 'vue' {
 }
 
 export * from './src/tooltip'
+export default FTooltip

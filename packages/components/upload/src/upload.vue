@@ -19,7 +19,7 @@ import { uploadProps } from './upload'
 import type { UploadFile, UploadFiles, UploadRawFile } from './types'
 import UploadContent from './upload-content.vue'
 import UploadList from './upload-list.vue'
-import { UploadContentProps } from './upload-content'
+import type { UploadContentProps } from './upload-content'
 
 defineOptions({
   name: 'f-upload'

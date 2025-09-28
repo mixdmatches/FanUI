@@ -28,3 +28,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.vitepress-demo-plugin__container .vitepress-demo-plugin-preview,
+.vitepress-demo-plugin__container .vitepress-demo-plugin-description,
+.vitepress-demo-plugin__container .vitepress-demo-plugin-source {
+  width: auto;
+}

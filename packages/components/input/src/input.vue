@@ -70,7 +70,7 @@ import {
   onMounted,
   nextTick,
   ref,
-  StyleValue,
+  type StyleValue,
   useAttrs,
   useSlots,
   watch,

@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import { RadioValueType } from './radio'
 import { isBoolean, isNumber, isString } from '@fan-ui/utils/types'
 import { componentSizes, UPDATE_MODEL_EVENT } from '@fan-ui/constans'

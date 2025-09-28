@@ -14,17 +14,22 @@
 
 <demo vue="../example/virtual-list/estimate.vue" />
 
+## 插槽
+
+可以用默认插槽代替 `dataComponent`，插槽提供数据项
+<demo vue="../example/virtual-list/slot.vue" />
+
 ## API
 
 ### props
 
-| 属性          | 类型      | 默认值 | 说明                    |
-| ------------- | --------- | ------ | ----------------------- |
-| data-sources  | Array     | []     | 列表数据                |
-| data-key      | String    | -      | 列表数据的key，唯一标识 |
-| keeps         | Number    | 30     | 渲染的dom元素个数       |
-| estimate-size | Number    | 80     | 每一项的大概高度        |
-| dataComponent | Component | -      | 列表项组件              |
+| 属性          | 类型   | 默认值 | 说明                    |
+| ------------- | ------ | ------ | ----------------------- |
+| data-sources  | Array  | []     | 列表数据                |
+| data-key      | String | -      | 列表数据的key，唯一标识 |
+| keeps         | Number | 30     | 渲染的dom元素个数       |
+| estimate-size | Number | 80     | 每一项的大概高度        |
+| dataComponent | Object | -      | 列表项组件              |
 
 ### event
 

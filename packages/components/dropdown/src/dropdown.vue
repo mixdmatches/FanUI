@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils'
 import { dropdownProps, dropdownEvent, dropdownKey } from './dropdown'
-import FTooltip from '@fan-ui/components/tooltip/src/tooltip.vue'
+import FTooltip from '@fan-ui/components/tooltip'
 import { provide, ref } from 'vue'
 import type { TooltipInstance } from '@fan-ui/components/tooltip/src/type'
 import type { DropdownContext, DropdownInstance } from './dropdown'

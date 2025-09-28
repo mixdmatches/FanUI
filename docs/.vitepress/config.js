@@ -45,10 +45,8 @@ export default {
           text: 'Basic基础组件',
           items: [
             { text: 'Icon', link: '/components/icon' },
-            {
-              text: 'Button',
-              link: '/components/button'
-            }
+            { text: 'Button', link: '/components/button' },
+            { text: 'WaterMark', link: '/components/watermark' }
           ]
         },
         {
@@ -68,6 +66,7 @@ export default {
             { text: 'card', link: '/components/card' },
             { text: 'Progress', link: '/components/progress' },
             { text: 'Collapse', link: '/components/collapse' },
+            { text: 'Tree', link: '/components/tree' },
             { text: 'VirtualScrollList', link: '/components/virtual-list' }
           ]
         },

@@ -1,9 +1,9 @@
-import { CheckboxEmits, CheckboxProps } from './checkbox'
+import type { CheckboxEmits, CheckboxProps } from './checkbox'
 import {
-  ComponentInternalInstance,
+  type ComponentInternalInstance,
   computed,
   inject,
-  SetupContext,
+  type SetupContext,
   watch
 } from 'vue'
 import { checkboxGroupContextKey } from './checkbox-group'
@@ -46,6 +46,10 @@ export const useCheckbox = (
 
   // 处理不同绑定值的选中状态
   const isChecked = computed(() => {
+    // 如果是indeterminate状态，直接返回false
+    if (props.indeterminate) {
+      return false
+    }
     const value = model.value
     const checked = props.checked
     if (checked) {

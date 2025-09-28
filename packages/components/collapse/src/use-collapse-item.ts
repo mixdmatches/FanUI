@@ -1,6 +1,6 @@
 import { computed, inject, unref } from 'vue'
 import { collapseContextKey } from './constants'
-import { CollapseItemProps } from './collapse-item'
+import type { CollapseItemProps } from './collapse-item'
 import { createNamespace } from '@fan-ui/utils'
 
 export const useCollapseItem = (props: CollapseItemProps) => {

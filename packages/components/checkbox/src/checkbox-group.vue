@@ -5,14 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import '../style/index'
 import { createNamespace } from '@fan-ui/utils/create'
 import { computed, inject, provide } from 'vue'
 import {
   checkboxGroupContextKey,
   checkboxGroupEmits,
   checkboxGroupProps,
-  CheckboxGroupValueType
+  type CheckboxGroupValueType
 } from './checkbox-group'
 import { formItemContextKey } from '../../form/src/form-item'
 

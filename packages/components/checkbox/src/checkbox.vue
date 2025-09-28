@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import '../style/index'
 import { computed } from 'vue'
 import { checkboxProps, checkboxEmits } from './checkbox'
 import { createNamespace } from '@fan-ui/utils/create'

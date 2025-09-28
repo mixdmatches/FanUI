@@ -4,7 +4,7 @@
 
 @include b(pagination) {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 4px;
 
   @include e(prev) {
@@ -29,13 +29,19 @@
       color: rgba(22, 119, 255, 0.8);
     }
   }
+  .is-disabled {
+    color: #c0c4cc;
+    cursor: not-allowed;
+  }
 
   @include b(pagination-list) {
-    padding: 0 8px;
+    padding-left: 0;
+    list-style: none;
     display: flex;
     gap: 8px;
     @include e(item) {
-      list-style: none;
+      min-width: 14px;
+      height: 18px;
       line-height: 18px;
       text-align: center;
       padding: 4px 8px;
@@ -44,19 +50,17 @@
       &:hover {
         background: #efefef;
       }
+      @include when(active) {
+        background: #1677ff;
+        color: #fff;
+        &:hover {
+          background: #1677ff;
+        }
+      }
     }
-  }
 
-  .is-disabled {
-    color: #c0c4cc;
-    cursor: not-allowed;
-  }
-
-  .is-active {
-    background: #1677ff;
-    color: #fff;
-    &:hover {
-      background: #1677ff;
+    @include m(more) {
+      cursor: pointer;
     }
   }
 
@@ -66,5 +70,13 @@
     border: 1px solid #1677ff;
     padding: 2px 8px;
     cursor: pointer;
+  }
+
+  @include e(goto) {
+    display: inline-block;
+    height: 32px;
+    margin-inline-start: 8px;
+    line-height: 32px;
+    vertical-align: top;
   }
 }

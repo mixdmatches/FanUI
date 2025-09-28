@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils'
 import { tooltipProps } from './tooltip'
-import { TooltipEmits, TooltipInstance } from './type'
+import type { TooltipEmits, TooltipInstance } from './type'
 import { computed, onUnmounted, reactive, ref, watch } from 'vue'
 import { createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'

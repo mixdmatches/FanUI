@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import '../style/index'
 import { checkboxEmits, checkboxProps } from './checkbox'
 import { computed, useSlots } from 'vue'
 import { useCheckbox } from './use-checkbox'

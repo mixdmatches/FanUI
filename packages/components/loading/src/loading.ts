@@ -7,7 +7,7 @@ import {
   vShow,
   toRefs
 } from 'vue'
-import { LoadingOptionsResolved } from './types'
+import type { LoadingOptionsResolved } from './types'
 import { createNamespace, removeClass } from '@fan-ui/utils'
 
 /**

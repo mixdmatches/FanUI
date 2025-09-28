@@ -37,7 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import '../style/index.ts'
 import { computed, inject, nextTick, ref } from 'vue'
 import { radioEmits, radioProps } from './radio'
 import { isPropAbsent } from '@fan-ui/utils/types'

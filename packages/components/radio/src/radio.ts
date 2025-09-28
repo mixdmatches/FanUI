@@ -1,4 +1,4 @@
-import { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import { isString, isNumber, isBoolean } from '@fan-ui/utils/types'
 import {
   CHANGE_EVENT,

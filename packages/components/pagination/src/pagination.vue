@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue'
 import { paginationProps } from './pagination'
-import { MenuOption } from '@fan-ui/components/dropdown/src/dropdown'
-import { Left, Right } from '@icon-park/vue-next'
+import { Left, Right, More, DoubleRight, DoubleLeft } from '@icon-park/vue-next'
 import { createNamespace } from '@fan-ui/utils'
+import FIcon from '../../icon'
+import FInput from '../../input'
+import { FDropdown, FDropdownItem, FDropdownMenu } from '../../dropdown'
 
 defineOptions({
   name: 'f-pagination'
@@ -21,6 +23,7 @@ watch(
   newVal => {
     currentPage.value = newVal
     emit('update:current', newVal)
+    emit('change', newVal, currentPageSize.value)
   }
 )
 
@@ -32,8 +35,13 @@ watch(
   () => currentPageSize.value,
   newVal => {
     emit('update:pageSize', newVal)
+    emit('change', currentPage.value, newVal)
   }
 )
+
+const isShowDropdown = computed(() => {
+  return props.showTotal && props.total > 50
+})
 
 // 这里是处理，如果 currentPage 是最后一页（即pageCount），pageSize从10变化到50，pageCount变小，那么 currentPage 也应该相应变小
 watchEffect(() => {
@@ -45,7 +53,7 @@ watchEffect(() => {
 const pageSizeOptions = computed(() =>
   props.pageSizeOptions.map(item => ({
     label: item + ' 条/页',
-    key: item
+    pageSize: item
   }))
 )
 
@@ -104,24 +112,50 @@ const middlePages = computed(() => generateMiddlePageCount())
 
 const handleChange = (item: number) => {
   currentPage.value = item
-  emit('change', item)
 }
 
 const handlePrevClick = () => {
   if (currentPage.value <= 1) return
   currentPage.value--
-  emit('change', currentPage.value)
 }
 
 const handleNextClick = () => {
   if (currentPage.value >= pageCount.value) return
   currentPage.value++
-  emit('change', currentPage.value)
 }
 
-const handleSelectPageSize = (menuOption: MenuOption) => {
-  emit('update:pageSize', menuOption.key)
-  currentPageSize.value = Number(menuOption.key)
+const handleSelectPageSize = (pageSize: number | string) => {
+  emit('update:pageSize', pageSize)
+  currentPageSize.value = Number(pageSize)
+}
+
+const jumperPage = ref()
+
+const handleBlur = () => {
+  if (jumperPage.value > pageCount.value) return
+  currentPage.value = Number(jumperPage.value)
+  jumperPage.value = ''
+}
+
+const hoverStates = ref<Record<string, boolean>>({})
+const handleMouseEnter = (key: string) => {
+  hoverStates.value[key] = true
+}
+const handleMouseLeave = (key: string) => {
+  hoverStates.value[key] = false
+}
+const getIconState = (key: string) => {
+  return hoverStates.value[key] || false
+}
+
+const handleJumperFive = (direction: 'prev' | 'next') => {
+  if (direction === 'prev') {
+    if (currentPage.value <= 5) return
+    currentPage.value -= 5
+  } else {
+    if (currentPage.value >= pageCount.value - 4) return
+    currentPage.value += 5
+  }
 }
 </script>
 
@@ -133,7 +167,11 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       :class="[bem.e('prev'), bem.is('disabled', currentPage <= 1)]"
       @click="handlePrevClick"
     >
-      <left theme="outline" size="24" />
+      <slot name="prev">
+        <f-icon size="24">
+          <left theme="outline" />
+        </f-icon>
+      </slot>
     </button>
     <ul :class="bem.b('list')">
       <li
@@ -142,7 +180,28 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       >
         1
       </li>
-      <li v-if="isShowPrevMore" class="more">...</li>
+      <li
+        v-if="isShowPrevMore"
+        :class="bem.bm('list', 'more')"
+        @mouseenter="handleMouseEnter('prev')"
+        @mouseleave="handleMouseLeave('prev')"
+      >
+        <f-icon size="24">
+          <more
+            v-if="!getIconState('prev')"
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
+          <double-left
+            v-else
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+            @click="handleJumperFive('prev')"
+          />
+        </f-icon>
+      </li>
       <li
         v-for="item in middlePages"
         :key="item"
@@ -154,7 +213,28 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       >
         {{ item }}
       </li>
-      <li v-if="isShowNextMore" class="more">...</li>
+      <li
+        v-if="isShowNextMore"
+        :class="bem.bm('list', 'more')"
+        @mouseenter="handleMouseEnter('next')"
+        @mouseleave="handleMouseLeave('next')"
+      >
+        <f-icon size="24">
+          <more
+            v-if="!getIconState('next')"
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+          />
+          <double-right
+            v-else
+            theme="outline"
+            fill="#abb2bd"
+            :strokeWidth="3"
+            @click="handleJumperFive('next')"
+          />
+        </f-icon>
+      </li>
       <li
         :class="[
           bem.be('list', 'item'),
@@ -170,75 +250,35 @@ const handleSelectPageSize = (menuOption: MenuOption) => {
       :class="[bem.e('next'), bem.is('disabled', currentPage >= pageCount)]"
       @click="handleNextClick"
     >
-      <right theme="outline" size="24" />
+      <slot name="next">
+        <f-icon size="24">
+          <right theme="outline" />
+        </f-icon>
+      </slot>
     </button>
-    <!--pageSize下拉选择-->
-    <f-dropdown
-      :menuOptions="pageSizeOptions"
-      trigger="click"
-      v-if="total > 50"
-      @select="handleSelectPageSize"
-    >
+    <f-dropdown no-arrow v-if="isShowDropdown">
       <span :class="bem.e('dropdown')">{{ currentPageSize }} 条/页</span>
+      <template #dropdown>
+        <f-dropdown-menu>
+          <f-dropdown-item
+            v-for="item in pageSizeOptions"
+            :key="item.pageSize"
+            @click="handleSelectPageSize(item.pageSize)"
+          >
+            {{ item.label }}
+          </f-dropdown-item>
+        </f-dropdown-menu>
+      </template>
     </f-dropdown>
+    <div :class="bem.e('goto')" v-if="showJumper">
+      跳至
+      <f-input
+        type="number"
+        @blur="handleBlur"
+        v-model="jumperPage"
+        style="width: 60px"
+      />
+      页
+    </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-li {
-  list-style: none;
-}
-.page__dropdown {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #1677ff;
-  padding: 4px 8px;
-  cursor: pointer;
-}
-.page__button__next,
-.page__button__prev {
-  border: none;
-  border-radius: 4px;
-  background-color: inherit;
-  padding: 4px;
-  color: #1677ff;
-  cursor: pointer;
-  &:hover {
-    color: rgba(22, 119, 255, 0.8);
-  }
-}
-.page-container {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  .disabled {
-    color: #c0c4cc;
-    cursor: not-allowed;
-  }
-  .page-list {
-    padding: 0 8px;
-    display: flex;
-    gap: 8px;
-    .more {
-      cursor: pointer;
-    }
-    .page-list__item {
-      line-height: 18px;
-      text-align: center;
-      padding: 4px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      &:hover {
-        background: #efefef;
-      }
-    }
-    .active {
-      background: #1677ff;
-      color: #fff;
-      &:hover {
-        background: #1677ff;
-      }
-    }
-  }
-}
-</style>

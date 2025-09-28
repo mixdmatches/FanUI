@@ -5,7 +5,7 @@ import {
   type Directive,
   type DirectiveBinding
 } from 'vue'
-import { FLoading, INSTANCE_KEY, type LoadingOptions } from './types'
+import { type FLoading, INSTANCE_KEY, type LoadingOptions } from './types'
 import Loading from './service'
 import { isObject, isString } from '@fan-ui/utils'
 

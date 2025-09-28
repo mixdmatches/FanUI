@@ -121,6 +121,9 @@ $checkbox-bordered-input-width: map.merge(
     position: relative;
 
     @include when(disabled) {
+      .#{$namespace}-checkbox--check-icon {
+        fill: #c0c4cc; // disabled状态下图标为灰色
+      }
       .#{$namespace}-checkbox__inner {
         background-color: getCssVar('checkbox-disabled-input-fill');
         border-color: getCssVar('checkbox-disabled-border-color');
@@ -177,16 +180,6 @@ $checkbox-bordered-input-width: map.merge(
       .#{$namespace}-checkbox--check-icon {
         opacity: 1;
       }
-      &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: getCssVar('checkbox-border-radius');
-        opacity: 0.4;
-        box-shadow: 0 0 0 2px getCssVar('checkbox-checked-bg-color');
-        pointer-events: none;
-      }
     }
     @include when(focus) {
       // Visually distinguish when focus
@@ -240,22 +233,14 @@ $checkbox-bordered-input-width: map.merge(
       opacity: 0;
       fill: #ffffff;
       transition: opacity 0.3s ease; // 添加过渡效果
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      display: block;
     }
-    // &::after {
-    //   box-sizing: content-box;
-    //   content: '';
-    //   border: 1px solid transparent;
-    //   border-left: 0;
-    //   border-top: 0;
-    //   height: 7px;
-    //   left: 4px;
-    //   position: absolute;
-    //   top: 1px;
-    //   transform: rotate(45deg) scaleY(0);
-    //   width: 3px;
-    //   transition: transform 0.15s ease-in 0.05s;
-    //   transform-origin: center;
-    // }
   }
 
   @include e(original) {

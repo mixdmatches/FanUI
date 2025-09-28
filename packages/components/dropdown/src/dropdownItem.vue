@@ -15,13 +15,13 @@
 <script setup lang="ts">
 import { createNamespace } from '@fan-ui/utils'
 import { inject } from 'vue'
-import { DropdownContext, dropdownKey } from './dropdown'
+import { type DropdownContext, dropdownKey } from './dropdown'
 
 defineOptions({
   name: 'f-dropdown-item'
 })
 
-defineProps({
+const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
@@ -32,13 +32,17 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['click'])
+
 const bem = createNamespace('dropdown')
 
 const { hideAfterClick, tooltipRef } = inject(dropdownKey) as DropdownContext
 
 const itemClick = () => {
+  if (props.disabled) return
   if (hideAfterClick) {
     tooltipRef.value?.close()
   }
+  emit('click')
 }
 </script>

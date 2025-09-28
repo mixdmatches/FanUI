@@ -1,30 +1,86 @@
 <template>
-  <div :class="bem.b()">
+  <f-virtual-list
+    v-if="height"
+    :style="{ height: `${height}px`, overflow: 'auto' }"
+    :items="flattenTree"
+    :size="30"
+    :remain="8"
+  >
+    <template #default="{ node }">
+      <f-tree-node
+        :key="node.key"
+        :node="node"
+        :expanded="isExpanded(node)"
+        :loadingKeys="loadingKeysRef"
+        @toggle="toggleExpand"
+        @checkedChange="handleCheckedChange"
+      >
+        <template #switch-icon="slotProps">
+          <slot name="switch-icon" v-bind="slotProps"></slot>
+        </template>
+        <template #icon="slotProps" v-if="$slots.icon">
+          <slot name="icon" v-bind="slotProps"></slot>
+        </template>
+      </f-tree-node>
+    </template>
+  </f-virtual-list>
+
+  <div :class="bem.b()" ref="dragContainer" v-else>
+    <div
+      v-show="dragState.showDropIndicator"
+      ref="dropIndicator$"
+      :class="bem.e('drop-indicator')"
+    ></div>
     <f-tree-node
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
-      :expanded="false"
+      :expanded="isExpanded(node)"
+      :loadingKeys="loadingKeysRef"
+      :draggable="draggable"
       @toggle="toggleExpand"
-    ></f-tree-node>
+      @checkedChange="handleCheckedChange"
+    >
+      <template #switch-icon="slotProps">
+        <slot name="switch-icon" v-bind="slotProps"></slot>
+      </template>
+      <template #icon="slotProps" v-if="$slots.icon">
+        <slot name="icon" v-bind="slotProps"></slot>
+      </template>
+    </f-tree-node>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { TreeNode, TreeOption, treeProps } from './tree'
+import { computed, provide, ref, watch } from 'vue'
+import { treeContextKey, treeEvent, treeProps } from './tree'
 import FTreeNode from './TreeNode.vue'
+import FVirtualList from '../../virtual-list'
 import { createNamespace } from '@fan-ui/utils/create'
+import type { TreeNode, TreeOption } from './types'
+import { useExpanded } from './hooks/useExpanded'
+import { useChecked } from './hooks/useChecked'
+import { useDragger } from './hooks/useDragger'
 
 defineOptions({ name: 'f-tree' })
+
 const props = defineProps(treeProps)
+const emit = defineEmits(treeEvent)
 
 const bem = createNamespace('tree')
+
+const { expandedKeys, toggleExpand, isExpanded, loadingKeysRef } = useExpanded(
+  props,
+  {
+    emit,
+    createTree
+  }
+)
 
 const createOption = (label: string, key: string, children: string) => {
   return {
     getLabel(node: TreeOption) {
-      return node.label as string
+      return node[label] as string
     },
     getKey(node: TreeOption) {
       return node[key] as string
@@ -42,10 +98,13 @@ const treeOptions = createOption(
 )
 
 // 有了props要对用户数据进行格式化，格式化一个固定结果
-// 格式化后的结点 label, key,chilldren
+// 格式化后的结点 label, key, children
 const tree = ref<TreeNode[]>([])
 // 格式化数据函数
-function createTree(data: TreeOption[]): TreeNode[] {
+function createTree(
+  data: TreeOption[],
+  parent: TreeNode | null = null
+): TreeNode[] {
   function traversal(data: TreeOption[], parent: TreeNode | null = null) {
     return data.map((node: TreeOption) => {
       const children = treeOptions.getChildren(node) || []
@@ -55,7 +114,10 @@ function createTree(data: TreeOption[]): TreeNode[] {
         children: [],
         rawNode: node,
         level: parent ? parent.level + 1 : 0,
-        isLeaf: node.isLeaf ?? children.length === 0
+        isLeaf: node.isLeaf ?? children.length === 0,
+        parent: parent ?? undefined,
+        disabled: node.disabled ?? false,
+        indeterminate: false
       }
       if (children.length > 0) {
         treeNode.children = traversal(children, treeNode)
@@ -63,7 +125,7 @@ function createTree(data: TreeOption[]): TreeNode[] {
       return treeNode
     })
   }
-  return traversal(data)
+  return traversal(data, parent)
 }
 // 格式化用户props传递的数据
 watch(
@@ -74,12 +136,9 @@ watch(
   { immediate: true }
 )
 
-// 需要展开的key
-const expandedKeysSet = ref(new Set(props.defaultExpandedKeys))
-
-// 拍平树
+// 拍平树--只能获得展开状态的节点
 const flattenTree = computed(() => {
-  let expandedKeys = expandedKeysSet.value // 需要展开的key
+  let _expandedKeys = expandedKeys.value // 需要展开的key
   let flattenNodes: TreeNode[] = [] // 拍平后的结果
   const nodes = tree.value || [] //格式化后的节点
   const stack: TreeNode[] = [] //遍历树的栈
@@ -91,7 +150,7 @@ const flattenTree = computed(() => {
     const node = stack.pop()! // 取出栈顶元素
     flattenNodes.push(node) // 拍平
     // 展开
-    if (expandedKeys.has(node.key)) {
+    if (_expandedKeys.has(node.key)) {
       const children = node.children || []
       for (let j = children.length - 1; j >= 0; j--) {
         stack.push(children[j])
@@ -101,28 +160,17 @@ const flattenTree = computed(() => {
   return flattenNodes
 })
 
-// 判断是否展开
-// function isExpanded(node: TreeNode): boolean {
-//   return expandedKeysSet.value.has(node.key)
-// }
+const { checkedKeys, handleCheckedChange } = useChecked(props, {
+  emit,
+  tree
+})
 
-// 折叠功能
-function collpase(node: TreeNode) {
-  expandedKeysSet.value.delete(node.key)
-}
+const dropIndicator$ = ref<HTMLElement>()
+const dragContainer = ref<HTMLElement>()
+const { dragState } = useDragger(props, dragContainer, dropIndicator$, tree)
 
-//展开功能
-function expand(node: TreeNode) {
-  expandedKeysSet.value.add(node.key)
-}
-
-// 切换展开
-function toggleExpand(node: TreeNode) {
-  const expandedKeys = expandedKeysSet.value
-  if (expandedKeys.has(node.key)) {
-    collpase(node)
-  } else {
-    expand(node)
-  }
-}
+provide(treeContextKey, {
+  checkedKeys,
+  checkable: props.checkable
+})
 </script>
