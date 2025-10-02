@@ -90,7 +90,10 @@ export default {
         },
         {
           text: 'AI应用组件',
-          items: [{ text: 'Bubble 气泡', link: '/components/bubble' }]
+          items: [
+            { text: 'Bubble 气泡', link: '/components/bubble' },
+            { text: 'InputX 输入框', link: '/components/input-x' }
+          ]
         }
       ]
     }
