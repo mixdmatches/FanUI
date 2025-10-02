@@ -18,6 +18,7 @@ export { FPagination } from './pagination'
 export { FTree } from './tree'
 export { FVirtualList } from './virtual-list'
 export { FWaterMark } from './water-mark'
+export { FInputX } from './inputx'
 // plugins
 export { FMessage } from './message'
 export { FLoading } from './loading'

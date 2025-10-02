@@ -827,6 +827,16 @@ $tree: map.merge(
   $tree
 );
 
+$input-x: () !default;
+$input-x: map.merge(
+  (
+    'placeholder-color': getCssVar('text-color-placeholder'),
+    'primary-color': getCssVar('color-primary'),
+    'border-color': getCssVar('border-color')
+  ),
+  $input-x
+);
+
 // transition
 $transition: () !default;
 $transition: map.merge(

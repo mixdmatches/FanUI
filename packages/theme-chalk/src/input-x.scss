@@ -1,0 +1,81 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(input-x) {
+  @include set-component-css-var('input-x', $input-x);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid getCssVar('input-x', 'border-color');
+  border-radius: 10px;
+  padding: 8px 10px;
+
+  @include e(content) {
+    width: 100%;
+    box-sizing: border-box;
+    textarea {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      border: none;
+      font-size: 14px;
+      font-family: inherit;
+      vertical-align: middle;
+      background: inherit;
+      resize: none;
+      padding: 0;
+      margin: 0;
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: getCssVar('input-x', 'placeholder-color');
+      }
+    }
+  }
+
+  @include e(suffix) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    @include e(suffix-extra) {
+      flex: 1;
+    }
+    @include e(max-length) {
+      font-size: 12px;
+      color: getCssVar('input-x', 'max-length-color');
+    }
+  }
+
+  @include m(simple) {
+    flex-direction: row;
+    align-items: center;
+    @include e(content) {
+      height: 30px;
+      line-height: 30px;
+      textarea {
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+  }
+}
