@@ -2,7 +2,7 @@
   <component
     :is="tag"
     :type="nativeType"
-    :disabled="disabled || loading"
+    :disabled="disabled || (loading && !allowDisabledClick)"
     :class="classCustom"
     @click="handleClick"
   >
@@ -57,7 +57,8 @@ const classCustom = computed(() => {
     link,
     text,
     bg,
-    loading
+    loading,
+    allowDisabledClick
   } = props
   return [
     bem.b(),
@@ -66,7 +67,7 @@ const classCustom = computed(() => {
     bem.is('plain', plain),
     bem.is('round', round),
     bem.is('circle', circle),
-    bem.is('disabled', disabled || loading),
+    bem.is('disabled', disabled || (loading && !allowDisabledClick)),
     bem.is('link', link),
     bem.is('text', text),
     bem.is('has-bg', bg)

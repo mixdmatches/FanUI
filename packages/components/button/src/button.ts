@@ -56,6 +56,10 @@ export const buttonProps = {
   iconPlasement: {
     type: String as PropType<'left' | 'right'>,
     default: 'left'
+  },
+  allowDisabledClick: {
+    type: Boolean,
+    default: false
   }
 } as const
 
