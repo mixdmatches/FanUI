@@ -1,14 +1,9 @@
-/* Fanui Chalk Variables */
+/* FanUI Chalk Variables */
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:color';
 
 @use '../mixins/function.scss' as *;
-
-// Special comment for theme configurator
-// type|skipAutoTranslation|Category|Order
-// skipAutoTranslation 1
-
 // types
 $types: primary, success, warning, danger, error, info;
 
@@ -595,16 +590,6 @@ $form: map.merge(
   $form
 );
 
-$avatar-size: () !default;
-$avatar-size: map.merge(
-  (
-    'large': 56px,
-    'default': 40px,
-    'small': 24px
-  ),
-  $avatar-size
-);
-
 // Empty
 // css3 var in packages/theme-chalk/src/empty.scss
 $empty: () !default;
@@ -783,8 +768,6 @@ $collapse: map.merge(
   $collapse
 );
 
-$table: () !default;
-
 $tooltip: () !default;
 $tooltip: map.merge(
   (
@@ -809,8 +792,6 @@ $dropdown: map.merge(
   ),
   $dropdown
 );
-
-$pagination: () !default;
 
 $tree: () !default;
 $tree: map.merge(

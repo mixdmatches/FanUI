@@ -39,17 +39,6 @@ $colors: () !default;
     ),
     $colors
   ) !global;
-
-  // for designer to view transparent
-  // $colors: map.deep-merge(
-  //   (
-  //     $type: (
-  //       '#{$mode}-#{$number}':
-  //         rgba(map.get($colors, $type, 'base'), math.div(10 - $number, 10)),
-  //     ),
-  //   ),
-  //   $colors
-  // ) !global;
 }
 
 // Background
