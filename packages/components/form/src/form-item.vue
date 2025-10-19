@@ -30,7 +30,7 @@ import type {
   FormItemValidateState,
   FormItemContext,
   FormItemRule,
-  Arrayable
+  ArrayAble
 } from './form-item'
 import { formItemProps, formItemContextKey } from './form-item'
 import '../style/index'
@@ -50,20 +50,20 @@ let initialValue = undefined
 
 const formContext = inject(FormContextKey)
 
-const converArray = (
-  rules: Arrayable<FormItemRule> | undefined
+const convertArray = (
+  rules: ArrayAble<FormItemRule> | undefined
 ): FormItemRule[] => {
   return rules ? (Array.isArray(rules) ? rules : [rules]) : []
 }
 
 const _rules = computed(() => {
-  const myRules: FormItemRule[] = converArray(props.rules) //自己的规则
+  const myRules: FormItemRule[] = convertArray(props.rules) //自己的规则
   const formRules = formContext?.rules
 
   if (formRules && props.prop) {
     const _temp = formRules[props.prop]
     if (_temp) {
-      myRules.push(...converArray(_temp))
+      myRules.push(...convertArray(_temp))
     }
   }
 
@@ -83,7 +83,7 @@ const getRuleFiltered = (trigger: string) => {
   })
 }
 
-const onValidationSuccesseded = () => {
+const onValidationSuccess = () => {
   validateState.value = 'success'
   validateMessage.value = ''
 }
@@ -110,7 +110,7 @@ const validate: FormItemContext['validate'] = async trigger => {
   return validator
     .validate({ [modelNameStr]: model?.[modelNameStr] })
     .then(() => {
-      onValidationSuccesseded()
+      onValidationSuccess()
       return true
     })
     .catch(err => {

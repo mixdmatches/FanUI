@@ -9,7 +9,7 @@ import { createNamespace } from '@fan-ui/utils/create'
 import { computed, provide } from 'vue'
 import { formProps, FormContext, FormContextKey } from './form'
 import '../style/index'
-import { Arrayable, FormItemContext, FormItemProp } from './form-item'
+import { ArrayAble, FormItemContext, FormItemProp } from './form-item'
 import { Value } from 'async-validator'
 import { isArray } from '@fan-ui/utils/types'
 import { debugWarn } from '@fan-ui/constans'
@@ -32,7 +32,7 @@ const ensureArray = <T,>(arr: Many<T>): T[] => {
 
 const filterFields = (
   fields: FormItemContext[],
-  props: Arrayable<FormItemProp>
+  props: ArrayAble<FormItemProp>
 ) => {
   const normalized = ensureArray(props)
   return normalized.length > 0
@@ -48,14 +48,12 @@ const resetFields: FormContext['resetFields'] = (properties = []) => {
   filterFields(fields, properties).forEach(field => field.resetField())
 }
 
-const clearValidate: FormContext['clearValidate'] = (props = []) => {
+const clearValidate: FormContext['clearValidate'] = props => {
   filterFields(fields, props).forEach(field => field.clearValidate())
 }
 
 // form父级校验，在父级中调用所有儿子的校验方法
-const validate = async (
-  callback?: (valid: boolean, fields?: Value) => void
-) => {
+const validate = async callback => {
   let errors: Value = {}
   for (const field of fields) {
     try {

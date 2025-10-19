@@ -1,10 +1,10 @@
 import type { RuleItem } from 'async-validator'
 import type { ExtractPropTypes, InjectionKey, PropType } from 'vue'
 
-export type Arrayable<T> = T | T[]
+export type ArrayAble<T> = T | T[]
 
 export interface FormItemRule extends RuleItem {
-  trigger?: Arrayable<string>
+  trigger?: ArrayAble<string>
 }
 
 export const formItemValidateState = ['success', 'error', '']
@@ -13,7 +13,7 @@ export type FormItemValidateState = (typeof formItemValidateState)[number]
 export const formItemProps = {
   prop: String,
   label: String,
-  rules: [Object, Array] as PropType<Arrayable<FormItemRule>>,
+  rules: [Object, Array] as PropType<ArrayAble<FormItemRule>>,
   showMessage: {
     type: Boolean,
     default: true
@@ -30,7 +30,7 @@ export const formItemProps = {
 
 export type FormItemProps = Partial<ExtractPropTypes<typeof formItemProps>>
 
-export type FormItemProp = Arrayable<string>
+export type FormItemProp = ArrayAble<string>
 
 export interface FormItemContext extends FormItemProps {
   validate: (
