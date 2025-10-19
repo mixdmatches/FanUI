@@ -22,6 +22,7 @@ import {
   inject,
   nextTick,
   onMounted,
+  onBeforeUnmount,
   provide,
   ref,
   useSlots
@@ -36,8 +37,8 @@ import { formItemProps, formItemContextKey } from './form-item'
 import '../style/index'
 import { FormContextKey } from './form'
 import AsyncValidator, { Values } from 'async-validator'
-import { getProp } from '@fan-ui/utils/objects'
 import { clone } from 'lodash-unified'
+import { getProp } from '@fan-ui/utils'
 
 const bem = createNamespace('form-item')
 
@@ -49,6 +50,9 @@ const validateMessage = ref('')
 let initialValue = undefined
 
 const formContext = inject(FormContextKey)
+
+// 存储当前字段的引用，用于在卸载时从表单中移除
+let fieldRef: FormItemContext | null = null
 
 const convertArray = (
   rules: ArrayAble<FormItemRule> | undefined
@@ -94,21 +98,25 @@ const onValidationFailed = (error: Values) => {
   validateMessage.value = errors ? errors[0].message : '校验失败'
 }
 
+const fieldValue = computed(() => {
+  const model = formContext?.model
+  if (!model || !props.prop) {
+    return
+  }
+  return getProp(model, props.prop).value
+})
+
 const validate: FormItemContext['validate'] = async trigger => {
-  // 拿到触发的时机，校验是否可以通过调用 callback 或者调用 promise.then方法
   const rules = getRuleFiltered(trigger)
-  // rules 就是触发规则，trigger 就是触发时机
   // 需要找到对应的数据源，校验这个数据源
-  const modelName = props.prop
+  const modelName = props.prop ? String(props.prop) : ''
   // 拿到校验器
   const validator = new AsyncValidator({
-    [modelName ? String(modelName) : '']: rules
+    [modelName]: rules
   })
-  const model = formContext?.model
-  // 确保 modelName 为字符串类型
-  const modelNameStr = modelName ? String(modelName) : ''
+
   return validator
-    .validate({ [modelNameStr]: model?.[modelNameStr] })
+    .validate({ [modelName]: fieldValue.value })
     .then(() => {
       onValidationSuccess()
       return true
@@ -186,6 +194,15 @@ defineOptions({
 })
 
 onMounted(() => {
+  fieldRef = context
   formContext?.addField(context) //将自己的上下文添加到父级
+  initialValue = clone(fieldValue.value)
+})
+
+// 当组件卸载时，从表单的字段列表中移除自己
+onBeforeUnmount(() => {
+  if (formContext && fieldRef) {
+    formContext?.removeField(fieldRef)
+  }
 })
 </script>
