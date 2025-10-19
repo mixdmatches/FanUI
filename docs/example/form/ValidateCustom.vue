@@ -3,9 +3,7 @@
     ref="ruleFormRef"
     style="max-width: 600px"
     :model="ruleForm"
-    status-icon
     :rules="rules"
-    label-width="auto"
     class="demo-ruleForm"
   >
     <f-form-item label="Password" prop="pass">
