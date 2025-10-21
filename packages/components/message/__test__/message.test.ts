@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import Message from '../src/message.vue'
 import { describe, expect, it } from 'vitest'
-import { MessageProps } from '../src/message'
+import { MessageProps } from '../src/props'
 
 describe('Message 组件测试', () => {
   // 测试组件是否能正常渲染

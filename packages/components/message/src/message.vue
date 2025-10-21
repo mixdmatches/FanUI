@@ -15,7 +15,7 @@
 <script setup>
 import { getCurrentInstance } from 'vue'
 import { FIcon } from '@fan-ui/components'
-import { messageProps } from './message'
+import { messageProps } from './props'
 import { createNamespace } from '@fan-ui/utils/create'
 import { Info, CheckOne, CloseOne, Attention, Close } from '@icon-park/vue-next'
 

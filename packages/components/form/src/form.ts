@@ -1,7 +1,13 @@
 import type { ExtractPropTypes, InjectionKey, PropType } from 'vue'
-import { Arrayable, FormItemContext, FormItemRule } from './form-item'
+import {
+  ArrayAble,
+  FormItemContext,
+  FormItemProp,
+  FormItemRule
+} from './form-item'
+import { Value } from 'async-validator'
 
-export type FormRules = Record<string, Arrayable<FormItemRule>>
+export type FormRules = Record<string, ArrayAble<FormItemRule>>
 
 export const formProps = {
   model: { type: Object, required: true },
@@ -26,8 +32,12 @@ export type FormProps = Partial<ExtractPropTypes<typeof formProps>>
 
 export interface FormContext extends FormProps {
   addField: (filed: FormItemContext) => void
-  resetFields: (filed: FormItemContext) => void
-  clearValidate: (filed: FormItemContext) => void
+  resetFields: (filed?: FormItemProp) => void
+  clearValidate: (filed?: FormItemProp) => void
+  validate: (
+    callback?: (isValid: boolean, errors?: Value) => void
+  ) => Promise<boolean>
+  removeField: (filed: FormItemContext) => void
 }
 
 export const FormContextKey: InjectionKey<FormContext> =

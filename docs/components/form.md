@@ -25,11 +25,19 @@
 
 ## 表单验证
 
+Form 组件提供了表单验证的功能，只需为 rules 属性传入约定的验证规则，并将 `form-Item` 的 `prop` 属性设置为需要验证的特殊键值即可。 校验规则参见 [async-validator](https://github.com/yiminghe/async-validator)
+
 <demo vue="../example/form/Validate.vue" />
 
 ## 自定义表单验证
 
+这个例子中展示了如何使用自定义验证规则来完成密码的二次验证
 <demo vue="../example/form/ValidateCustom.vue" />
+
+## 动态表单
+
+除了一次通过表单组件上的所有验证规则外. 您也可以动态地通过验证规则或删除单个表单字段的规则。
+<demo vue="../example/form/CustomForm.vue" />
 
 ## API
 
@@ -47,8 +55,8 @@
 | 方法名        | 参数                                                    | 描述                                                                                                                   |
 | ------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | validate      | `(callback?: (valid: boolean, fields?: Value) => void)` | 对整个表单进行校验。校验完成后执行回调，返回校验结果和错误字段。如果未提供回调，校验失败时会返回一个被拒绝的 Promise。 |
-| resetFields   | `(props?: Arrayable<FormItemProp>)`                     | 重置指定的表单项（或全部表单项）为初始值。                                                                             |
-| clearValidate | `(props?: Arrayable<FormItemProp>)`                     | 清除指定表单项（或全部表单项）的校验结果。                                                                             |
+| resetFields   | `(props?: FormItemProp[])`                              | 重置指定的表单项（或全部表单项）为初始值。                                                                             |
+| clearValidate | `(props?: ArrayAble<FormItemProp>)`                     | 清除指定表单项（或全部表单项）的校验结果。                                                                             |
 | addField      | `(context: FormItemContext)`                            | 向表单中注册表单项上下文（一般由内部自动调用，开发者无需手动调用）。                                                   |
 
 ### FormItem Props
